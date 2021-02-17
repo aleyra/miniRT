@@ -9,6 +9,7 @@ PATH_SRC	=	srcs
 PATH_OBJ	=	objs
 PATH_LOG	=	logs
 PATH_LIBFT	=	libft
+PATH_LIBG	=	minilibx
 
 # List of sources
 SRCS_DISP	=	#add file ds display
@@ -41,17 +42,18 @@ all:	init $(NAME)
 init:
 	@ $(shell mkdir -p $(PATH_OBJ))
 	@ make -C $(PATH_LIBFT)
+	@ make -C $(PATH_LIBG)
 
 $(NAME): $(OBJS) $(INCS)
-	@ $(shell cp libft/libft.a $(NAME))
-	@ ar rcs $(NAME) $(OBJS)
+#	@ $(shell cp libft/libft.a $(NAME))
+#	@ ln -sf  minilibx/libmlx.dylib
 
 $(PATH_OBJ)/%.o : $(PATH_SRC)/*/%.c  $(INCS)
-	@ $(COMP) $(COMP_FLAG) $(COMP_ADD) -c $< -o $@
+	@ $(COMP) $(COMP_FLAG) $(COMP_ADD) -c $< -o $(NAME)
 	@ echo "$(_INFO) Compilation of $*"
 
 $(PATH_OBJ)/%.o : $(PATH_SRC)/%.c  $(INCS)
-	@ $(COMP) $(COMP_FLAG) $(COMP_ADD) -c $< -o $@
+	@ $(COMP) $(COMP_FLAG) $(COMP_ADD) -c $< -o $(NAME)
 	@ echo "$(_INFO) Compilation of $*"
 
 #test: init $(NAME)
@@ -64,7 +66,7 @@ clean:
 	@ make -C $(PATH_LIBFT) clean
 
 fclean: clean
-	@ $(RM) -rf $(NAME)
+#	@ $(RM) -rf $(NAME)
 	@ make -C $(PATH_LIBFT) fclean
 
 re: fclean all
