@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lburnet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lucille <lucille@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 09:43:27 by lburnet           #+#    #+#             */
-/*   Updated: 2021/01/21 13:41:09 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 10:19:27 by lucille          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*ft_strcpy(char *dest, const char *src)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (src[i])
+	while (src && src[i])
 	{
 		dest[i] = src[i];
 		i++;

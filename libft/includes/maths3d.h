@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   maths3d.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/24 11:48:53 by lburnet           #+#    #+#             */
-/*   Updated: 2021/03/03 15:47:38 by lburnet          ###   ########lyon.fr   */
+/*   Created: 2021/03/03 11:16:19 by lburnet           #+#    #+#             */
+/*   Updated: 2021/03/03 11:24:13 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef MATHS3D_H
+# define MATHS3D_H
 
-int	ft_tolower(int c)
+# include "math.h"
+
+typedef struct s_pt3d
 {
-	if ('A' <= c && c <= 'Z')
-		c += 32;
-	return (c);
-}
+	float	x;
+	float	y;
+	float	z;
+}			t_pt3d;
+
+typedef struct s_vec3
+{
+	float	x;
+	float	y;
+	float	z;
+}			t_vec3;
+
+#endif

@@ -6,13 +6,13 @@
 /*   By: lucille <lucille@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:02:30 by lburnet           #+#    #+#             */
-/*   Updated: 2021/02/17 10:49:21 by lucille          ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 10:02:28 by lucille          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		size_in_hexa(unsigned long long nb)
+static int	size_in_hexa(unsigned long long nb)
 {
 	int					size_in_base;
 
@@ -25,8 +25,8 @@ static int		size_in_hexa(unsigned long long nb)
 	return (size_in_base);
 }
 
-static void		nb_to_hexa(unsigned long long nb, char *str, char *base,
-					int size)
+static void	nb_to_hexa(unsigned long long nb, char *str, char *base
+					, int size)
 {
 	unsigned int			new_numeral;
 	int						i;
@@ -42,7 +42,7 @@ static void		nb_to_hexa(unsigned long long nb, char *str, char *base,
 	str[size] = base[nb];
 }
 
-char			*decimal_to_hexa(int c, unsigned long long decimal)
+char	*decimal_to_hexa(int c, unsigned long long decimal)
 {
 	char	*base;
 	int		size;
@@ -53,19 +53,16 @@ char			*decimal_to_hexa(int c, unsigned long long decimal)
 	if (c >= 'A' && c <= 'Z')
 		base = "0123456789ABCDEF";
 	if (decimal == 0)
-	{
-		size = 2;
-		if (!(str = (char *)malloc(size * sizeof(char))))
-			return (NULL);
-		str[0] = '0';
-	}
+		size = 1;
 	else
-	{
-		size = size_in_hexa(decimal) + 1;
-		if (!(str = (char *)malloc(size * sizeof(char))))
-			return (NULL);
-		nb_to_hexa(decimal, str, base, size - 2);
-	}
-	str[size - 1] = 0;
+		size = size_in_hexa(decimal);
+	str = (char *)malloc((size + 1)* sizeof(char));
+	if (!str)
+		return (NULL);
+	if (decimal == 0)
+		str[0] = '0';
+	else
+		nb_to_hexa(decimal, str, base, size - 1);
+	str[size] = 0;
 	return (str);
 }

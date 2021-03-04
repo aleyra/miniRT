@@ -6,18 +6,19 @@
 /*   By: lucille <lucille@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 14:53:58 by lucille           #+#    #+#             */
-/*   Updated: 2021/02/17 17:23:01 by lucille          ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 10:09:00 by lucille          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		**tabline_addline(char **otl, char **line, int n_line)
+static char	**tabline_addline(char **otl, char **line, int n_line)
 {
 	char	**tl;
 	int		i;
 
-	if (!(tl = malloc((n_line + 1) * sizeof(char *))))
+	tl = malloc((n_line + 1) * sizeof(char *));
+	if (!(tl))
 		return (NULL);
 	i = 0;
 	while (i < n_line - 1)
@@ -31,15 +32,15 @@ static char		**tabline_addline(char **otl, char **line, int n_line)
 	return (tl);
 }
 
-char			**split_fd_to_tabline(int fd)
+char	**split_fd_to_tabline(int fd)
 {
 	char	**tl;
-	int		i;
 	int		n_line;
 	char	*line;
 
 	n_line = 1;
-	if (!(tl = malloc((n_line + 1) * sizeof(char *))))
+	tl = malloc((n_line + 1) * sizeof(char *));
+	if (!(tl))
 		return (NULL);
 	tl[1] = NULL;
 	tl[0] = NULL;
