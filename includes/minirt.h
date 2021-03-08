@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/03/03 13:40:35 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 10:25:34 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ typedef struct s_rgb
 typedef struct s_obj
 {
 	char			type[3];
-	t_pt3d			o;
+	t_vec3			o;
 	float			d;
 	t_rgb			rgb;
 	t_vec3			n;
 	float			h;
-	t_pt3d			a;
-	t_pt3d			b;
-	t_pt3d			c;
-	t_pt3d			d;
+	t_vec3			a;
+	t_vec3			b;
+	t_vec3			c;
+	t_vec3			d;
 	struct s_obj	*next;
 }				t_obj;
 
@@ -53,7 +53,7 @@ typedef struct s_ambient
 
 typedef struct s_cam
 {
-	t_pt3d			o;
+	t_vec3			o;
 	t_vec3			d;
 	unsigned int	fov;
 	struct s_cam	*next;
@@ -61,7 +61,7 @@ typedef struct s_cam
 
 typedef struct s_light
 {
-	t_pt3d				o;
+	t_vec3				o;
 	float				br;
 	t_rgb				rgb;
 	struct s_light		*next;
@@ -75,4 +75,6 @@ typedef struct s_mrt
 	t_light		light;
 	t_obj		obj;
 }				t_mrt;
+
+int	ft_display_error(int cas);
 #endif
