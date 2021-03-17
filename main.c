@@ -5,42 +5,57 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/08 14:53:56 by lburnet           #+#    #+#             */
-/*   Updated: 2021/03/08 15:21:50 by lburnet          ###   ########lyon.fr   */
+/*   Created: 2021/03/17 13:37:46 by lburnet           #+#    #+#             */
+/*   Updated: 2021/03/17 15:18:42 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	dst;
+
+	dst = data->addr + (y * data->line_len + x * data->bits_per_pix * 0.125f);//mieux /8 ?
+	*(unsigned int *)dst = color;
+}
+
 int	main(int ac, char *av[])
 {
-	char	***tab2d;
-	int		i;
+	void	*mlx;
+	//void    *mlx_win;
+	t_data	img;
+	s_mrt	mrt;//struct contenant le parsing
+	//int	i;
+	//int	j;
 
-	if (ac == 1)
-		return (ft_display_error(11));
-	if (ac == 2)
-	{
-		i = strlen(av[1]);
-		if (i < 4 ||(i > 3 && !(av[i - 2] == '.' && av[i - 1] == 'r' && av[i] == 't')))
-			return (ft_display_error(0));
-		i = 0;
-		*tab2d = split_fd_to_tabline(av[0]);
-		while (*tab2d[i])
-		{
-			printf("%d\t%s\n", i, *tab2d[i]);
-			i++;
-		}
-	}
-	if (ac == 3)
-	{
-		i = strlen(av[1]);
-		if (i < 4 ||(i > 3 && !(av[i - 2] == '.' && av[i - 1] == 'r' && av[i] == 't')))
-			return (ft_display_error(0));
-		if (ft_strcmp(av[2], "--save") != 0)
-			return (ft_display_error(1));
-	}
-	if (ac > 3)
-		return (ft_display_error(12));
+	//parsing a faire de av[1]
+	mlx = mlx_init();
+	//if (ac == 2)//on affiche une fenetre
+	//{
+	//mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
+	//mlx_win = mlx_new_window(mlx, mrt.r.x, mrt.r.y, "miniRT");
+	//mlx_loop(mlx);
+	//}
+	//if (ac == 3)
+	//{
+	img.img = mlx_new_image(mlx, mrt.r.x, mrt.r.y);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
+			&img.endian);
+	// i = 0;
+	// while (i < mrt.r.x)
+	// {
+	// 	j = 0;
+	// 	while (j < mrt.r.x)
+	// 	{
+	// 		//si le vec rencontre un obj
+	// 		//my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);// avec a le place de 5, 5 le pt de rencontre suivi de la couleur de l'obj
+	// 		//sinon
+	// 		my_mlx_pixel_put(&img, i, j, mrt.a.rgb.i);
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
+	//}
 	return (0);
 }

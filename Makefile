@@ -12,18 +12,22 @@ PATH_LIBFT	=	libft
 PATH_LIBG	=	minilibx
 
 # List of sources
-SRCS_DISP	=	#add file ds display
+SRCS_DISP	=	ft_display_error.c
+SRCS_OBJC	=	complete_t_obj.c cylinder.c square.c triangle.c
+SRCS_PARSE	=	ft_parsing.c
 SRCS		=	$(addprefix $(PATH_SRC)/display/, $(SRCS_DISP)) \
+				$(addprefix $(PATH_SRC)/objects/, $(SRCS_OBJC)) \
+				$(addprefix $(PATH_SRC)/parsing/, $(SRCS_PARSE)) \
 				$(addprefix $(PATH_SRC)/, ) #add files à la racine
 
 OBJS		=	$(addprefix $(PATH_OBJ)/, $(notdir $(SRCS:.c=.o)))
 INCS		=	$(addprefix $(PATH_INC)/, ) #add .h
-LIBFT		=	-L$(PATH_LIBFT)
+LIBFT		=	-L. $(PATH_LIBFT)
 
 # Commands of compilation
 COMP		=	clang
 COMP_FLAG	=	-Wall -Werror -Wextra
-COMP_ADD	=	-I$(PATH_LIBFT)/includes -I$(PATH_INC)
+COMP_ADD	=	-I$(PATH_LIBFT)/includes -I$(PATH_LIBG)/includes -I$(PATH_INC)
 
 # Others Command
 RM			=	/bin/rm
