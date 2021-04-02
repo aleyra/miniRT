@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/03/17 15:20:50 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 14:58:20 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 # define MINIRT_H
 
 # include "libft.h"
-# include "maths3d.h"
+# include "fcntl.h"
 # include "stdio.h"
-# include "errors.h"
 # include "mlx.h"
+
 //https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
+/* Struct for miniRT ******************************************************** */
 typedef union u_rgb {
 	int	i;
 	struct {
@@ -41,21 +42,21 @@ typedef enum e_objtype {
 typedef struct s_obj
 {
 	struct s_obj	*next;
-	t_vec3			center;
+	t_vec3			*center;
 	union {
-		float	diam;
-		float	len;
+		double	diam;
+		double	len;
 	};
-	t_rgb			rgb;
+	t_rgb			*rgb;
 	union {
-		t_vec3	norm;
-		t_vec3	dir;
+		t_vec3	*norm;
+		t_vec3	*dir;
 	};
-	float			height;
-	t_vec3			a;
-	t_vec3			b;
-	t_vec3			c;
-	t_vec3			d;
+	double			height;
+	t_vec3			*a;
+	t_vec3			*b;
+	t_vec3			*c;
+	t_vec3			*d;
 	t_objtype		type;
 }	t_obj;
 
@@ -67,33 +68,33 @@ typedef struct s_res
 
 typedef struct s_ambient
 {
-	float	ratio;
-	t_rgb	rgb;
+	double	ratio;
+	t_rgb	*rgb;
 }			t_ambient;
 
 typedef struct s_cam
 {
-	t_vec3			o;
-	t_vec3			d;
+	t_vec3			*ptofview;
+	t_vec3			*dir;
 	unsigned int	fov;
 	struct s_cam	*next;
 }					t_cam;
 
 typedef struct s_light
 {
-	t_vec3				o;
-	float				br;
-	t_rgb				rgb;
+	t_vec3				*lightpt;
+	double				br;
+	t_rgb				*rgb;
 	struct s_light		*next;
 }				t_light;
 
 typedef struct s_mrt
 {
-	t_res		r;
-	t_ambient	a;
-	t_cam		cam;
-	t_light		light;
-	t_obj		obj;
+	t_res		*res;
+	t_ambient	*amb;
+	t_cam		*cam;
+	t_light		*light;
+	t_obj		*obj;
 }				t_mrt;
 
 typedef struct s_data
@@ -105,6 +106,148 @@ typedef struct s_data
 	int		endian;
 }			t_data;
 
-int	in_triangle(t_obj tr, t_vec3 p);
-int	in_square(t_obj sq, t_vec3 p);
+/* Basic maths fct ********************************************************** */
+int		in_triangle(t_obj tr, t_vec3 p);
+int		in_square(t_obj sq, t_vec3 p);
+
+/* Tool's type fct ********************************************************** */
+int		ft_atorgb(t_rgb *rgb, char *str);
+int		ft_atovec3norm(t_vec3 *v, char *str);
+int		ft_atovec3(t_vec3 *v, char *str);
+
+/* For parsing ************************************************************** */
+typedef enum e_type_token
+{
+	KEYWORD,
+	OPERATOR,
+	STRING,
+	CONSTANT,
+	SPECIAL_CHAR,
+	IDENTIFIER
+}	t_type_token;
+
+typedef struct s_token
+{
+	int		type;
+	int		offset;
+	char	*val;
+}	t_token;
+
+typedef enum e_state
+{
+	FIND_DATA,
+	FIND_TOKEN,
+	PARSE_KEYWORD,
+	PARSE_OPERATOR,
+	PARSE_STRING,
+	PARSE_CONSTANT,
+	PARSE_SPECIAL_CHAR,
+	PARSE_IDENTIFIER,
+	PARSE_ERROR,
+	END_DATA
+}	t_state;
+
+int		ft_change_state(t_state stm, char *str, int *i, int gnl);
+t_token	ft_tokenizer(t_state stm, char *str, int *i_id_nbt);
+int		check_nb_param(int *i_id_nbt);
+int		ft_parsing(t_mrt *mrt, int fd);
+
+/* Errors managing ********************************************************** */
+//BLANK_n are for making correspondance between t_error and e_type_ID
+typedef enum e_error {
+	NO_ERROR,
+	ERROR_FILE_NOT_RT,
+	ERROR_IS_NOT_GOOD_SAVE,
+	ERROR_NO_PARAM,
+	ERROR_TOO_MANY_PARAM,
+	ERROR_GNL,
+	BLANK_6,
+	BLANK_7,
+	BLANK_8,
+	BLANK_9,
+	ERROR_IDENTIFIER,
+	ERROR_PARSING_CHAR,
+	ERROR_PARSING_PARAM,
+	ERROR_RGB,
+	ERROR_RES,
+	ERROR_AMBIENT_RATIO,
+	ERROR_VEC,
+	ERROR_VECTOR_N,
+	ERROR_FOV,
+	ERROR_BRIGHTNESS_RATIO,
+	ERROR_D_SP,
+	ERROR_S_SQ,
+	ERROR_D_OR_H_CY,
+	ERROR_PTS_ALIGNED_TR,
+	ERROR_NB_PARAM_R,
+	ERROR_NB_PARAM_A,
+	ERROR_NB_PARAM_C,
+	ERROR_NB_PARAM_L,
+	ERROR_NB_PARAM_SP,
+	ERROR_NB_PARAM_PL,
+	ERROR_NB_PARAM_SQ,
+	ERROR_NB_PARAM_CY,
+	ERROR_NB_PARAM_TR,
+	ERROR_MALLOC,
+}	t_error;
+
+int		ft_display_error(int cas);
+
+/* Struct managing ********************************************************** */
+//BLANK_n are for making correspondance between t_error and e_type_ID
+enum e_type_id
+{
+	NO_IDENTIFIER,
+	ID_RESOLUTION,
+	ID_AMBIENT_LIGHTINING,
+	ID_CAMERA,
+	ID_LIGHT,
+	ID_SPHERE,
+	ID_PLANE,
+	ID_SQUARE,
+	ID_CYLINDER,
+	ID_TRIANGLE,
+	ID_ERROR,
+	BLANK_11,
+	ID_TOO_MANY_PARAM,
+	ID_BAD_RGB,
+	ID_BAD_RES,
+	ID_BAD_A_RAT,
+	ID_BAD_PT,
+	ID_BAD_NORM,
+	ID_BAD_FOV,
+	ID_BAD_B_RAT,
+	ID_BAD_DIAM_S,
+	ID_BAD_LEN_SQ,
+	ID_BAD_D_OR_H_C,
+	ID_BAD_PTS_T,
+};
+
+void	add_back_cam(t_mrt *mrt);
+void	add_back_light(t_mrt *mrt);
+void	add_back_obj(t_mrt *mrt);
+void	complete_sq(t_obj *sq);
+void	complete_tr(t_obj *tr);
+void	delall_cam(t_cam **cam);
+void	delall_light(t_light **light);
+void	delall_obj(t_obj **obj);
+void	free_mrt(t_mrt	*mrt);
+void	init_struct_obj(t_obj **obj);
+void	init_struct_light(t_light **li);
+void	init_struct_cam(t_cam **cam);
+void	init_struct_mrt(t_mrt **mrt);
+t_cam	*lstlast_cam(t_cam *cam);
+t_light	*lstlast_light(t_light *light);
+t_obj	*lstlast_obj(t_obj *lst);
+void	set_struct(t_mrt *mrt, t_token token, int *i_id_nbt);
+void	set_struct_ambiant(t_mrt *mrt, t_token token, int *i_id_nbt);
+void	set_struct_cam(t_mrt *mrt, t_token token, int *i_id_nbt);
+void	set_struct_light(t_mrt *mrt, t_token token, int *i_id_nbt);
+void	set_struct_sphere(t_mrt *mrt, t_token token, int *i_id_nbt);
+void	set_struct_plane(t_mrt *mrt, t_token token, int *i_id_nbt);
+void	set_struct_square(t_mrt *mrt, t_token token, int *i_id_nbt);
+void	set_struct_cylinder(t_mrt *mrt, t_token token, int *i_id_nbt);
+void	set_struct_triangle(t_mrt *mrt, t_token token, int *i_id_nbt);
+void	set_struct_res(t_mrt *mrt, t_token token, int *i_id_nbt);
+
 #endif

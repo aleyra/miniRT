@@ -13,21 +13,25 @@ PATH_LIBG	=	minilibx
 
 # List of sources
 SRCS_DISP	=	ft_display_error.c
-SRCS_OBJC	=	complete_t_obj.c cylinder.c square.c triangle.c
-SRCS_PARSE	=	ft_parsing.c
+SRCS_OBJC	=	cylinder.c square.c triangle.c
+SRCS_PARSE	=	check_nb_param.c ft_parsing.c ft_state_machine.c ft_tokenizer.c
+SRCS_S_MANA	=	add_back_struct.c complete_t_obj.c delall_struct.c init_struct_mrt.c lstlast_struct.c set_struct1.c set_struct2.c set_struct3.c
+SRCS_TOOL	=	utils_1.c
 SRCS		=	$(addprefix $(PATH_SRC)/display/, $(SRCS_DISP)) \
 				$(addprefix $(PATH_SRC)/objects/, $(SRCS_OBJC)) \
 				$(addprefix $(PATH_SRC)/parsing/, $(SRCS_PARSE)) \
-				$(addprefix $(PATH_SRC)/, ) #add files à la racine
+				$(addprefix $(PATH_SRC)/struct_mana/, $(SRCS_S_MANA)) \
+				$(addprefix $(PATH_SRC)/tool_box/, $(SRCS_TOOL)) \
+				$(addprefix $(PATH_SRC)/, ) testing_parsing.c #add files à la racine 
 
 OBJS		=	$(addprefix $(PATH_OBJ)/, $(notdir $(SRCS:.c=.o)))
 INCS		=	$(addprefix $(PATH_INC)/, ) #add .h
-LIBFT		=	-L. $(PATH_LIBFT)
+LIBFT		=	-L $(PATH_LIBFT)
 
 # Commands of compilation
 COMP		=	clang
-COMP_FLAG	=	-Wall -Werror -Wextra
-COMP_ADD	=	-I$(PATH_LIBFT)/includes -I$(PATH_LIBG)/includes -I$(PATH_INC)
+COMP_FLAG	=	-Wall -Wextra -Werror
+COMP_ADD	=	-I$(PATH_LIBFT)/includes -I$(PATH_LIBG) -I$(PATH_INC)
 
 # Others Command
 RM			=	/bin/rm
@@ -41,36 +45,32 @@ _SUCCESS	=	[$(_GREEN)SUCCESS$(_RESET)]
 
 # Functions
 all:	init $(NAME)
-	@ echo "$(_SUCCESS) Compilation done"
+	 echo "$(_SUCCESS) Compilation done"
 
 init:
-	@ $(shell mkdir -p $(PATH_OBJ))
-	@ make -C $(PATH_LIBFT)
-	@ make -C $(PATH_LIBG)
+	 $(shell mkdir -p $(PATH_OBJ))
+	 $(MAKE) -C $(PATH_LIBFT)
+	 $(MAKE) -C $(PATH_LIBG)
 
-$(NAME): $(OBJS) $(INCS)
-#	@ $(shell cp libft/libft.a $(NAME))
-#	@ ln -sf  minilibx/libmlx.dylib
+$(NAME): 	$(OBJS)
+	$(CC) $(OBJS) $(LIBFT) -l ft -o $(NAME)
 
 $(PATH_OBJ)/%.o : $(PATH_SRC)/*/%.c  $(INCS)
-	@ $(COMP) $(COMP_FLAG) $(COMP_ADD) -c $< -o $(NAME)
-	@ echo "$(_INFO) Compilation of $*"
+	 $(COMP) $(COMP_FLAG) $(COMP_ADD) -c $< -o $@
+	 echo "$(_INFO) Compilation of $*"
 
 $(PATH_OBJ)/%.o : $(PATH_SRC)/%.c  $(INCS)
-	@ $(COMP) $(COMP_FLAG) $(COMP_ADD) -c $< -o $(NAME)
-	@ echo "$(_INFO) Compilation of $*"
-
-#test: init $(NAME)
-#	@ $(COMP) $(COMP_FLAG) main.c -L. ????? $(COMP_ADD)
-#	@ ./a.out
+	 $(COMP) $(COMP_FLAG) $(COMP_ADD) -c $< -o $@
+	 echo "$(_INFO) Compilation of $*"
 
 clean:
-	@ $(RM) -rf $(PATH_OBJ)
-	@ echo "$(_INFO) Deleted files and directory"
-	@ make -C $(PATH_LIBFT) clean
+	 $(RM) -rf $(PATH_OBJ)
+	 echo "$(_INFO) Deleted files and directory"
+	 $(MAKE) -C $(PATH_LIBFT) clean
+	 $(MAKE) -C $(PATH_LIBG) clean
 
 fclean: clean
 #	@ $(RM) -rf $(NAME)
-	@ make -C $(PATH_LIBFT) fclean
+	 $(MAKE) -C $(PATH_LIBFT) fclean
 
 re: fclean all

@@ -1,23 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   square.c                                           :+:      :+:    :+:   */
+/*   lstlast_struct.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/11 13:14:02 by lburnet           #+#    #+#             */
-/*   Updated: 2021/03/19 14:08:20 by lburnet          ###   ########lyon.fr   */
+/*   Created: 2021/03/22 15:44:29 by lburnet           #+#    #+#             */
+/*   Updated: 2021/03/22 17:18:20 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	in_square(t_obj sq, t_vec3 p)
+t_cam	*lstlast_cam(t_cam *cam)
 {
-	if (!in_plane(sq.center, sq.norm, &p))
-		return (0);
-	if (!(in_angular_sector(sq.a, sq.b, sq.c, &p) && in_angular_sector(
-				sq.c, sq.d, sq.a, &p)))
-		return (0);
-	return (1);
+	if (cam == NULL)
+		return (NULL);
+	while (cam->next != NULL)
+		cam = cam->next;
+	return (cam);
+}
+
+t_light	*lstlast_light(t_light *light)
+{
+	if (light == NULL)
+		return (NULL);
+	while (light->next != NULL)
+		light = light->next;
+	return (light);
+}
+
+t_obj	*lstlast_obj(t_obj *obj)
+{
+	if (obj == NULL)
+		return (NULL);
+	while (obj->next != NULL)
+		obj = obj->next;
+	return (obj);
 }
