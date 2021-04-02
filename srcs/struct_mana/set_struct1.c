@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:23:06 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/01 15:10:46 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 15:25:37 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static void	set_struct_id_obj(t_mrt *mrt, t_token token, int *i_id_nbt)
 {
 	t_obj	*obj;
 
+	add_back_obj(&(mrt));
 	obj = lstlast_obj(mrt->obj);
-	init_struct_obj(&obj);
 	if (!obj || !(obj->center) || !(obj->rgb) || !(obj->a) || !(obj->b) || !(
 			obj->c) || !(obj->d))
 		i_id_nbt[1] = ERROR_MALLOC;
@@ -86,16 +86,16 @@ static void	set_struct_id(t_mrt *mrt, t_token token, int *i_id_nbt)
 		if (token.val[0] == 'c')
 		{
 			i_id_nbt[1] = ID_CAMERA;
+			add_back_cam(&(mrt));
 			cam = lstlast_cam(mrt->cam);
-			init_struct_cam(&cam);
 			if (!cam || !(cam->ptofview) || !(cam->dir))
 				i_id_nbt[1] = ERROR_MALLOC;
 		}
 		else if (token.val[0] == 'l')
 		{
 			i_id_nbt[1] = ID_LIGHT;
+			add_back_light(&(mrt));
 			light = lstlast_light(mrt->light);
-			init_struct_light(&light);
 			if (!light || !(light->lightpt) || !(light->rgb))
 				i_id_nbt[1] = ERROR_MALLOC;
 		}

@@ -6,80 +6,104 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:27:35 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/01 13:58:41 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 16:52:04 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static char	*error_msg(t_error cas)
+static void	error_msg2(t_error cas)
 {
-	if (cas == NO_ERROR)
-		return ("No Error");
-	if (cas == ERROR_FILE_NOT_RT || cas == ERROR_GNL)
-		return ("This is not a file .rt");
-	if (cas == ERROR_IS_NOT_GOOD_SAVE)
-		return ("The 2nd parameter is not \"--save\"");
-	if (cas == ERROR_NO_PARAM)
-		return ("Program launch without any parameter\nPlease add a .rt file as an parameter");
-	if (cas == ERROR_TOO_MANY_PARAM)
-		return ("Too many parameters\nNeeds max 2 parameters : a .rt file and \"--save\"");
-	if (cas == ERROR_IDENTIFIER)
-		return ("The file contains an identifier which does not match the subject");
 	if (cas == ERROR_PARSING_CHAR)
-		return ("Character unlikely found in your .rt file. Please review it");
+		printf("Character unlikely found in your .rt file. Please review it");
 	if (cas == ERROR_PARSING_PARAM)
-		return ("In at least one of the line of your .rt file, there's too many parameters");
+	{
+		printf("In at least one of the line of your .rt file,");
+		printf(" there's too many parameters");
+	}
 	if (cas == ERROR_RGB)
-		return ("One of the rgb's parameter is wrong");
+		printf("One of the rgb's parameter is wrong");
 	if (cas == ERROR_RES)
-		return ("At least one of the parameters of the resolution is not a positive int");
+	{
+		printf("At least one of the parameters of the ");
+		printf("resolution is not a positive int");
+	}
 	if (cas == ERROR_AMBIENT_RATIO)
-		return ("The ambient lighting ratio is not in [0,1]");
+		printf("The ambient lighting ratio is not in [0,1]");
 	if (cas == ERROR_VEC)
-		return ("One coordinate of a vector/point is not a float or there isn't 3 coordinates");
+	{
+		printf("One coordinate of a vector/point is not ");
+		printf("a float or there isn't 3 coordinates");
+	}
 	if (cas == ERROR_VECTOR_N)
-		return ("At least, one of the coordinate of a 3d normalized vector is not in [-1;1]");
+		printf("At least, one of the coordinate of a 3d normalized vector is not in [-1;1]");
 	if (cas == ERROR_FOV)
-		return ("FOV is not a integer in [0,180]");
+		printf("FOV is not a integer in [0,180]");
 	if (cas == ERROR_BRIGHTNESS_RATIO)
-		return ("The light brightness ratio of one of the light spot is not in [0.0,1.0]");
+		printf("The light brightness ratio of one of the light spot is not in [0.0,1.0]");
 	if (cas == ERROR_D_SP)
-		return ("The diameter of the sphere is not positive");
+		printf("The diameter of the sphere is not positive");
 	if (cas == ERROR_S_SQ)
-		return ("The side size of the square is not positive");
+		printf("The side size of the square is not positive");
 	if (cas == ERROR_D_OR_H_CY)
-		return ("The diameter or the heigh of the cylinder is not positive");
+		printf("The diameter or the heigh of the cylinder is not positive");
 	if (cas == ERROR_PTS_ALIGNED_TR)
-		return ("All 3 points of the triangle are aligned");
+		printf("All 3 points of the triangle are aligned");
 	if (cas == ERROR_NB_PARAM_R)
-		return ("The number of parameter for the resolution is not good");
+		printf("The number of parameter for the resolution is not good");
 	if (cas == ERROR_NB_PARAM_A)
-		return ("The number of parameter for the ambient lightning is not good");
+		printf("The number of parameter for the ambient lightning is not good");
 	if (cas == ERROR_NB_PARAM_C)
-		return ("The number of parameter for a camera is not good");
+		printf("The number of parameter for a camera is not good");
 	if (cas == ERROR_NB_PARAM_L)
-		return ("The number of parameter for a light is not good");
+		printf("The number of parameter for a light is not good");
 	if (cas == ERROR_NB_PARAM_SP)
-		return ("The number of parameter for a sphere is not good");
+		printf("The number of parameter for a sphere is not good");
 	if (cas == ERROR_NB_PARAM_PL)
-		return ("The number of parameter for a plane is not good");
+		printf("The number of parameter for a plane is not good");
 	if (cas == ERROR_NB_PARAM_SQ)
-		return ("The number of parameter for a square is not good");
+		printf("The number of parameter for a square is not good");
 	if (cas == ERROR_NB_PARAM_CY)
-		return ("The number of parameter for a cylinder is not good");
+		printf("The number of parameter for a cylinder is not good");
 	if (cas == ERROR_NB_PARAM_TR)
-		return ("The number of parameter for a triangle is not good");
+		printf("The number of parameter for a triangle is not good");
 	if (cas == ERROR_MALLOC)
-		return ("MALLOC error");
-	return ("error to define");
+		printf("MALLOC error");
+	printf("error to define");
 }
 
-int	ft_display_error(int cas)
+static void	error_msg1(t_error cas)
 {
 	printf("Error\n");
+	if (cas == NO_ERROR)
+		printf("No Error");
+	else if (cas == ERROR_FILE_NOT_RT || cas == ERROR_GNL)
+		printf("This is not a file .rt");
+	else if (cas == ERROR_IS_NOT_GOOD_SAVE)
+		printf("The 2nd parameter is not \"--save\"");
+	else if (cas == ERROR_NO_PARAM)
+	{
+		printf("Program launch without any parameter\n");
+		printf("Please add a .rt file as an parameter");
+	}
+	else if (cas == ERROR_TOO_MANY_PARAM)
+	{
+		printf("Too many parameters\nNeeds max 2 parameters :");
+		printf(" a .rt file and \"--save\"");
+	}
+	else if (cas == ERROR_IDENTIFIER)
+	{
+		printf("The file contains an identifier ");
+		printf("which does not match the subject");
+	}
+	else
+		error_msg2(cas);
+}
+
+int	ft_display_error(int cas, t_mrt *mrt)
+{
 	if (cas != NO_ERROR)
-		printf("%s\n", error_msg(cas));
-	//call ft_free_all_to_free
-	return (-1);
+		error_msg(cas);
+	free_mrt(mrt);
+	return (0);
 }

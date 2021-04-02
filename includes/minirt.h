@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/01 14:58:20 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 15:16:49 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,9 +223,9 @@ enum e_type_id
 	ID_BAD_PTS_T,
 };
 
-void	add_back_cam(t_mrt *mrt);
-void	add_back_light(t_mrt *mrt);
-void	add_back_obj(t_mrt *mrt);
+void	add_back_cam(t_mrt **mrt);
+void	add_back_light(t_mrt **mrt);
+void	add_back_obj(t_mrt **mrt);
 void	complete_sq(t_obj *sq);
 void	complete_tr(t_obj *tr);
 void	delall_cam(t_cam **cam);

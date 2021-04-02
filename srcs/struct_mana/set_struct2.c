@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:08:39 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/02 11:07:25 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 15:23:52 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,12 @@ void	set_struct_cam(t_mrt *mrt, t_token token, int *i_id_nbt)
 	t_cam	*cam;
 	int		err;
 
-	printf("in set_struct_cam\n");//
 	cam = lstlast_cam(mrt->cam);
-	printf("recup de la der cam ok\n");//
 	if (i_id_nbt[2] == 2)
 	{
+
 		if (ft_atovec3(cam->ptofview, token.val) == ERROR_VEC)
 			i_id_nbt[1] = ID_BAD_PT;
-		printf("init vec ok\n");//
 	}
 	else if (i_id_nbt[2] == 3)
 	{
@@ -81,7 +79,7 @@ void	set_struct_light(t_mrt *mrt, t_token token, int *i_id_nbt)
 	}
 	else if (i_id_nbt[2] == 3)
 	{
-		if (!can_atod(token.val))
+		if (!can_atof(token.val))
 			i_id_nbt[1] = ID_BAD_B_RAT;
 		else
 		{
@@ -111,7 +109,7 @@ void	set_struct_sphere(t_mrt *mrt, t_token token, int *i_id_nbt)
 	}
 	else if (i_id_nbt[2] == 3)
 	{
-		if (!can_atod(token.val))
+		if (!can_atof(token.val))
 			i_id_nbt[1] = ID_BAD_DIAM_S;
 		else
 		{

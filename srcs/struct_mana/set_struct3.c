@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:16:50 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/02 11:06:26 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 13:59:10 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	assign_double_and_check_error(
 	double *d, char *str, int *err, int nb_err)
 {
-	if (!can_atod(str))
+	if (!can_atof(str))
 		err[1] = nb_err;
 	else
 	{
