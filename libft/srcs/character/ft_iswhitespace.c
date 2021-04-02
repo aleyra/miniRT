@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   fi_iswhitespace.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/24 11:01:36 by lburnet           #+#    #+#             */
-/*   Updated: 2021/03/08 10:12:33 by lburnet          ###   ########lyon.fr   */
+/*   Created: 2021/03/19 10:03:06 by lburnet           #+#    #+#             */
+/*   Updated: 2021/03/19 10:10:34 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+int	ft_iswhitespace(int c)
 {
-	size_t			i;
-	unsigned char	*ptr;
-
-	i = 0;
-	ptr = (unsigned char *)s;
-	while (i < n)
-	{
-		ptr[i] = (unsigned char)c;
-		i++;
-	}
-	return (s);
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == ' ')
+		return (1);
+	return (0);
 }

@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   some_calc3d_other.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/24 11:01:36 by lburnet           #+#    #+#             */
-/*   Updated: 2021/03/08 10:12:33 by lburnet          ###   ########lyon.fr   */
+/*   Created: 2021/03/26 14:15:51 by lburnet           #+#    #+#             */
+/*   Updated: 2021/03/26 14:16:36 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+void	make_vec3_norm(t_vec3 *v)
 {
-	size_t			i;
-	unsigned char	*ptr;
-
-	i = 0;
-	ptr = (unsigned char *)s;
-	while (i < n)
-	{
-		ptr[i] = (unsigned char)c;
-		i++;
-	}
-	return (s);
+	v->x = v->x * Q_rsqrt(norme_vec3_power2(*v));
+	v->y = v->y * Q_rsqrt(norme_vec3_power2(*v));
+	v->z = v->z * Q_rsqrt(norme_vec3_power2(*v));
 }

@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   build_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/24 11:01:36 by lburnet           #+#    #+#             */
-/*   Updated: 2021/03/08 10:12:33 by lburnet          ###   ########lyon.fr   */
+/*   Created: 2021/03/19 13:10:00 by lburnet           #+#    #+#             */
+/*   Updated: 2021/03/19 13:41:53 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+char	*build_str(char *s1, char c)
 {
-	size_t			i;
-	unsigned char	*ptr;
+	char	*s;
+	int		i;
 
-	i = 0;
-	ptr = (unsigned char *)s;
-	while (i < n)
-	{
-		ptr[i] = (unsigned char)c;
-		i++;
-	}
+	i = ft_strlen(s1);
+	s = malloc((i + 2) * sizeof(char));
+	s = ft_strcpy(s, s1);
+	s[i] = c;
+	s[i + 1] = 0;
+	free(s1);
 	return (s);
 }
