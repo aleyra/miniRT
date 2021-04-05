@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/05 10:27:57 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 15:02:11 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ typedef enum e_error {
 	ERROR_GNL,
 	BLANK_6,
 	BLANK_7,
-	BLANK_8,
+	ERROR_PARSING_CHAR_BIS,
 	BLANK_9,
 	ERROR_IDENTIFIER,
 	ERROR_PARSING_CHAR,

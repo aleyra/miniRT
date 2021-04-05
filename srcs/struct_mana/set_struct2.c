@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:08:39 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/02 15:23:52 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 14:47:42 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	set_struct_cam(t_mrt *mrt, t_token token, int *i_id_nbt)
 	cam = lstlast_cam(mrt->cam);
 	if (i_id_nbt[2] == 2)
 	{
-
 		if (ft_atovec3(cam->ptofview, token.val) == ERROR_VEC)
 			i_id_nbt[1] = ID_BAD_PT;
 	}

@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:27:35 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/05 10:24:41 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 15:02:27 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	error_msg2(t_error cas)
 {
 	if (cas == ERROR_PARSING_CHAR)
 		printf("Character unlikely found in your .rt file. Please review it");
-	else if (cas == ERROR_PARSING_PARAM)
+	else if (cas == ERROR_PARSING_PARAM || cas == ERROR_PARSING_CHAR_BIS)
 	{
 		printf("In at least one of the line of your .rt file,");
 		printf(" there's too many parameters");

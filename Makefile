@@ -22,7 +22,7 @@ SRCS		=	$(addprefix $(PATH_SRC)/display/, $(SRCS_DISP)) \
 				$(addprefix $(PATH_SRC)/parsing/, $(SRCS_PARSE)) \
 				$(addprefix $(PATH_SRC)/struct_mana/, $(SRCS_S_MANA)) \
 				$(addprefix $(PATH_SRC)/tool_box/, $(SRCS_TOOL)) \
-				$(addprefix $(PATH_SRC)/, ) testing_parsing.c #add files à la racine 
+				$(addprefix $(PATH_SRC)/, ) main.c #add files à la racine 
 
 OBJS		=	$(addprefix $(PATH_OBJ)/, $(notdir $(SRCS:.c=.o)))
 INCS		=	$(addprefix $(PATH_INC)/, ) #add .h

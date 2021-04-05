@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:40 by lburnet           #+#    #+#             */
-/*   Updated: 2021/03/19 14:07:36 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 14:29:54 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	on_cylinder(t_obj *cy, t_vec3 *p)
 	r1 = angle_one_polaris(cy->dir);
 	r2 = angle_two_polaris(cy->dir);
 	*p = rotation_around_y(rotation_around_z(*p, -r2), -r1);
-	*(cy->center) = rotation_around_y(rotation_around_z(*(cy->center), -r2), -r1);
+	*(cy->center) = rotation_around_y(
+			rotation_around_z(*(cy->center), -r2), -r1);
 	if (!(p->z >= cy->center->z && p->z <= cy->center->z + cy->height))
 		return (0);
 	if (!(on_circle(cy->center, cy->diam, p)))
