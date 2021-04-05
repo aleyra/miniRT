@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/02 15:16:49 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 10:27:57 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,8 @@ typedef enum e_error {
 	ERROR_MALLOC,
 }	t_error;
 
-int		ft_display_error(int cas);
+int		ft_display_error(int cas, t_mrt *mrt);
+void	print_mrt(t_mrt *mrt);
 
 /* Struct managing ********************************************************** */
 //BLANK_n are for making correspondance between t_error and e_type_ID

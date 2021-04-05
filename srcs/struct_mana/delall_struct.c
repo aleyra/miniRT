@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:01:05 by lburnet           #+#    #+#             */
-/*   Updated: 2021/03/22 17:16:11 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 10:21:15 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	delall_cam(t_cam **cam)
 	c = *cam;
 	if (c->next != NULL)
 		delall_cam(&c->next);
+	free(c->dir);
+	free(c->ptofview);
 	free(c);
 	*cam = NULL;
 }
@@ -30,6 +32,8 @@ void	delall_light(t_light **light)
 	l = *light;
 	if (l->next != NULL)
 		delall_light(&l->next);
+	free(l->rgb);
+	free(l->lightpt);
 	free(l);
 	*light = NULL;
 }
@@ -41,12 +45,22 @@ void	delall_obj(t_obj **obj)
 	o = *obj;
 	if (o->next != NULL)
 		delall_obj(&o->next);
+	free(o->d);
+	free(o->c);
+	free(o->b);
+	free(o->a);
+	free(o->dir);
+	free(o->rgb);
+	free(o->center);
 	free(o);
 	*obj = NULL;
 }
 
 void	free_mrt(t_mrt	*mrt)
 {
+	free(mrt->res);
+	free(mrt->amb->rgb);
+	free(mrt->amb);
 	delall_cam(&mrt->cam);
 	delall_light(&mrt->light);
 	delall_obj(&mrt->obj);

@@ -12,7 +12,7 @@ PATH_LIBFT	=	libft
 PATH_LIBG	=	minilibx
 
 # List of sources
-SRCS_DISP	=	ft_display_error.c
+SRCS_DISP	=	ft_display_error.c print_mrt.c
 SRCS_OBJC	=	cylinder.c square.c triangle.c
 SRCS_PARSE	=	check_nb_param.c ft_parsing.c ft_state_machine.c ft_tokenizer.c
 SRCS_S_MANA	=	add_back_struct.c complete_t_obj.c delall_struct.c init_struct_mrt.c lstlast_struct.c set_struct1.c set_struct2.c set_struct3.c
