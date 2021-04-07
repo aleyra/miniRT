@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/05 15:02:11 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 11:16:44 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,11 @@ t_cam	*lstlast_cam(t_cam *cam);
 t_light	*lstlast_light(t_light *light);
 t_obj	*lstlast_obj(t_obj *lst);
 void	set_struct(t_mrt *mrt, t_token token, int *i_id_nbt);
+void	set_struct_id(t_mrt *mrt, t_token token, int *i_id_nbt);
+void	set_struct_id_obj(t_mrt *mrt, t_token token, int *i_id_nbt);
+void	set_struct_const(t_mrt *mrt, t_token token, int *i_id_nbt);
+void	assign_double_and_check_error(
+			double *d, char *str, int *err, int nb_err);
 void	set_struct_ambiant(t_mrt *mrt, t_token token, int *i_id_nbt);
 void	set_struct_cam(t_mrt *mrt, t_token token, int *i_id_nbt);
 void	set_struct_light(t_mrt *mrt, t_token token, int *i_id_nbt);

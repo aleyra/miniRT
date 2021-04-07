@@ -6,54 +6,16 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:23:06 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/02 15:25:37 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 11:38:51 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void	set_struct_const(t_mrt *mrt, t_token token, int *i_id_nbt)
+static void	elseif_set_struct_id_obj(
+	t_token token, int *i_id_nbt, t_obj *obj)
 {
-	if (i_id_nbt[1] == ID_RESOLUTION)
-		set_struct_res(mrt, token, i_id_nbt);
-	else if (i_id_nbt[1] == ID_AMBIENT_LIGHTINING)
-		set_struct_ambiant(mrt, token, i_id_nbt);
-	else if (i_id_nbt[1] == ID_CAMERA)
-		set_struct_cam(mrt, token, i_id_nbt);
-	else if (i_id_nbt[1] == ID_LIGHT)
-		set_struct_light(mrt, token, i_id_nbt);
-	else if (i_id_nbt[1] == ID_SPHERE)
-		set_struct_sphere(mrt, token, i_id_nbt);
-	else if (i_id_nbt[1] == ID_PLANE)
-		set_struct_plane(mrt, token, i_id_nbt);
-	else if (i_id_nbt[1] == ID_SQUARE)
-		set_struct_square(mrt, token, i_id_nbt);
-	else if (i_id_nbt[1] == ID_CYLINDER)
-		set_struct_cylinder(mrt, token, i_id_nbt);
-	else if (i_id_nbt[1] == ID_TRIANGLE)
-		set_struct_triangle(mrt, token, i_id_nbt);
-}
-
-static void	set_struct_id_obj(t_mrt *mrt, t_token token, int *i_id_nbt)
-{
-	t_obj	*obj;
-
-	add_back_obj(&(mrt));
-	obj = lstlast_obj(mrt->obj);
-	if (!obj || !(obj->center) || !(obj->rgb) || !(obj->a) || !(obj->b) || !(
-			obj->c) || !(obj->d))
-		i_id_nbt[1] = ERROR_MALLOC;
-	else if (token.val[1] == 'l')
-	{
-		obj->type = TYPE_PLANE;
-		i_id_nbt[1] = ID_PLANE;
-	}
-	else if (token.val[1] == 'p')
-	{
-		obj->type = TYPE_SPHERE;
-		i_id_nbt[1] = ID_SPHERE;
-	}
-	else if (token.val[1] == 'q')
+	if (token.val[1] == 'q')
 	{
 		obj->type = TYPE_SQUARE;
 		i_id_nbt[1] = ID_SQUARE;
@@ -72,11 +34,53 @@ static void	set_struct_id_obj(t_mrt *mrt, t_token token, int *i_id_nbt)
 		i_id_nbt[1] = ID_ERROR;
 }
 
-static void	set_struct_id(t_mrt *mrt, t_token token, int *i_id_nbt)
+void	set_struct_id_obj(t_mrt *mrt, t_token token, int *i_id_nbt)
+{
+	t_obj	*obj;
+
+	add_back_obj(&(mrt));
+	obj = lstlast_obj(mrt->obj);
+	if (!obj || !(obj->center) || !(obj->rgb) || !(obj->a) || !(obj->b) || !(
+			obj->c) || !(obj->d))
+		i_id_nbt[1] = ERROR_MALLOC;
+	else if (token.val[1] == 'l')
+	{
+		obj->type = TYPE_PLANE;
+		i_id_nbt[1] = ID_PLANE;
+	}
+	else if (token.val[1] == 'p')
+	{
+		obj->type = TYPE_SPHERE;
+		i_id_nbt[1] = ID_SPHERE;
+	}
+	else
+		elseif_set_struct_id_obj(token, i_id_nbt, obj);
+}
+
+static void	elseif_set_struct_id(t_mrt *mrt, t_token token, int *i_id_nbt)
+{
+	t_light	*light;
+
+	if (token.val[0] == 'l')
+	{
+		i_id_nbt[1] = ID_LIGHT;
+		add_back_light(&(mrt));
+		light = lstlast_light(mrt->light);
+		if (!light || !(light->lightpt) || !(light->rgb))
+			i_id_nbt[1] = ERROR_MALLOC;
+	}
+	else if (token.val[0] == 'R')
+		i_id_nbt[1] = ID_RESOLUTION;
+	else if (token.val[0] == 'A' || token.val[0] == 'a')
+		i_id_nbt[1] = ID_AMBIENT_LIGHTINING;
+	else
+		i_id_nbt[1] = ID_ERROR;
+}
+
+void	set_struct_id(t_mrt *mrt, t_token token, int *i_id_nbt)
 {
 	int		len;
 	t_cam	*cam;
-	t_light	*light;
 
 	len = ft_strlen(token.val);
 	if (len == 2)
@@ -91,20 +95,8 @@ static void	set_struct_id(t_mrt *mrt, t_token token, int *i_id_nbt)
 			if (!cam || !(cam->ptofview) || !(cam->dir))
 				i_id_nbt[1] = ERROR_MALLOC;
 		}
-		else if (token.val[0] == 'l')
-		{
-			i_id_nbt[1] = ID_LIGHT;
-			add_back_light(&(mrt));
-			light = lstlast_light(mrt->light);
-			if (!light || !(light->lightpt) || !(light->rgb))
-				i_id_nbt[1] = ERROR_MALLOC;
-		}
-		else if (token.val[0] == 'R')
-			i_id_nbt[1] = ID_RESOLUTION;
-		else if (token.val[0] == 'A' || token.val[0] == 'a')
-			i_id_nbt[1] = ID_AMBIENT_LIGHTINING;
 		else
-			i_id_nbt[1] = ID_ERROR;
+			elseif_set_struct_id(mrt, token, i_id_nbt);
 	}
 	else
 		i_id_nbt[1] = ID_ERROR;

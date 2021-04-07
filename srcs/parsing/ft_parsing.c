@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 13:17:09 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/05 15:39:02 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 11:14:36 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,44 +50,53 @@ static int	end_of_parsing(char **line, int gnl)
 	return (NO_ERROR);
 }
 
+static int	second_while(t_state *stm, int *i_id_nbt, char **line, t_mrt *mrt)
+{
+	t_token	token;
+
+	*stm = ft_change_state(*stm, *line, &i_id_nbt[0], i_id_nbt[3]);
+	if (*stm == PARSE_ERROR)
+	{
+		free(*line);
+		return (ERROR_PARSING_CHAR);
+	}
+	token = ft_tokenizer(*stm, *line, i_id_nbt);
+	if ((token.type == IDENTIFIER && i_id_nbt[2] != 1) || (
+			token.type == CONSTANT && i_id_nbt[2] == 1))
+	{
+		free(token.val);
+		free(*line);
+		return (ERROR_PARSING_CHAR);
+	}
+	set_struct(mrt, token, i_id_nbt);
+	if (i_id_nbt[1] >= ID_ERROR)
+	{
+		free(token.val);
+		free(*line);
+		return (i_id_nbt[1]);
+	}
+	free(token.val);
+	return (0);
+}
+
 int	ft_parsing(t_mrt *mrt, int fd)
 {
 	char	*line;
-	int		gnl;
 	t_state	stm;
-	int		i_id_nbt[3];
-	t_token	token;
+	int		i_id_nbt[4];
+	int		temp;
 
-	stm = init_parsing(&line, &gnl, fd, i_id_nbt);
-	while (gnl > 0)
+	stm = init_parsing(&line, &i_id_nbt[3], fd, i_id_nbt);
+	while (i_id_nbt[3] > 0)
 	{
 		 while (line[i_id_nbt[0]])
 		{
-			stm = ft_change_state(stm, line, &i_id_nbt[0], gnl);
-			if (stm == PARSE_ERROR)
-			{
-				free(line);
-				return (ERROR_PARSING_CHAR);
-			}
-			token = ft_tokenizer(stm, line, i_id_nbt);
-			if ((token.type == IDENTIFIER && i_id_nbt[2] != 1) || (
-					token.type == CONSTANT && i_id_nbt[2] == 1))
-			{
-				free(token.val);
-				free(line);
-				return (ERROR_PARSING_CHAR);
-			}
-			set_struct(mrt, token, i_id_nbt);
-			if (i_id_nbt[1] >= ID_ERROR)
-			{
-				free(token.val);
-				free(line);
-				return (i_id_nbt[1]);
-			}
-			free(token.val);
+			temp = second_while(&stm, i_id_nbt, &line, mrt);
+			if (temp != 0)
+				return (temp);
 		}
-		if (end_of_while(i_id_nbt, &line, fd, &gnl) != NO_ERROR)
+		if (end_of_while(i_id_nbt, &line, fd, &i_id_nbt[3]) != NO_ERROR)
 			return (i_id_nbt[2]);
 	}
-	return (end_of_parsing(&line, gnl));
+	return (end_of_parsing(&line, i_id_nbt[3]));
 }
