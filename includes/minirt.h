@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/07 11:16:44 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 14:06:30 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_mrt
 	t_obj		*obj;
 }				t_mrt;
 
+//what's endian ?
 typedef struct s_data
 {
 	void	*img;

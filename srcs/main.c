@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/05 14:34:10 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 14:06:38 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,46 +44,58 @@ static int	init_main(int ac, char *av[], t_mrt	**mrt)
 	return (NO_ERROR);
 }
 
-//create after getting started minilibx
-// static void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-// {
-// 	char	dst;
+//from getting started minilibx
+static void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	dst;
 
-// 	dst = data->addr + (y * data->line_len + x * data->bits_per_pix / 8);
-// 	*(unsigned int *)dst = color;
-// }
+	dst = data->addr + (y * data->line_len + x * data->bits_per_pix / 8);
+	*(unsigned int *) dst = color;
+}
 
 /* ************************************************************************** */
 /* in the following fct, ijo is a table of 3 int for 						  */
-/* ijo[0] = i is a compter for x ?				 							  */
-/* ijo[1] = j is a compter for y ?				 							  */
+/* ijo[0] = i is a compter for x /!\ origin is up left						  */
+/* ijo[1] = j is a compter for y				 							  */
 /* ijo[2] = other								 							  */
 /* ************************************************************************** */
 int	main(int ac, char *av[])
 {
 	t_mrt	*mrt;
-	// void	*mlx;
-	//void    *mlx_win;
-	//t_data	img;
+	void	*mlx;
+	t_data	img;
+	void	*mlx_win;
 	int		ijo[3];
 
 	mrt = NULL;
 	ijo[2] = init_main(ac, av, &mrt);
 	if (ijo[2] != NO_ERROR)
 		return (ft_display_error(ijo[2], mrt));
-	// mlx = mlx_init();
-	if (ac == 2)//affichage en dynamique
+	mlx = mlx_init();
+	if (ac == 2)
 	{
-		print_mrt(mrt);//
-		// mlx_win = mlx_new_window(mlx, mrt.r.x, mrt.r.y, "miniRT");
-		// mlx_loop(mlx);
+		mlx_win = mlx_new_window(mlx, mrt->res->x, mrt->res->y, "miniRT");
+		img.img = mlx_new_image(mlx, mrt->res->x, mrt->res->y);
+		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
+				&img.endian);
+		ijo[0] = 0;
+		while (ijo[0] < mrt->res->x)
+		{
+			ijo[1] = 0;
+			while (ijo[1] < mrt->res->y)
+			{
+				
+				ijo[1]++;
+			}
+			ijo[0]++;
+		}
+		mlx_loop(mlx);
 	}
 	if (ac == 3)//creation d'un bmp
 	{
 		print_mrt(mrt);//
-		// img.img = mlx_new_image(mlx, mrt.r.x, mrt.r.y);
-		// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
-		// 	&img.endian);
+		
+		// 
 		// i = 0;
 		// while (i < mrt.r.x)
 		// {

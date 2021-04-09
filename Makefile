@@ -22,16 +22,17 @@ SRCS		=	$(addprefix $(PATH_SRC)/display/, $(SRCS_DISP)) \
 				$(addprefix $(PATH_SRC)/parsing/, $(SRCS_PARSE)) \
 				$(addprefix $(PATH_SRC)/struct_mana/, $(SRCS_S_MANA)) \
 				$(addprefix $(PATH_SRC)/tool_box/, $(SRCS_TOOL)) \
-				$(addprefix $(PATH_SRC)/, ) main.c #add files à la racine 
+				$(addprefix $(PATH_SRC)/, )  main.c #add files à la racine #getting_starting.c
 
 OBJS		=	$(addprefix $(PATH_OBJ)/, $(notdir $(SRCS:.c=.o)))
 INCS		=	$(addprefix $(PATH_INC)/, ) #add .h
 LIBFT		=	-L $(PATH_LIBFT)
+LIBMLX		=	 $(PATH_LIBG)/libmlx.dylib
 
 # Commands of compilation
 COMP		=	clang
-COMP_FLAG	=	-Wall -Wextra -Werror
-COMP_ADD	=	-I$(PATH_LIBFT)/includes -I$(PATH_LIBG) -I$(PATH_INC)
+COMP_FLAG	=	-Wall -Wextra -Werror -Imlx
+COMP_ADD	=	-I $(PATH_LIBFT)/includes -I $(PATH_LIBG) -I $(PATH_INC)
 
 # Others Command
 RM			=	/bin/rm
@@ -52,20 +53,24 @@ init:
 	 $(MAKE) -C $(PATH_LIBFT)
 	 $(MAKE) -C $(PATH_LIBG)
 
-$(NAME): 	$(OBJS)
-	$(CC) $(OBJS) $(LIBFT) -l ft -o $(NAME)
+libmlx.dylib:
+	ln -sf $(LIBMLX) .
+
+$(NAME): 	$(OBJS) libmlx.dylib
+	ln -sf $(LIBMLX) .
+	$(CC) $(OBJS) $(LIBFT) $(LIBMLX) -l ft -o $(NAME)
 
 $(PATH_OBJ)/%.o : $(PATH_SRC)/*/%.c  $(INCS)
-	 $(COMP) $(COMP_FLAG) $(COMP_ADD) -c $< -o $@
-	 echo "$(_INFO) Compilation of $*"
+	@ $(COMP) $(COMP_FLAG) $(COMP_ADD) -c $< -o $@
+	@ echo "$(_INFO) Compilation of $*"
 
 $(PATH_OBJ)/%.o : $(PATH_SRC)/%.c  $(INCS)
-	 $(COMP) $(COMP_FLAG) $(COMP_ADD) -c $< -o $@
-	 echo "$(_INFO) Compilation of $*"
+	@ $(COMP) $(COMP_FLAG) $(COMP_ADD) -c $< -o $@
+	@ echo "$(_INFO) Compilation of $*"
 
 clean:
-	 $(RM) -rf $(PATH_OBJ)
-	 echo "$(_INFO) Deleted files and directory"
+	@ $(RM) -rf $(PATH_OBJ)
+	@ echo "$(_INFO) Deleted files and directory"
 	 $(MAKE) -C $(PATH_LIBFT) clean
 	 $(MAKE) -C $(PATH_LIBG) clean
 

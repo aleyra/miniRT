@@ -6,17 +6,18 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 13:17:09 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/07 11:14:36 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 13:26:05 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 /* ************************************************************************** */
-/* in the following fct, i_id_nbt is a table of 3 int for 					  */
+/* in the following fcts, i_id_nbt is a table of 3 int for 					  */
 /* i_id_nbt[0] = i is a compter of char for line 							  */
 /* i_id_nbt[1] = type of identifier which tells if the line id about R, a,... */
 /* it serves also to mark error 											  */
 /* i_id_nbt[2] = give the nb of token created until here from this line 	  */
+/* i_id_nbt[3] = gnl = return of gnl									 	  */
 /* ************************************************************************** */
 
 static int	end_of_while(int *i_id_nbt, char **line, int fd, int *gnl)
