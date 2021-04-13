@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/09 14:06:30 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/13 15:23:23 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct s_data
 
 /* Basic maths fct ********************************************************** */
 int		in_triangle(t_obj tr, t_vec3 p);
+void	def_corner_square(t_obj *sq);
 int		in_square(t_obj sq, t_vec3 p);
 
 /* Tool's type fct ********************************************************** */
@@ -153,7 +154,7 @@ t_token	ft_tokenizer(t_state stm, char *str, int *i_id_nbt);
 int		check_nb_param(int *i_id_nbt);
 int		ft_parsing(t_mrt *mrt, int fd);
 
-/* Errors managing ********************************************************** */
+/* display ****************************************************************** */
 //BLANK_n are for making correspondance between t_error and e_type_ID
 typedef enum e_error {
 	NO_ERROR,
@@ -194,6 +195,7 @@ typedef enum e_error {
 
 int		ft_display_error(int cas, t_mrt *mrt);
 void	print_mrt(t_mrt *mrt);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 /* Struct managing ********************************************************** */
 //BLANK_n are for making correspondance between t_error and e_type_ID

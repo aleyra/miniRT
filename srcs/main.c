@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/09 14:06:38 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/13 15:22:15 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,11 @@ static int	init_main(int ac, char *av[], t_mrt	**mrt)
 	if (!*mrt || !((*mrt)->res) || !((*mrt)->amb) || !((*mrt)->amb->rgb))
 		return (ERROR_MALLOC);
 	other[1] = ft_parsing(*mrt, other[0]);
+	print_mrt(*mrt);//
 	close(other[0]);
 	if (other[1] != 0)
 		return (other[1]);
 	return (NO_ERROR);
-}
-
-//from getting started minilibx
-static void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	dst;
-
-	dst = data->addr + (y * data->line_len + x * data->bits_per_pix / 8);
-	*(unsigned int *) dst = color;
 }
 
 /* ************************************************************************** */
@@ -79,10 +71,10 @@ int	main(int ac, char *av[])
 		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
 				&img.endian);
 		ijo[0] = 0;
-		while (ijo[0] < mrt->res->x)
+		while ((unsigned int)ijo[0] < mrt->res->x)
 		{
 			ijo[1] = 0;
-			while (ijo[1] < mrt->res->y)
+			while ((unsigned int)ijo[1] < mrt->res->y)
 			{
 				
 				ijo[1]++;
