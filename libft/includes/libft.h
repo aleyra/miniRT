@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 13:36:57 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/02 16:09:28 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/13 13:26:16 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int					in_plane(t_vec3 *o, t_vec3 *n, t_vec3 *p);
 t_vec3				rotation_around_x(t_vec3 v, float rad);
 t_vec3				rotation_around_y(t_vec3 v, float rad);
 t_vec3				rotation_around_z(t_vec3 v, float rad);
-float				Q_rsqrt(float number);
+float				q_rsqrt(float number);
 float				norme_vec3_power2(t_vec3 a);
 t_vec3				vec3_from_2pts(t_vec3 *a, t_vec3 *b);
 t_vec3				sum_alg_2vec3(float l, t_vec3 *v, float m, t_vec3 *u);
