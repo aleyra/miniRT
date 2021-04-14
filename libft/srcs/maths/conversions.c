@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 10:49:07 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/13 13:50:43 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 14:35:24 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ float	deg_to_rad(int d)
 {
 	float	r;
 
-	d = d % 360;
 	r = d * M_PI / 180.0f;
 	return (r);
 }
