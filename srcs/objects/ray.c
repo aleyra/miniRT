@@ -6,59 +6,73 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:46:54 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/13 15:32:32 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 14:58:38 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+//avec pls obj, stocker et comparer les t pour afficher le plus petit (donc le plus proche)
+static float	shooting_sphere(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview)
+{
+	float	t;
+	t_vec3	v;
+
+	t = 0.1;
+	while (t < 100)//valeur a determiner
+	{
+		v = sum_alg_2vec3(t, ray, -t, ptofview);
+		if (on_sphere(sp->center, sp->diam, &v) == 1)
+		{
+			printf("!\n");//
+			return (t);
+		}
+		t += 0.1;
+	}
+	printf("-");//
+	return (0);
+}
+
 /******************************************************************************/
 /* in this fct																  */
 /* ikt[0] = i a counter for pixels along of x								  */
 /* ikt[1] = k a counter for pixels along of z								  */
-/* ikt[2] = t a scalar for shooting ray										  */
 /* r[0] = R_H																  */
 /* r[1] = R_V																  */
 /******************************************************************************/
-//???????????
-void	ray_shooter(t_data **img, t_mrt *mrt/*, int nb_cam*/)
+//eventuellement a appeler avec une cam qui sera selectionnee
+void	ray_shooter(t_data *img, t_mrt *mrt)
 {
-	float	ikt[3];
-	float	r[2];
-	t_vec3	ray;
-	t_cam	*cam;
-	t_obj	*obj;
+	unsigned int	ik[2];
+	float			r[2];
+	t_vec3			*ray;
+	t_cam			*cam;
+	t_obj			*obj;
 
-	ikt[0] = 0;
-	ikt[1] = 0;
+	ik[0] = 0;
 	cam = mrt->cam;
-	// while (nb_cam > 0)
-	// {
-	// 	cam = cam->next;
-	// 	nb_cam--;
-	// }
 	obj = mrt->obj;
-	r[0] = 2 * tan(cam->fov * 0.5) / mrt->res->x;
-	r[1] = 2 * tan(cam->fov * mrt->res->y * 0.5 / mrt->res->x) / mrt->res->y;
+	r[0] = 2 * tan(cam->fovr * 0.5) / mrt->res->x;
+	r[1] = 2 * tan(cam->fovr * mrt->res->y * 0.5 / mrt->res->x) / mrt->res->y;
 	ray = malloc(sizeof(t_vec3));
-	while (ikt[0] < mrt->res->x)
+	while (ik[0] < mrt->res->x)
 	{
-		while (ikt[1] < mrt->res->y)
+		ik[1] = 0;
+		while (ik[1] < mrt->res->y)
 		{
-			ray->x = (ikt[0] - mrt->res->x * 0.5) * r[0];
+			ray->x = (ik[0] - mrt->res->x * 0.5) * r[0];
 			ray->y = -1;
-			ray->z = (mrt->res->y * 0.5 - ikt[1]) * r[1];
-			ikt[2] = 0;
-			while (ikt[0])
+			ray->z = (mrt->res->y * 0.5 - ik[1]) * r[1];
+			if (shooting_sphere(obj, ray, cam->ptofview) > 0)
 			{
-				if (on_sphere(obj->center, obj->diam, &ray) == 1)//lancer le rayon en utilisant le fait de Oray = {tOray, t >= 0}
-				{
-					my_mlx_pixel_put(*img, ikt[0], ikt[1], obj->rgb->i);
-				}
-				ikt[0] += 0.01;
+				my_mlx_pixel_put(img, ik[0], ik[1], obj->rgb->i);
 			}
-			ikt[1]++;
+			ik[1]++;
+			// printf("%d\t", ik[1]);//
 		}
-		ikt[0]++;
+		ik[0]++;
+		// printf("%d\t", ik[0]);//
 	}
+	printf("fini\n");//
 	free(ray);
 }

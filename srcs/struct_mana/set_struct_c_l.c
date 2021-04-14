@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_struct3.c                                      :+:      :+:    :+:   */
+/*   set_struct_c_l.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:16:50 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/07 12:05:03 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 14:58:02 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,18 @@ void	assign_double_and_check_error(
 	}
 }
 
-static void	assign_int_cam(unsigned int *i, char *str, int *err, int nb_err)
+static void	assign_fov_cam(float *rad, char *str, int *err, int nb_err)
 {
+	int	i;
+
 	if (!can_atoi(str))
 		err[1] = nb_err;
 	else
 	{
-		*i = ft_atoi(str);
-		if (*i < 0 || *i > 180)
+		i = ft_atoi(str);
+		if (i < 0 || i > 180)
 			err[1] = nb_err;
+		*rad = deg_to_rad(i);
 	}
 }
 
@@ -55,7 +58,7 @@ void	set_struct_cam(t_mrt *mrt, t_token token, int *i_id_nbt)
 			i_id_nbt[1] = err;
 	}
 	else if (i_id_nbt[2] == 4)
-		assign_int_cam(&cam->fov, token.val, i_id_nbt, ID_BAD_FOV);
+		assign_fov_cam(&cam->fovr, token.val, i_id_nbt, ID_BAD_FOV);
 	else
 		i_id_nbt[1] = ID_TOO_MANY_PARAM;
 }

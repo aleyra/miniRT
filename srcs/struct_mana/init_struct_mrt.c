@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 13:20:59 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/02 15:22:50 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 14:58:12 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_struct_cam(t_cam **cam)
 	init_tvec3_to_0((*cam)->ptofview);
 	(*cam)->dir = malloc (sizeof(t_vec3));
 	init_tvec3_to_0((*cam)->dir);
-	(*cam)->fov = 0;
+	(*cam)->fovr = 0;
 	(*cam)->next = 0;
 }
 
@@ -47,6 +47,20 @@ void	init_struct_light(t_light **li)
 	(*li)->rgb = malloc (sizeof(t_rgb));
 	(*li)->rgb->i = 0;
 	(*li)->next = 0;
+}
+
+void	init_struct_quad(t_quad *quad)
+{
+	quad->a = 0;
+	quad->b = 0;
+	quad->c = 0;
+	quad->d = 0;
+	quad->e = 0;
+	quad->f = 0;
+	quad->g = 0;
+	quad->h = 0;
+	quad->i = 0;
+	quad->j = 0;
 }
 
 void	init_struct_obj(t_obj **obj)
@@ -67,7 +81,7 @@ void	init_struct_obj(t_obj **obj)
 	init_tvec3_to_0((*obj)->b);
 	(*obj)->c = malloc (sizeof(t_vec3));
 	init_tvec3_to_0((*obj)->c);
-	(*obj)->d = malloc (sizeof(t_vec3));
-	init_tvec3_to_0((*obj)->d);
+	(*obj)->quad = malloc (sizeof(t_quad));
+	init_struct_quad((*obj)->quad);
 	(*obj)->type = 0;
 }

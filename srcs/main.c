@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/13 15:22:15 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 11:37:26 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,8 @@ int	main(int ac, char *av[])
 		img.img = mlx_new_image(mlx, mrt->res->x, mrt->res->y);
 		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
 				&img.endian);
-		ijo[0] = 0;
-		while ((unsigned int)ijo[0] < mrt->res->x)
-		{
-			ijo[1] = 0;
-			while ((unsigned int)ijo[1] < mrt->res->y)
-			{
-				
-				ijo[1]++;
-			}
-			ijo[0]++;
-		}
+		printf("on lance la sauce\n");
+		ray_shooter(&img, mrt);
 		mlx_loop(mlx);
 	}
 	if (ac == 3)//creation d'un bmp

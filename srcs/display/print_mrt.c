@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 10:27:16 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/13 09:32:38 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 14:59:57 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	print_cam_light(t_mrt *mrt)
 		printf("c\t");
 		printf("%f,%f,%f\t", c->ptofview->x, c->ptofview->y, c->ptofview->z);
 		printf("%f,%f,%f\t", c->dir->x, c->dir->y, c->dir->z);
-		printf("%d\n", c->fov);
+		printf("%d\n", c->fovr);
 		c = c->next;
 	}
 	l = mrt->light;
@@ -34,18 +34,6 @@ static void	print_cam_light(t_mrt *mrt)
 		printf("\t%f\t%d\n", l->br, l->rgb->i);
 		l = l->next;
 	}
-}
-
-static void	print_info_bonus_sq(t_obj *obj)
-{
-	printf("a(");
-	printf("%f,%f,%f)\t", obj->a->x, obj->a->y, obj->a->z);
-	printf("b(");
-	printf("%f,%f,%f)\t", obj->b->x, obj->b->y, obj->b->z);
-	printf("c(");
-	printf("%f,%f,%f)\t", obj->c->x, obj->c->y, obj->c->z);
-	printf("d(");
-	printf("%f,%f,%f)\n", obj->d->x, obj->d->y, obj->d->z);
 }
 
 static void	print_obj2(t_obj *obj)
@@ -62,7 +50,6 @@ static void	print_obj2(t_obj *obj)
 		printf("%f,%f,%f\t", obj->center->x, obj->center->y, obj->center->z);
 		printf("%f,%f,%f\t", obj->norm->x, obj->norm->y, obj->norm->z);
 		printf("%f\t%d\n", obj->len, obj->rgb->i);
-		print_info_bonus_sq(obj);
 	}
 	else if (obj->type == TYPE_PLANE)
 	{

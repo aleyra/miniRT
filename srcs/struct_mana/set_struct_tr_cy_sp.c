@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_struct4.c                                      :+:      :+:    :+:   */
+/*   set_struct_tr_cy_sp.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:43:12 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/07 12:08:42 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 15:22:49 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	set_struct_sphere(t_mrt *mrt, t_token token, int *i_id_nbt)
 	{
 		if (ft_atorgb(obj->rgb, token.val) == ERROR_RGB)
 			i_id_nbt[1] = ID_BAD_RGB;
+		init_quad_sp(obj);
 	}
 	else
 		i_id_nbt[1] = ID_TOO_MANY_PARAM;

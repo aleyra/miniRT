@@ -6,13 +6,13 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:40 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/05 14:29:54 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 11:31:57 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	on_circle(t_vec3 *center, float diam, t_vec3 *p)
+static int	on_circle(t_vec3 *center, float diam, t_vec3 *p)
 {
 	float	eq;
 

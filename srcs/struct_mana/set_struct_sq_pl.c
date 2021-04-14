@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:08:39 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/13 13:06:01 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 15:22:10 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	set_struct_plane(t_mrt *mrt, t_token token, int *i_id_nbt)
 		err = ft_atovec3norm(obj->norm, token.val);
 		if (err != NO_ERROR)
 			i_id_nbt[1] = err;
+		init_quad_pl(obj);
 	}
 	else if (i_id_nbt[2] == 4)
 	{
