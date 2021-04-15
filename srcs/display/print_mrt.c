@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 10:27:16 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/14 14:59:57 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/15 15:01:35 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	print_cam_light(t_mrt *mrt)
 		printf("c\t");
 		printf("%f,%f,%f\t", c->ptofview->x, c->ptofview->y, c->ptofview->z);
 		printf("%f,%f,%f\t", c->dir->x, c->dir->y, c->dir->z);
-		printf("%d\n", c->fovr);
+		printf("%f\n", c->fovr);
 		c = c->next;
 	}
 	l = mrt->light;
@@ -34,6 +34,20 @@ static void	print_cam_light(t_mrt *mrt)
 		printf("\t%f\t%d\n", l->br, l->rgb->i);
 		l = l->next;
 	}
+}
+
+static void	print_quadric_coeff(t_obj *obj)
+{
+	printf("Quadric coeff : A = %f\t", obj->quad->a);
+	printf("B = %f\t", obj->quad->b);
+	printf("C = %f\t", obj->quad->c);
+	printf("D = %f\t", obj->quad->d);
+	printf("E = %f\t", obj->quad->e);
+	printf("F = %f\t", obj->quad->f);
+	printf("G = %f\t", obj->quad->g);
+	printf("H = %f\t", obj->quad->h);
+	printf("I = %f\t", obj->quad->i);
+	printf("J = %f\n", obj->quad->j);
 }
 
 static void	print_obj2(t_obj *obj)
@@ -93,6 +107,7 @@ void	print_mrt(t_mrt *mrt)
 	while (obj)
 	{
 		print_obj1(obj);
+		print_quadric_coeff(obj);
 		obj = obj->next;
 	}
 }

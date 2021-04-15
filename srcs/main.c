@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/14 11:37:26 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/15 16:11:10 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 /* ************************************************************************** */
 static int	init_main(int ac, char *av[], t_mrt	**mrt)
 {
-	int		other[2];
+	int	other[2];
 
 	if (ac == 1)
 		return (ERROR_NO_PARAM);
@@ -71,28 +71,14 @@ int	main(int ac, char *av[])
 		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
 				&img.endian);
 		printf("on lance la sauce\n");
+		my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
 		ray_shooter(&img, mrt);
+		mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 		mlx_loop(mlx);
 	}
 	if (ac == 3)//creation d'un bmp
 	{
-		print_mrt(mrt);//
-		
-		// 
-		// i = 0;
-		// while (i < mrt.r.x)
-		// {
-		// 	j = 0;
-		// 	while (j < mrt.r.x)
-		// 	{
-		// 		//si le vec rencontre un obj
-		// 		//my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);// avec a le place de 5, 5 le pt de rencontre suivi de la couleur de l'obj
-		// 		//sinon
-		// 		my_mlx_pixel_put(&img, i, j, mrt.a.rgb.i);
-		// 		j++;
-		// 	}
-		// 	i++;
-		// }
+		printf("a faire\n");//
 	}
 	return (ft_display_error(NO_ERROR, mrt));
 }

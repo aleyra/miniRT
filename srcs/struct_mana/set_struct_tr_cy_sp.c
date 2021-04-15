@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:43:12 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/14 15:22:49 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/15 14:24:41 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	set_struct_cylinder(t_mrt *mrt, t_token token, int *i_id_nbt)
 		err = ft_atovec3norm(obj->norm, token.val);
 		if (err != NO_ERROR)
 			i_id_nbt[1] = err;
+		init_quad_cy(obj);
 	}
 	else
 		elseif_cylinder(token, i_id_nbt, obj);

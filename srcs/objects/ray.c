@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:46:54 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/14 14:58:38 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/15 16:12:58 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,14 @@
 //avec pls obj, stocker et comparer les t pour afficher le plus petit (donc le plus proche)
 static float	shooting_sphere(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview)
 {
-	float	t;
 	t_vec3	v;
+	float	d;
+	int		n;
 
-	t = 0.1;
-	while (t < 100)//valeur a determiner
-	{
-		v = sum_alg_2vec3(t, ray, -t, ptofview);
-		if (on_sphere(sp->center, sp->diam, &v) == 1)
-		{
-			printf("!\n");//
-			return (t);
-		}
-		t += 0.1;
-	}
-	printf("-");//
-	return (0);
+	v = inter_quad_line_coeff(sp, ptofview, ray);
+	d = discriminant(v);
+	n = nb_sol(d);
+	return (n);
 }
 
 /******************************************************************************/
@@ -64,14 +56,10 @@ void	ray_shooter(t_data *img, t_mrt *mrt)
 			ray->y = -1;
 			ray->z = (mrt->res->y * 0.5 - ik[1]) * r[1];
 			if (shooting_sphere(obj, ray, cam->ptofview) > 0)
-			{
-				my_mlx_pixel_put(img, ik[0], ik[1], obj->rgb->i);
-			}
+				my_mlx_pixel_put(img, ik[0], ik[1], 0x00FF0000);
 			ik[1]++;
-			// printf("%d\t", ik[1]);//
 		}
 		ik[0]++;
-		// printf("%d\t", ik[0]);//
 	}
 	printf("fini\n");//
 	free(ray);

@@ -6,19 +6,11 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:11:01 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/09 13:47:38 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/15 15:40:15 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	 dst = data->addr + (y * data->line_len + x * (data->bits_per_pix / 8));
-	*(unsigned int *)dst = color;
-}
 
 int	main(void)
 {

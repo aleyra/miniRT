@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_struct1.c                                      :+:      :+:    :+:   */
+/*   set_struct_base.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 13:23:06 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/07 11:38:51 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/15 15:43:29 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	set_struct_id_obj(t_mrt *mrt, t_token token, int *i_id_nbt)
 	add_back_obj(&(mrt));
 	obj = lstlast_obj(mrt->obj);
 	if (!obj || !(obj->center) || !(obj->rgb) || !(obj->a) || !(obj->b) || !(
-			obj->c) || !(obj->d))
+			obj->c))
 		i_id_nbt[1] = ERROR_MALLOC;
 	else if (token.val[1] == 'l')
 	{

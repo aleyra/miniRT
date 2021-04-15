@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:08:39 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/14 15:22:10 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/15 16:13:33 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	set_struct_square(t_mrt *mrt, t_token token, int *i_id_nbt)
 		err = ft_atovec3norm(obj->norm, token.val);
 		if (err != NO_ERROR)
 			i_id_nbt[1] = err;
-		def_corner_square(obj);
 	}
 	else
 		elseif_square(token, i_id_nbt, obj);
@@ -74,5 +73,3 @@ void	set_struct_plane(t_mrt *mrt, t_token token, int *i_id_nbt)
 	else
 		i_id_nbt[1] = ID_TOO_MANY_PARAM;
 }
-
-

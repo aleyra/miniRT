@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/14 15:21:47 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/15 16:09:40 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_quad
 	float	j;
 }	t_quad;
 
-
 typedef struct s_obj
 {
 	struct s_obj	*next;
@@ -91,7 +90,7 @@ typedef struct s_cam
 {
 	t_vec3			*ptofview;
 	t_vec3			*dir;
-	float	fovr;
+	float			fovr;
 	struct s_cam	*next;
 }					t_cam;
 
@@ -124,9 +123,13 @@ typedef struct s_data
 
 /* Objects ****************************************************************** */
 int		on_cylinder(t_obj *cy, t_vec3 *p);
+t_vec3	inter_quad_line_coeff(t_obj *o, t_vec3 *c, t_vec3 *r);
+float	discriminant(t_vec3 abc);
+float	inter_quad_line_sol(t_vec3 abc, float d);
+int		nb_sol(float delta);
 void	ray_shooter(t_data *img, t_mrt *mrt);
-void	def_corner_square(t_obj *sq);
-int		in_square(t_obj sq, t_vec3 p);
+//void	def_corner_square(t_obj *sq);
+//int		in_square(t_obj sq, t_vec3 p);
 int		in_triangle(t_obj tr, t_vec3 p);
 
 /* Tool_box ***************************************************************** */
@@ -247,7 +250,7 @@ enum e_type_id
 void	add_back_cam(t_mrt **mrt);
 void	add_back_light(t_mrt **mrt);
 void	add_back_obj(t_mrt **mrt);
-void	complete_sq(t_obj *sq);
+//void	complete_sq(t_obj *sq);
 void	complete_tr(t_obj *tr);
 void	delall_cam(t_cam **cam);
 void	delall_light(t_light **light);
@@ -255,6 +258,7 @@ void	delall_obj(t_obj **obj);
 void	free_mrt(t_mrt	*mrt);
 void	init_quad_sp(t_obj *sp);
 void	init_quad_pl(t_obj *pl);
+void	init_quad_cy(t_obj *cy);
 void	init_struct_obj(t_obj **obj);
 void	init_struct_light(t_light **li);
 void	init_struct_cam(t_cam **cam);
