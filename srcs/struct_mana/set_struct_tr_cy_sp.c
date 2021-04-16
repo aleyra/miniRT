@@ -6,24 +6,24 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:43:12 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/15 14:24:41 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 12:45:21 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void	elseif_triangle(t_token token, int *i_id_nbt, t_obj *obj)
+static void	elseif_triangle(t_mrt *mrt, t_token token, int *i_id_nbt, t_obj *o)
 {
 	if (i_id_nbt[2] == 4)
 	{
-		if (ft_atovec3(obj->c, token.val) == ERROR_VEC)
+		if (ft_atovec3(o->c, token.val) == ERROR_VEC)
 			i_id_nbt[1] = ID_BAD_PT;
-		else if (!check_not_aligned(obj->a, obj->b, obj->b))
+		else if (!check_not_aligned(o->a, o->b, o->b))
 			i_id_nbt[1] = ID_BAD_PTS_T;
 	}
 	else if (i_id_nbt[2] == 5)
 	{
-		if (ft_atorgb(obj->rgb, token.val) == ERROR_RGB)
+		if (init_color_obj(mrt->amb, o->rgb, token.val) == ERROR_RGB)
 			i_id_nbt[1] = ID_BAD_RGB;
 	}
 	else
@@ -46,21 +46,22 @@ void	set_struct_triangle(t_mrt *mrt, t_token token, int *i_id_nbt)
 			i_id_nbt[1] = ID_BAD_PT;
 	}
 	else
-		elseif_triangle(token, i_id_nbt, obj);
+		elseif_triangle(mrt, token, i_id_nbt, obj);
 }
 
-static void	elseif_cylinder(t_token token, int *i_id_nbt, t_obj *obj)
+static void	elseif_cylinder(t_mrt *mrt, t_token token, int *i_id_nbt, t_obj *o)
 {
 	if (i_id_nbt[2] == 4)
 		assign_double_and_check_error(
-			&obj->diam, token.val, i_id_nbt, ID_BAD_D_OR_H_C);
+			&o->diam, token.val, i_id_nbt, ID_BAD_D_OR_H_C);
 	else if (i_id_nbt[2] == 5)
 		assign_double_and_check_error(
-			&obj->height, token.val, i_id_nbt, ID_BAD_D_OR_H_C);
+			&o->height, token.val, i_id_nbt, ID_BAD_D_OR_H_C);
 	else if (i_id_nbt[2] == 6)
 	{
-		if (ft_atorgb(obj->rgb, token.val) == ERROR_RGB)
+		if (init_color_obj(mrt->amb, o->rgb, token.val) == ERROR_RGB)
 			i_id_nbt[1] = ID_BAD_RGB;
+		*(o->a) = sum_alg_2vec3(1, o->center, o->height, o->dir);
 	}
 	else
 		i_id_nbt[1] = ID_TOO_MANY_PARAM;
@@ -79,13 +80,13 @@ void	set_struct_cylinder(t_mrt *mrt, t_token token, int *i_id_nbt)
 	}
 	else if (i_id_nbt[2] == 3)
 	{
-		err = ft_atovec3norm(obj->norm, token.val);
+		err = ft_atovec3norm(obj->dir, token.val);
 		if (err != NO_ERROR)
 			i_id_nbt[1] = err;
 		init_quad_cy(obj);
 	}
 	else
-		elseif_cylinder(token, i_id_nbt, obj);
+		elseif_cylinder(mrt, token, i_id_nbt, obj);
 }
 
 void	set_struct_sphere(t_mrt *mrt, t_token token, int *i_id_nbt)
@@ -103,7 +104,7 @@ void	set_struct_sphere(t_mrt *mrt, t_token token, int *i_id_nbt)
 			&obj->diam, token.val, i_id_nbt, ID_BAD_DIAM_S);
 	else if (i_id_nbt[2] == 4)
 	{
-		if (ft_atorgb(obj->rgb, token.val) == ERROR_RGB)
+		if (init_color_obj(mrt->amb, obj->rgb, token.val) == ERROR_RGB)
 			i_id_nbt[1] = ID_BAD_RGB;
 		init_quad_sp(obj);
 	}

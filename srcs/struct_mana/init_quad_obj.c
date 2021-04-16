@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 15:10:55 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/15 14:54:42 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 14:51:33 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	init_quad_sp(t_obj *sp)
 void	init_quad_pl(t_obj *pl)
 {
 	pl->quad->g = pl->norm->x;
-	pl->quad->g = pl->norm->y;
-	pl->quad->g = pl->norm->z;
-	pl->quad->g = -pl->norm->x * pl->center->x
+	pl->quad->h = pl->norm->y;
+	pl->quad->i = pl->norm->z;
+	pl->quad->j = -pl->norm->x * pl->center->x
 		- pl->norm->y * pl->center->y - pl->norm->z * pl->center->z;
 }
 

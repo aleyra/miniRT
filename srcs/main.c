@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/15 16:11:10 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 15:12:59 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	init_main(int ac, char *av[], t_mrt	**mrt)
 	if (!*mrt || !((*mrt)->res) || !((*mrt)->amb) || !((*mrt)->amb->rgb))
 		return (ERROR_MALLOC);
 	other[1] = ft_parsing(*mrt, other[0]);
-	print_mrt(*mrt);//
+	// print_mrt(*mrt);//
 	close(other[0]);
 	if (other[1] != 0)
 		return (other[1]);
@@ -71,7 +71,7 @@ int	main(int ac, char *av[])
 		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
 				&img.endian);
 		printf("on lance la sauce\n");
-		my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
+		my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);//
 		ray_shooter(&img, mrt);
 		mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 		mlx_loop(mlx);

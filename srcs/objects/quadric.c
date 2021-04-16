@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 13:39:51 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/15 14:47:34 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 15:12:23 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ float	inter_quad_line_sol(t_vec3 abc, float d)
 	if (abc.x == 0 && abc.y != 0)
 		return (-abc.z / abc.y);
 	if (d == 0)
-		return (abc.y * 0.5 / abc.x);
+		return (-abc.y * 0.5 / abc.x);
 	t1 = (-abc.y - sqrt(d)) * 0.5 / abc.x;
 	t2 = (-abc.y + sqrt(d)) * 0.5 / abc.x;
 	if (t1 > t2 && t2 > 0)

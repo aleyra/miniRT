@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/15 16:09:40 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 13:16:46 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,15 @@
 
 //https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
 /* Struct for miniRT ******************************************************** */
-typedef union u_rgb {
-	int	i;
-	struct {
-		unsigned char	t;
-		unsigned char	b;
-		unsigned char	g;
-		unsigned char	r;
-	};
+typedef struct s_rgb {
+	int		i;
+	int		t;
+	int		b;
+	int		g;
+	int		r;
+	float	fb;
+	float	fg;
+	float	fr;
 }	t_rgb;
 
 typedef enum e_objtype {
@@ -127,6 +128,7 @@ t_vec3	inter_quad_line_coeff(t_obj *o, t_vec3 *c, t_vec3 *r);
 float	discriminant(t_vec3 abc);
 float	inter_quad_line_sol(t_vec3 abc, float d);
 int		nb_sol(float delta);
+float	shooting_quadric(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview);
 void	ray_shooter(t_data *img, t_mrt *mrt);
 //void	def_corner_square(t_obj *sq);
 //int		in_square(t_obj sq, t_vec3 p);
@@ -250,6 +252,11 @@ enum e_type_id
 void	add_back_cam(t_mrt **mrt);
 void	add_back_light(t_mrt **mrt);
 void	add_back_obj(t_mrt **mrt);
+int		create_trgb(int t, int r, int g, int b);
+int		init_color_ambiant(t_rgb *rgb, char *str);
+void	float_color_to_char_int(t_rgb *rgb);
+int		init_color_obj(t_ambient *amb, t_rgb *rgb, char *str);
+void	add_spot(t_rgb *rgb, t_light *light);
 //void	complete_sq(t_obj *sq);
 void	complete_tr(t_obj *tr);
 void	delall_cam(t_cam **cam);

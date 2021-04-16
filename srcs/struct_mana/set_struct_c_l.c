@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:16:50 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/14 14:58:02 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 11:10:13 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	set_struct_light(t_mrt *mrt, t_token token, int *i_id_nbt)
 		assign_double_light(&light->br, token.val, i_id_nbt, ID_BAD_B_RAT);
 	else if (i_id_nbt[2] == 4)
 	{
-		if (ft_atorgb(light->rgb, token.val) == ERROR_RGB)
+		if (init_color_ambiant(light->rgb, token.val) == ERROR_RGB)
 			i_id_nbt[1] = ID_BAD_RGB;
 	}
 	else

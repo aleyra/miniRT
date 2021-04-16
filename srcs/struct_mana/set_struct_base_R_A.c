@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 08:31:49 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/13 08:37:43 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 11:04:22 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	set_struct_ambiant(t_mrt *mrt, t_token token, int *i_id_nbt)
 	}
 	else if (i_id_nbt[2] == 3)
 	{
-		if (ft_atorgb(mrt->amb->rgb, token.val) == ERROR_RGB)
+		if (init_color_ambiant(mrt->amb->rgb, token.val) == ERROR_RGB)
 			i_id_nbt[1] = ID_BAD_RGB;
 	}
 	else

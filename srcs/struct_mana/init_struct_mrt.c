@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 13:20:59 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/14 14:58:12 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 10:46:20 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ void	init_struct_mrt(t_mrt **mrt)
 	(*mrt)->amb->ratio = 0;
 	(*mrt)->amb->rgb = malloc (sizeof(t_rgb));
 	(*mrt)->amb->rgb->i = 0;
+	(*mrt)->amb->rgb->t = 0;
+	(*mrt)->amb->rgb->b = 0;
+	(*mrt)->amb->rgb->g = 0;
+	(*mrt)->amb->rgb->r = 0;
+	(*mrt)->amb->rgb->fb = 0;
+	(*mrt)->amb->rgb->fg = 0;
+	(*mrt)->amb->rgb->fr = 0;
 	(*mrt)->cam = 0;
 	(*mrt)->light = 0;
 	(*mrt)->obj = 0;
