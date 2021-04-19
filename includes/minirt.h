@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/16 13:16:46 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/19 11:31:22 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,16 @@ typedef struct s_data
 
 /* Objects ****************************************************************** */
 int		on_cylinder(t_obj *cy, t_vec3 *p);
-t_vec3	inter_quad_line_coeff(t_obj *o, t_vec3 *c, t_vec3 *r);
+int		in_halfspace_sup(float t, t_vec3 *c, t_vec3 *r, t_obj *o);
+int		in_halfspace_inf(float t, t_vec3 *c, t_vec3 *r, t_obj *o);
+t_vec3	inter_quad_line_coeff(t_quad *quad, t_vec3 *c, t_vec3 *r);
 float	discriminant(t_vec3 abc);
 float	inter_quad_line_sol(t_vec3 abc, float d);
 int		nb_sol(float delta);
-float	shooting_quadric(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview);
+float	shooting_obj(t_obj *obj, t_vec3 *ray, t_vec3 *ptofview);
+float	shooting_cylinder(t_obj *cy, t_vec3 *ray, t_vec3 *ptofview);
+float	shooting_plane(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview);
+float	shooting_sphere(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview);
 void	ray_shooter(t_data *img, t_mrt *mrt);
 //void	def_corner_square(t_obj *sq);
 //int		in_square(t_obj sq, t_vec3 p);
@@ -253,9 +258,10 @@ void	add_back_cam(t_mrt **mrt);
 void	add_back_light(t_mrt **mrt);
 void	add_back_obj(t_mrt **mrt);
 int		create_trgb(int t, int r, int g, int b);
-int		init_color_ambiant(t_rgb *rgb, char *str);
+int		init_color_initial(t_rgb *rgb, char *str);
 void	float_color_to_char_int(t_rgb *rgb);
-int		init_color_obj(t_ambient *amb, t_rgb *rgb, char *str);
+int		color_displayed(t_rgb *rgb, t_light *light, t_ambient *amb);
+//int		init_color_obj(t_ambient *amb, t_rgb *rgb, char *str);
 void	add_spot(t_rgb *rgb, t_light *light);
 //void	complete_sq(t_obj *sq);
 void	complete_tr(t_obj *tr);

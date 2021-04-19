@@ -6,30 +6,30 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 13:39:51 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/16 15:12:23 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/19 10:08:14 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 //give coeff a,b,c from ax^2+bx+c=0
-t_vec3	inter_quad_line_coeff(t_obj *o, t_vec3 *c, t_vec3 *r)
+t_vec3	inter_quad_line_coeff(t_quad *quad, t_vec3 *c, t_vec3 *r)
 {
 	t_vec3	abc;
 
-	abc.x = o->quad->a * pow(r->x, 2) + o->quad->b * pow(r->y, 2) + o->quad->c
-		* pow(r->z, 2) + 2 * o->quad->d * r->y * r->z + 2 * o->quad->e * r->x
-		* r->z + 2 * o->quad->f * r->x * r->y;
-	abc.y = 2 * o->quad->a * c->x * r->x + 2 * o->quad->b * c->y * r->y + 2
-		* o->quad->c * c->z * r->z + 2 * o->quad->d * c->z * r->y + 2
-		* o->quad->d * c->y * r->z + 2 * o->quad->e * c->x * r->z + 2
-		* o->quad->e * c->z * r->x + 2 * o->quad->f * c->x * r->y + 2
-		* o->quad->f * c->y * r->x + o->quad->g * r->x + o->quad->h * r->y
-		+ o->quad->i * r->z;
-	abc.z = o->quad->a * pow(c->x, 2) + o->quad->b * pow(c->y, 2) + o->quad->c
-		* pow(c->z, 2) + 2 * o->quad->d * c->y * c->z + 2 * o->quad->e * c->x
-		* c->z + 2 * o->quad->f * c->x * c->y + o->quad->g * c->x + o->quad->h
-		* c->y + o->quad->i * c->z + o->quad->j;
+	abc.x = quad->a * pow(r->x, 2) + quad->b * pow(r->y, 2) + quad->c
+		* pow(r->z, 2) + 2 * quad->d * r->y * r->z + 2 * quad->e * r->x
+		* r->z + 2 * quad->f * r->x * r->y;
+	abc.y = 2 * quad->a * c->x * r->x + 2 * quad->b * c->y * r->y + 2
+		* quad->c * c->z * r->z + 2 * quad->d * c->z * r->y + 2
+		* quad->d * c->y * r->z + 2 * quad->e * c->x * r->z + 2
+		* quad->e * c->z * r->x + 2 * quad->f * c->x * r->y + 2
+		* quad->f * c->y * r->x + quad->g * r->x + quad->h * r->y
+		+ quad->i * r->z;
+	abc.z = quad->a * pow(c->x, 2) + quad->b * pow(c->y, 2) + quad->c
+		* pow(c->z, 2) + 2 * quad->d * c->y * c->z + 2 * quad->e * c->x
+		* c->z + 2 * quad->f * c->x * c->y + quad->g * c->x + quad->h
+		* c->y + quad->i * c->z + quad->j;
 	return (abc);
 }
 

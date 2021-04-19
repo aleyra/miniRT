@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:40 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/16 13:11:49 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/19 10:27:55 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,48 @@ int	on_cylinder(t_obj *cy, t_vec3 *p)
 	*p = rotation_around_z(rotation_around_y(*p, r1), r2);
 	*(cy->center) = rotation_around_z(rotation_around_y(*(cy->center), r1), r2);
 	return (1);
+}
+
+int	in_halfspace_sup(float t, t_vec3 *c, t_vec3 *r, t_obj *o)
+{
+	t_quad	qpl;
+	t_vec3	v;
+
+	qpl.a = 0;
+	qpl.b = 0;
+	qpl.c = 0;
+	qpl.d = 0;
+	qpl.e = 0;
+	qpl.f = 0;
+	qpl.g = o->norm->x;
+	qpl.h = o->norm->y;
+	qpl.i = o->norm->z;
+	qpl.j = -qpl.g * o->center->x - qpl.h * o->center->y - qpl.i * o->center->z;
+	v = inter_quad_line_coeff(&qpl, c, r);
+	if (t * v.y + v.z > 0)
+		return (1);
+	else
+		return (0);
+}
+
+int	in_halfspace_inf(float t, t_vec3 *c, t_vec3 *r, t_obj *o)
+{
+	t_quad	qpl;
+	t_vec3	v;
+
+	qpl.a = 0;
+	qpl.b = 0;
+	qpl.c = 0;
+	qpl.d = 0;
+	qpl.e = 0;
+	qpl.f = 0;
+	qpl.g = o->norm->x;
+	qpl.h = o->norm->y;
+	qpl.i = o->norm->z;
+	qpl.j = -qpl.g * o->a->x - qpl.h * o->a->y - qpl.i * o->a->z;
+	v = inter_quad_line_coeff(&qpl, c, r);
+	if (t * v.y + v.z < 0)
+		return (1);
+	else
+		return (0);
 }
