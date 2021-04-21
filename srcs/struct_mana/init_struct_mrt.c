@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 13:20:59 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/16 10:46:20 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 13:56:02 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ void	init_struct_light(t_light **li)
 	(*li)->br = 0;
 	(*li)->rgb = malloc (sizeof(t_rgb));
 	(*li)->rgb->i = 0;
+	(*li)->rgb->t = 0;
+	(*li)->rgb->r = 0;
+	(*li)->rgb->g = 0;
+	(*li)->rgb->b = 0;
+	(*li)->rgb->fr = 0;
+	(*li)->rgb->fg = 0;
+	(*li)->rgb->fb = 0;
 	(*li)->next = 0;
 }
 
@@ -79,6 +86,13 @@ void	init_struct_obj(t_obj **obj)
 	(*obj)->len = 0;
 	(*obj)->rgb = malloc (sizeof(t_rgb));
 	(*obj)->rgb->i = 0;
+	(*obj)->rgb->t = 0;
+	(*obj)->rgb->r = 0;
+	(*obj)->rgb->g = 0;
+	(*obj)->rgb->b = 0;
+	(*obj)->rgb->fr = 0;
+	(*obj)->rgb->fg = 0;
+	(*obj)->rgb->fb = 0;
 	(*obj)->dir = malloc (sizeof(t_vec3));
 	init_tvec3_to_0((*obj)->dir);
 	(*obj)->height = 0;

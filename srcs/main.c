@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/16 15:12:59 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 13:56:40 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	init_main(int ac, char *av[], t_mrt	**mrt)
 	if (!*mrt || !((*mrt)->res) || !((*mrt)->amb) || !((*mrt)->amb->rgb))
 		return (ERROR_MALLOC);
 	other[1] = ft_parsing(*mrt, other[0]);
-	// print_mrt(*mrt);//
+	print_mrt(*mrt);//
 	close(other[0]);
 	if (other[1] != 0)
 		return (other[1]);

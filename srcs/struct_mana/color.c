@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 10:43:39 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/19 11:30:21 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 14:46:57 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 //from https://harm-smits.github.io/42docs/libs/minilibx/colors.html
 int	create_trgb(int t, int r, int g, int b)
 {
+	if (r > 255 || g > 255 || b > 255)
+		exit(17);
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
@@ -22,11 +24,9 @@ int	init_color_initial(t_rgb *rgb, char *str)
 {
 	int	err;
 
-	// printf("couleur du ficher : %s\n", str);//
 	err = ft_atorgb(rgb, str);
 	if (err == ERROR_RGB)
 		return (ERROR_RGB);
-	// printf("couleur obtenue apres atorgb %d,%d,%d\n\n", rgb->r, rgb->g, rgb->b);//
 	rgb->i = create_trgb(rgb->t, rgb->r, rgb->g, rgb->b);
 	rgb->fr = rgb->r / 255;
 	rgb->fg = rgb->g / 255;
@@ -37,27 +37,16 @@ int	init_color_initial(t_rgb *rgb, char *str)
 void	float_color_to_char_int(t_rgb *rgb)
 {
 	rgb->r = rgb->fr * 255;
+	if (rgb->r > 255)
+		rgb->r = 255;
 	rgb->g = rgb->fg * 255;
+	if (rgb->g > 255)
+		rgb->g = 255;
 	rgb->b = rgb->fb * 255;
+	if (rgb->b > 255)
+		rgb->b = 255;
 	rgb->i = create_trgb(rgb->t, rgb->r, rgb->g, rgb->b);
 }
-
-// int	init_color_obj(t_ambient *amb, t_rgb *rgb, char *str)
-// {
-// 	int	err;
-
-// 	//printf("couleur du ficher : %s\n", str);//
-// 	err = ft_atorgb(rgb, str);
-// 	if (err == ERROR_RGB)
-// 		return (ID_BAD_RGB);
-// 	// printf("couleur obtenue apres atorgb %d,%d,%d\n", rgb->r, rgb->g, rgb->b);//
-// 	rgb->fr = (rgb->r / 255) * amb->rgb->fr * amb->ratio;
-// 	rgb->fg = (rgb->g / 255) * amb->rgb->fg * amb->ratio;
-// 	rgb->fb = (rgb->b / 255) * amb->rgb->fb * amb->ratio;
-// 	float_color_to_char_int(rgb);
-// 	// printf("couleur obtenue apres application de amb %d,%d,%d\n\n", rgb->r, rgb->g, rgb->b);//
-// 	return (NO_ERROR);
-// }
 
 int	color_displayed(t_rgb *rgb, t_light *light, t_ambient *amb)
 {
@@ -70,17 +59,36 @@ int	color_displayed(t_rgb *rgb, t_light *light, t_ambient *amb)
 	rl.fb = rgb->fb * amb->rgb->fb * amb->ratio;
 	while (l)
 	{
-		rl.fr += rgb->fr * l->rgb->fr;
-		rl.fg += rgb->fg * l->rgb->fg;
-		rl.fb += rgb->fb * l->rgb->fb;
+		rl.fr += rgb->fr * l->rgb->fr * l->br;
+		rl.fg += rgb->fg * l->rgb->fg * l->br;
+		rl.fb += rgb->fb * l->rgb->fb * l->br;
 		l = l->next;
 	}
-	if (rl.fr > 1)
-		rl.fr = 1;
-	if (rl.fg > 1)
-		rl.fg = 1;
-	if (rl.fb > 1)
-		rl.fr = 1;
 	float_color_to_char_int(&rl);
 	return (rl.i);
+}
+
+t_rgb	color_obj_and_amb(t_rgb *objc, t_ambient *amb)
+{
+	t_rgb	rl;
+
+	rl.fr = objc->fr * amb->rgb->fr * amb->ratio;
+	rl.fg = objc->fg * amb->rgb->fg * amb->ratio;
+	rl.fb = objc->fb * amb->rgb->fb * amb->ratio;
+	float_color_to_char_int(&rl);
+	return (rl);
+}
+
+t_rgb	color_plus_light(t_rgb *color, t_light *light, float angle, t_rgb *objc)
+{
+	t_rgb	rl;
+
+	rl.fr = color->r;
+	rl.fg = color->g;
+	rl.fb = color->b;
+	rl.fr += objc->fr * light->rgb->fr * light->br * angle;
+	rl.fg += objc->fg * light->rgb->fg * light->br * angle;
+	rl.fb += objc->fb * light->rgb->fb * light->br * angle;
+	float_color_to_char_int(&rl);
+	return (rl);
 }

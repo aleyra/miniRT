@@ -6,39 +6,11 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:40 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/19 10:27:55 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 16:31:35 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static int	on_circle(t_vec3 *center, float diam, t_vec3 *p)
-{
-	float	eq;
-
-	eq = pow(p->x - center->x, 2) + pow(p->y - center->y, 2) - pow(
-			diam * 0.5, 2);
-	return (eq <= 0.001f && eq >= -0.001f);
-}
-
-int	on_cylinder(t_obj *cy, t_vec3 *p)
-{
-	float	r1;
-	float	r2;
-
-	r1 = angle_one_polaris(cy->dir);
-	r2 = angle_two_polaris(cy->dir);
-	*p = rotation_around_y(rotation_around_z(*p, -r2), -r1);
-	*(cy->center) = rotation_around_y(
-			rotation_around_z(*(cy->center), -r2), -r1);
-	if (!(p->z >= cy->center->z && p->z <= cy->center->z + cy->height))
-		return (0);
-	if (!(on_circle(cy->center, cy->diam, p)))
-		return (0);
-	*p = rotation_around_z(rotation_around_y(*p, r1), r2);
-	*(cy->center) = rotation_around_z(rotation_around_y(*(cy->center), r1), r2);
-	return (1);
-}
 
 int	in_halfspace_sup(float t, t_vec3 *c, t_vec3 *r, t_obj *o)
 {
@@ -82,4 +54,16 @@ int	in_halfspace_inf(float t, t_vec3 *c, t_vec3 *r, t_obj *o)
 		return (1);
 	else
 		return (0);
+}
+
+t_vec3	normal_to_cy(t_vec3 *n, t_vec3 pt, t_vec3 *o)
+{
+	float	t;
+	t_vec3	v;
+
+	t = (o->x - pt.x) * n->x + (o->y - pt.y) * n->y + (o->z - pt.z) * n->z;
+	v.x = o->x + t * n->x - pt.x;
+	v.y = o->y + t * n->y - pt.y;
+	v.z = o->z + t * n->z - pt.z;
+	return (v);
 }
