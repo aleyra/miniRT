@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:43:12 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/19 11:38:12 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 13:05:29 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ static void	elseif_triangle(t_token token, int *i_id_nbt, t_obj *o)
 			i_id_nbt[1] = ID_BAD_PT;
 		else if (!check_not_aligned(o->a, o->b, o->b))
 			i_id_nbt[1] = ID_BAD_PTS_T;
+		*(o->norm) = normal_of_tr(o->a, o->b, o->c);
+		make_vec3_norm(o->norm);
+		init_quad_pl(o);
 	}
 	else if (i_id_nbt[2] == 5)
 	{

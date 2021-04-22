@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 15:10:55 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/16 14:51:33 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 15:51:41 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,11 @@ void	init_quad_cy(t_obj *cy)
 			* cy->center->y + cy->dir->y * cy->dir->z * cy->center->z);
 	cy->quad->i = 2 * (cy->dir->x * cy->dir->z * cy->center->x + cy->dir->y
 			* cy->dir->z * cy->center->y - cy->quad->c * cy->center->z);
-	cy->quad->j = (pow(cy->center->y, 2) + pow(cy->center->z, 2) - 1) * pow(
-			cy->dir->x, 2) + (pow(cy->center->x, 2) + pow(cy->center->z, 2) - 1)
-		* pow(cy->dir->y, 2) + (pow(cy->center->x, 2) + pow(
-				cy->center->y, 2) - 1) * pow(cy->dir->z, 2) - 2 * (cy->dir->y
-			* cy->dir->z * cy->center->y *cy->center->z + cy->dir->x
-			* cy->dir->z * cy->center->x * cy->center->z + cy->dir->x
-			* cy->dir->y * cy->center->x * cy->center->y) - pow(
-			cy->diam * 0.5, 2);
+	cy->quad->j = (pow(cy->center->y, 2) + pow(cy->center->z, 2))
+		* pow(cy->dir->x, 2) + (pow(cy->center->x, 2) + pow(cy->center->z, 2))
+		* pow(cy->dir->y, 2) + (pow(cy->center->x, 2) + pow(cy->center->y, 2))
+		* pow(cy->dir->z, 2) - 2 * (cy->dir->y * cy->dir->z * cy->center->y
+			* cy->center->z + cy->dir->x * cy->dir->z * cy->center->x
+			* cy->center->z + cy->dir->x * cy->dir->y * cy->center->x
+			* cy->center->y) - pow(cy->diam * 0.5, 2);
 }

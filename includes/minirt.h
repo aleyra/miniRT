@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/21 16:39:52 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 12:52:21 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,11 +140,12 @@ int		nb_sol(float delta);
 t_coll	shooting_obj(t_obj *obj, t_vec3 *ray, t_vec3 *ptofview);
 t_coll	shooting_cylinder(t_obj *cy, t_vec3 *ray, t_vec3 *ptofview);
 t_coll	shooting_plane(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview);
+t_coll	shooting_triangle(t_obj *tr, t_vec3 *ray, t_vec3 *ptofview);
 t_coll	shooting_sphere(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview);
 void	ray_shooter(t_data *img, t_mrt *mrt);
 //void	def_corner_square(t_obj *sq);
 //int		in_square(t_obj sq, t_vec3 p);
-int		in_triangle(t_obj tr, t_vec3 p);
+int		in_triangle(t_obj *tr, t_vec3 p);
 
 /* Tool_box ***************************************************************** */
 int		ft_atorgb(t_rgb *rgb, char *str);

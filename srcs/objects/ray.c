@@ -6,28 +6,11 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:46:54 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/21 16:37:35 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 15:53:46 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-t_coll	shooting_obj(t_obj *obj, t_vec3 *ray, t_vec3 *ptofview)
-{
-	t_coll	col;
-
-	col.t = 0;
-	col.n.x = 0;
-	col.n.y = 0;
-	col.n.z = 0;
-	if (obj->type == TYPE_SPHERE)
-		return (shooting_sphere(obj, ray, ptofview));
-	if (obj->type == TYPE_CYLINDER)
-		return (shooting_cylinder(obj, ray, ptofview));
-	if (obj->type == TYPE_PLANE)
-		return (shooting_plane(obj, ray, ptofview));
-	return (col);
-}
 
 t_coll	shooting_cylinder(t_obj *cy, t_vec3 *ray, t_vec3 *ptofview)
 {
@@ -43,61 +26,17 @@ t_coll	shooting_cylinder(t_obj *cy, t_vec3 *ray, t_vec3 *ptofview)
 	v = inter_quad_line_coeff(cy->quad, ptofview, ray);
 	d = discriminant(v);
 	n = nb_sol(d);
+	printf("%d", n);//
 	if (d == 0)
 		return (col);
 	d = inter_quad_line_sol(v, d);
-	if (in_halfspace_inf(d, ptofview, ray, cy) && in_halfspace_sup(
-			d, ptofview, ray, cy))
-	{
+	// if (in_halfspace_inf(d, ptofview, ray, cy) && in_halfspace_sup(
+	// 		d, ptofview, ray, cy))
+	// {
 		col.t = d;
 		col.n = normal_to_cy(
 				cy->dir, sum_alg_2vec3(1, ptofview, d, ray), cy->center);
-	}
-	return (col);
-}
-
-t_coll	shooting_plane(t_obj *pl, t_vec3 *ray, t_vec3 *ptofview)
-{
-	t_vec3	v;
-	float	d;
-	t_coll	col;
-
-	col.t = 0;
-	col.n.x = 0;
-	col.n.y = 0;
-	col.n.z = 0;
-	v = inter_quad_line_coeff(pl->quad, ptofview, ray);
-	d = discriminant(v);
-	d = inter_quad_line_sol(v, d);
-	if (d > 0)
-	{
-		col.t = d;
-		col.n = *(pl->norm);
-	}
-	return (col);
-}
-
-t_coll	shooting_sphere(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview)
-{
-	t_vec3	v;
-	float	d;
-	int		n;
-	t_coll	col;
-
-	col.t = 0;
-	col.n.x = 0;
-	col.n.y = 0;
-	col.n.z = 0;
-	v = inter_quad_line_coeff(sp->quad, ptofview, ray);
-	d = discriminant(v);
-	n = nb_sol(d);
-	d = inter_quad_line_sol(v, d);
-	if (d > 0)
-	{
-		col.t = d;
-		col.n = sum_alg_2vec3(1, ptofview, col.t, ray);
-		col.n = sum_alg_2vec3(1, &(col.n), -1, sp->center);
-	}
+	// }
 	return (col);
 }
 

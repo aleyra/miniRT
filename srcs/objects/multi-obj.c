@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 10:55:17 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/22 10:50:47 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 15:53:15 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ int	ray_trace(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview)
 	t_obj	*obj;
 	t_rgb	color;
 	// t_light	*li;
-	// t_vec3	nray;
-	// t_coll	c;
+	// t_vec3	inter;
+	// // t_coll	c;
+	// t_vec3	lray;
 
 	tf = INFINITY;
 	obj = mrt->obj;
@@ -60,23 +61,22 @@ int	ray_trace(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview)
 	if (!of)
 		return (0);
 	color = color_obj_and_amb(of->rgb, mrt->amb);
-	// nray = sum_alg_2vec3(1, ptofview, tf, ray);
+	// inter = sum_alg_2vec3(1, ptofview, tf, ray);
 	// li = mrt->light;
 	// while (li)
 	// {
-	// 	obj = mrt->obj;
-	// 	while (obj)
-	// 	{
-	// 		if (of != obj)
-	// 		{
-	// 			c = shooting_obj(obj, &nray, li->lightpt);
-	// 			if (c.t == 0)
-	// 				color = color_plus_light(&color, li, 1 /*find_angle(
-	// 							sum_alg_2vec3(
-	// 								1, li->lightpt, -1, &nray), c.n)*/, of->rgb);
-	// 		}
-	// 		obj = obj->next;
-	// 	}
+	// // 	obj = mrt->obj;
+	// 	// while (obj)
+	// 	// {
+	// 		// if (of != obj)
+	// 		// {
+	// 			lray = sum_alg_2vec3(1, &inter, -1, li->lightpt);
+	// 			// c = shooting_obj(obj, &lray, li->lightpt);
+	// 			// if (c.t == 0)
+	// 				color = color_plus_light(&color, li, 1, of->rgb);
+	// 		// }
+	// 		// obj = obj->next;
+	// 	// }
 	// 	li = li->next;
 	// }
 	return (color.i);
