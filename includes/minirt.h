@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/21 16:31:55 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 16:39:52 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ typedef struct s_coll
 int		in_halfspace_sup(float t, t_vec3 *c, t_vec3 *r, t_obj *o);
 int		in_halfspace_inf(float t, t_vec3 *c, t_vec3 *r, t_obj *o);
 t_vec3	normal_to_cy(t_vec3 *n, t_vec3 pt, t_vec3 *o);
+int		ray_trace(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview);
 t_vec3	inter_quad_line_coeff(t_quad *quad, t_vec3 *c, t_vec3 *r);
 float	discriminant(t_vec3 abc);
 float	inter_quad_line_sol(t_vec3 abc, float d);

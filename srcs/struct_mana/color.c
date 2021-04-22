@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 10:43:39 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/21 14:46:57 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 10:49:29 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ t_rgb	color_plus_light(t_rgb *color, t_light *light, float angle, t_rgb *objc)
 {
 	t_rgb	rl;
 
-	rl.fr = color->r;
-	rl.fg = color->g;
-	rl.fb = color->b;
+	rl.fr = color->fr;
+	rl.fg = color->fg;
+	rl.fb = color->fb;
 	rl.fr += objc->fr * light->rgb->fr * light->br * angle;
 	rl.fg += objc->fg * light->rgb->fg * light->br * angle;
 	rl.fb += objc->fb * light->rgb->fb * light->br * angle;
