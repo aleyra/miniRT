@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 12:50:12 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/23 14:47:30 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 15:13:14 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ t_coll	shooting_obj(t_obj *obj, t_vec3 *ray, t_vec3 *ptofview)
 	t_coll	col;
 
 	col.t = 0;
-	col.n.x = 0;
-	col.n.y = 0;
-	col.n.z = 0;
+	init_tvec3_to_0(&(col.n));
 	if (obj->type == TYPE_SPHERE)
 		return (shooting_sphere(obj, ray, ptofview));
 	if (obj->type == TYPE_CYLINDER)
@@ -41,9 +39,7 @@ t_coll	shooting_sphere(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview)
 	t_coll	col;
 
 	col.t = 0;
-	col.n.x = 0;
-	col.n.y = 0;
-	col.n.z = 0;
+	init_tvec3_to_0(&(col.n));
 	v = inter_quad_line_coeff(sp->quad, ptofview, ray);
 	d = discriminant(v);
 	n = nb_sol(d);
@@ -64,9 +60,7 @@ t_coll	shooting_plane(t_obj *pl, t_vec3 *ray, t_vec3 *ptofview)
 	t_coll	col;
 
 	col.t = 0;
-	col.n.x = 0;
-	col.n.y = 0;
-	col.n.z = 0;
+	init_tvec3_to_0(&(col.n));
 	v = inter_quad_line_coeff(pl->quad, ptofview, ray);
 	d = discriminant(v);
 	d = inter_quad_line_sol(v, d);
@@ -85,9 +79,7 @@ t_coll	shooting_triangle(t_obj *tr, t_vec3 *ray, t_vec3 *ptofview)
 	t_coll	col;
 
 	col.t = 0;
-	col.n.x = 0;
-	col.n.y = 0;
-	col.n.z = 0;
+	init_tvec3_to_0(&(col.n));
 	v = inter_quad_line_coeff(tr->quad, ptofview, ray);
 	d = discriminant(v);
 	d = inter_quad_line_sol(v, d);
@@ -106,9 +98,7 @@ t_coll	shooting_square(t_obj *sq, t_vec3 *ray, t_vec3 *ptofview)
 	t_coll	col;
 
 	col.t = 0;
-	col.n.x = 0;
-	col.n.y = 0;
-	col.n.z = 0;
+	init_tvec3_to_0(&(col.n));
 	v = inter_quad_line_coeff(sq->quad, ptofview, ray);
 	d = discriminant(v);
 	d = inter_quad_line_sol(v, d);

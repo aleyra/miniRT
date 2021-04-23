@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 10:43:39 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/22 14:15:35 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 15:31:10 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,13 @@ void	float_color_to_char_int(t_rgb *rgb)
 	rgb->i = create_trgb(rgb->t, rgb->r, rgb->g, rgb->b);
 }
 
-int	color_displayed(t_rgb *rgb, t_light *light, t_ambient *amb)
+int	color_displayed(t_rgb *rgb, t_light *light, t_ambient *amb, t_coll col, t_vec3 p)//vouer a disparaitre
 {
 	t_light	*l;
 	t_rgb	rl;
+	float	angle;
+	t_vec3	an;
+	t_vec3	bn;
 
 	l = light;
 	rl.fr = rgb->fr * amb->rgb->fr * amb->ratio;
@@ -59,9 +62,14 @@ int	color_displayed(t_rgb *rgb, t_light *light, t_ambient *amb)
 	rl.fb = rgb->fb * amb->rgb->fb * amb->ratio;
 	while (l)
 	{
-		rl.fr += rgb->fr * l->rgb->fr * l->br;
-		rl.fg += rgb->fg * l->rgb->fg * l->br;
-		rl.fb += rgb->fb * l->rgb->fb * l->br;
+		an = sum_alg_2vec3(1, light->lightpt, -1, &p);
+		make_vec3_norm(&an);
+		bn = col.n;
+		make_vec3_norm(&bn);
+		angle = acos(an.x * bn.x + an.y * bn.y + an.z * bn.z);
+		rl.fr += rgb->fr * l->rgb->fr * l->br * angle;
+		rl.fg += rgb->fg * l->rgb->fg * l->br * angle;
+		rl.fb += rgb->fb * l->rgb->fb * l->br * angle;
 		l = l->next;
 	}
 	float_color_to_char_int(&rl);

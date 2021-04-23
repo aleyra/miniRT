@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/23 14:46:44 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 15:27:10 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,7 +270,7 @@ void	add_back_obj(t_mrt **mrt);
 int		create_trgb(int t, int r, int g, int b);
 int		init_color_initial(t_rgb *rgb, char *str);
 void	float_color_to_char_int(t_rgb *rgb);
-int		color_displayed(t_rgb *rgb, t_light *light, t_ambient *amb);
+int		color_displayed(t_rgb *rgb, t_light *light, t_ambient *amb, t_coll col, t_vec3 p);//
 t_rgb	color_obj_and_amb(t_rgb *objc, t_ambient *amb);
 t_rgb	color_plus_light(
 			t_rgb *color, t_light *light, float angle, t_rgb *objc);
