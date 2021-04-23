@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 12:50:12 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/23 13:42:43 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 14:47:30 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,8 @@ t_coll	shooting_square(t_obj *sq, t_vec3 *ray, t_vec3 *ptofview)
 	v = inter_quad_line_coeff(sq->quad, ptofview, ray);
 	d = discriminant(v);
 	d = inter_quad_line_sol(v, d);
-	if (d > 0)
-		//printf("0");//
 	if (d > 0 && in_square(sq, sum_alg_2vec3(1, ptofview, d, ray)) == 1)
 	{
-		printf("1");//
 		col.t = d;
 		col.n = *(sq->norm);
 	}

@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/23 13:41:32 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 14:46:44 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,13 +146,13 @@ t_coll	shooting_square(t_obj *sq, t_vec3 *ray, t_vec3 *ptofview);
 t_coll	shooting_sphere(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview);
 void	ray_shooter(t_data *img, t_mrt *mrt);
 int		in_square(t_obj *sq, t_vec3 p);
-//void	complete_sq4(t_obj *sq); because list in struct managing
 int		in_triangle(t_obj *tr, t_vec3 p);
 
 /* Tool_box ***************************************************************** */
 int		ft_atorgb(t_rgb *rgb, char *str);
 int		ft_atovec3norm(t_vec3 *v, char *str);
 int		ft_atovec3(t_vec3 *v, char *str);
+t_vec3	vec3_rotate_axis(t_vec3 v, t_vec3 axis, float rad);
 
 /* Parsing ****************************************************************** */
 typedef enum e_type_token
@@ -276,7 +276,6 @@ t_rgb	color_plus_light(
 			t_rgb *color, t_light *light, float angle, t_rgb *objc);
 void	add_spot(t_rgb *rgb, t_light *light);
 void	complete_sq(t_obj *sq);
-void	complete_sq4(t_obj *sq);//in square.c	
 void	complete_tr(t_obj *tr);
 void	delall_cam(t_cam **cam);
 void	delall_light(t_light **light);
