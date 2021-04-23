@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/22 12:52:21 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 13:41:32 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_obj
 	t_vec3			*a;
 	t_vec3			*b;
 	t_vec3			*c;
+	t_vec3			*d;
 	t_quad			*quad;
 	t_objtype		type;
 }	t_obj;
@@ -141,10 +142,11 @@ t_coll	shooting_obj(t_obj *obj, t_vec3 *ray, t_vec3 *ptofview);
 t_coll	shooting_cylinder(t_obj *cy, t_vec3 *ray, t_vec3 *ptofview);
 t_coll	shooting_plane(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview);
 t_coll	shooting_triangle(t_obj *tr, t_vec3 *ray, t_vec3 *ptofview);
+t_coll	shooting_square(t_obj *sq, t_vec3 *ray, t_vec3 *ptofview);
 t_coll	shooting_sphere(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview);
 void	ray_shooter(t_data *img, t_mrt *mrt);
-//void	def_corner_square(t_obj *sq);
-//int		in_square(t_obj sq, t_vec3 p);
+int		in_square(t_obj *sq, t_vec3 p);
+//void	complete_sq4(t_obj *sq); because list in struct managing
 int		in_triangle(t_obj *tr, t_vec3 p);
 
 /* Tool_box ***************************************************************** */
@@ -273,7 +275,8 @@ t_rgb	color_obj_and_amb(t_rgb *objc, t_ambient *amb);
 t_rgb	color_plus_light(
 			t_rgb *color, t_light *light, float angle, t_rgb *objc);
 void	add_spot(t_rgb *rgb, t_light *light);
-//void	complete_sq(t_obj *sq);
+void	complete_sq(t_obj *sq);
+void	complete_sq4(t_obj *sq);//in square.c	
 void	complete_tr(t_obj *tr);
 void	delall_cam(t_cam **cam);
 void	delall_light(t_light **light);
@@ -282,10 +285,12 @@ void	free_mrt(t_mrt	*mrt);
 void	init_quad_sp(t_obj *sp);
 void	init_quad_pl(t_obj *pl);
 void	init_quad_cy(t_obj *cy);
+void	init_quad_tr(t_obj *tr);
 void	init_struct_obj(t_obj **obj);
 void	init_struct_light(t_light **li);
 void	init_struct_cam(t_cam **cam);
 void	init_struct_mrt(t_mrt **mrt);
+void	init_struct_rgb(t_rgb *rgb);
 t_cam	*lstlast_cam(t_cam *cam);
 t_light	*lstlast_light(t_light *light);
 t_obj	*lstlast_obj(t_obj *lst);

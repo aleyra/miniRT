@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 13:20:59 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/21 13:56:02 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 10:28:04 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,7 @@ void	init_struct_mrt(t_mrt **mrt)
 	(*mrt)->amb = malloc (sizeof(t_ambient));
 	(*mrt)->amb->ratio = 0;
 	(*mrt)->amb->rgb = malloc (sizeof(t_rgb));
-	(*mrt)->amb->rgb->i = 0;
-	(*mrt)->amb->rgb->t = 0;
-	(*mrt)->amb->rgb->b = 0;
-	(*mrt)->amb->rgb->g = 0;
-	(*mrt)->amb->rgb->r = 0;
-	(*mrt)->amb->rgb->fb = 0;
-	(*mrt)->amb->rgb->fg = 0;
-	(*mrt)->amb->rgb->fr = 0;
+	init_struct_rgb((*mrt)->amb->rgb);
 	(*mrt)->cam = 0;
 	(*mrt)->light = 0;
 	(*mrt)->obj = 0;
@@ -52,14 +45,7 @@ void	init_struct_light(t_light **li)
 	init_tvec3_to_0((*li)->lightpt);
 	(*li)->br = 0;
 	(*li)->rgb = malloc (sizeof(t_rgb));
-	(*li)->rgb->i = 0;
-	(*li)->rgb->t = 0;
-	(*li)->rgb->r = 0;
-	(*li)->rgb->g = 0;
-	(*li)->rgb->b = 0;
-	(*li)->rgb->fr = 0;
-	(*li)->rgb->fg = 0;
-	(*li)->rgb->fb = 0;
+	init_struct_rgb((*li)->rgb);
 	(*li)->next = 0;
 }
 
@@ -85,14 +71,7 @@ void	init_struct_obj(t_obj **obj)
 	init_tvec3_to_0((*obj)->center);
 	(*obj)->len = 0;
 	(*obj)->rgb = malloc (sizeof(t_rgb));
-	(*obj)->rgb->i = 0;
-	(*obj)->rgb->t = 0;
-	(*obj)->rgb->r = 0;
-	(*obj)->rgb->g = 0;
-	(*obj)->rgb->b = 0;
-	(*obj)->rgb->fr = 0;
-	(*obj)->rgb->fg = 0;
-	(*obj)->rgb->fb = 0;
+	init_struct_rgb((*obj)->rgb);
 	(*obj)->dir = malloc (sizeof(t_vec3));
 	init_tvec3_to_0((*obj)->dir);
 	(*obj)->height = 0;
@@ -102,6 +81,8 @@ void	init_struct_obj(t_obj **obj)
 	init_tvec3_to_0((*obj)->b);
 	(*obj)->c = malloc (sizeof(t_vec3));
 	init_tvec3_to_0((*obj)->c);
+	(*obj)->d = malloc (sizeof(t_vec3));
+	init_tvec3_to_0((*obj)->d);
 	(*obj)->quad = malloc (sizeof(t_quad));
 	init_struct_quad((*obj)->quad);
 	(*obj)->type = 0;

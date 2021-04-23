@@ -6,47 +6,50 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 13:14:02 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/15 16:00:22 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 11:25:30 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// void	def_corner_square(t_obj *sq)
-// {
-// 	float	r1;
-// 	float	r2;
-// 	t_vec3	*i;
-// 	t_vec3	*j;
+int	in_square(t_obj *sq, t_vec3 p)
+{
+	t_vec3	edge[3];
+	t_vec3	c[3];
 
-// 	r1 = angle_one_polaris(sq->norm);
-// 	r2 = angle_two_polaris(sq->norm);
-// 	i = malloc(sizeof(t_vec3));
-// 	j = malloc(sizeof(t_vec3));
-// 	*(sq->center) = rotation_around_y(
-// 			rotation_around_z(*(sq->center), -r2), -r1);
-// 	init_tvec3_to_1x(i);
-// 	init_tvec3_to_1y(j);
-// 	*(sq->a) = sum_alg_2vec3(1, sq->norm, -0.5 * sq->len, i);
-// 	*(sq->a) = sum_alg_2vec3(1, sq->a, 0.5 * sq->len, j);
-// 	*(sq->b) = sum_alg_2vec3(1, sq->a, sq->len, i);
-// 	*(sq->c) = sum_alg_2vec3(1, sq->b, -1 * sq->len, j);
-// 	*(sq->d) = sum_alg_2vec3(1, sq->c, -1 * sq->len, i);
-// 	free(i);
-// 	free(j);
-// 	*(sq->center) = rotation_around_z(rotation_around_y(*(sq->center), r1), r2);
-// 	*(sq->a) = rotation_around_z(rotation_around_y(*(sq->a), r1), r2);
-// 	*(sq->b) = rotation_around_z(rotation_around_y(*(sq->b), r1), r2);
-// 	*(sq->c) = rotation_around_z(rotation_around_y(*(sq->c), r1), r2);
-// 	*(sq->d) = rotation_around_z(rotation_around_y(*(sq->d), r1), r2);
-// }
+	if (in_triangle(sq, p))
+		return (1);
+	edge[0] = sum_alg_2vec3(1, sq->c, -1, sq->b);
+	edge[1] = sum_alg_2vec3(1, sq->d, -1, sq->c);
+	edge[2] = sum_alg_2vec3(1, sq->b, -1, sq->d);
+	c[0] = sum_alg_2vec3(1, &p, -1, sq->b);
+	c[1] = sum_alg_2vec3(1, &p, -1, sq->c);
+	c[2] = sum_alg_2vec3(1, &p, -1, sq->d);
+	if (dot_prod(*(sq->norm), cross_prod(edge[0], c[0])) > 0
+		&& dot_prod(*(sq->norm), cross_prod(edge[1], c[1])) > 0
+		&& dot_prod(*(sq->norm), cross_prod(edge[2], c[2])) > 0)
+		return (1);
+	return (0);
+}
 
-// int	in_square(t_obj sq, t_vec3 p)
-// {
-// 	if (!in_plane(sq.center, sq.norm, &p))
-// 		return (0);
-// 	if (!(in_angular_sector(sq.a, sq.b, sq.c, &p) && in_angular_sector(
-// 				sq.c, sq.d, sq.a, &p)))
-// 		return (0);
-// 	return (1);
-// }
+void	complete_sq4(t_obj *sq)
+{
+	t_vec3	abc;
+	float	d;
+
+	if (sq->norm->x == 0 && sq->norm->y == 0 && sq->norm->z != 0)
+	{
+		abc.x = 1;
+		abc.y = -2 * sq->center->x;
+		abc.z = pow(sq->center->x, 2) - 0.5 * pow(sq->len, 2);
+		d = discriminant(abc);
+		sq->a->x = (-abc.y - sqrt(d)) * 0.5 / abc.x;
+		sq->c->x = (-abc.y + sqrt(d)) * 0.5 / abc.x;
+		sq->a->y = sq->center->y;
+		sq->a->z = sq->center->z;
+		sq->c->y = sq->center->y;
+		sq->c->z = sq->center->z;
+	}
+	else
+		printf("T'as un pb\n");
+}

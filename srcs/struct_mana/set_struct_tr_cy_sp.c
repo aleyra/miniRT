@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:43:12 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/22 13:05:29 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 13:41:04 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void	elseif_triangle(t_token token, int *i_id_nbt, t_obj *o)
 			i_id_nbt[1] = ID_BAD_PTS_T;
 		*(o->norm) = normal_of_tr(o->a, o->b, o->c);
 		make_vec3_norm(o->norm);
-		init_quad_pl(o);
+		printf("%f,%f,%f\n", o->norm->x, o->norm->y, o->norm->z);
+		init_quad_tr(o);
 	}
 	else if (i_id_nbt[2] == 5)
 	{
@@ -62,6 +63,7 @@ static void	elseif_cylinder(t_token token, int *i_id_nbt, t_obj *o)
 			&o->height, token.val, i_id_nbt, ID_BAD_D_OR_H_C);
 	else if (i_id_nbt[2] == 6)
 	{
+		init_quad_cy(o);
 		if (init_color_initial(o->rgb, token.val) == ERROR_RGB)
 			i_id_nbt[1] = ID_BAD_RGB;
 		*(o->a) = sum_alg_2vec3(1, o->center, o->height, o->dir);
@@ -86,7 +88,6 @@ void	set_struct_cylinder(t_mrt *mrt, t_token token, int *i_id_nbt)
 		err = ft_atovec3norm(obj->dir, token.val);
 		if (err != NO_ERROR)
 			i_id_nbt[1] = err;
-		init_quad_cy(obj);
 	}
 	else
 		elseif_cylinder(token, i_id_nbt, obj);

@@ -6,12 +6,13 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 13:04:14 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/22 12:48:02 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 11:00:22 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
+//from https://www.scratchapixel.com/lessons/3d-basic-rendering/
+// ray-tracing-rendering-a-triangle/ray-triangle-intersection-geometric-solution
 int	in_triangle(t_obj *tr, t_vec3 p)
 {
 	t_vec3	edge[3];

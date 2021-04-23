@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 10:37:57 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/16 11:34:57 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 09:20:00 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	ft_atovec3norm(t_vec3 *v, char *str)
 	v->z = ft_atod(split[2]);
 	free_split(split);
 	if ((v->x < -1 || v->x > 1) || (v->y < -1 || v->y > 1) || (
-			v->y < -1 || v->y > 1))
+			v->y < -1 || v->y > 1 || (v->x == 0 && v->y == 0 && v->z ==0)))
 		return (ERROR_VECTOR_N);
 	make_vec3_norm(v);
 	return (NO_ERROR);

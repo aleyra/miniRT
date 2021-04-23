@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:27:35 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/05 15:02:27 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 11:38:59 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	error_msg2(t_error cas)
 	else if (cas == ERROR_VEC)
 	{
 		printf("One coordinate of a vector/point is not ");
-		printf("a float or there isn't 3 coordinates");
+		printf("a float or there isn't 3 coordinates or this vector is 0");
 	}
 	else
 		error_msg3(cas);
@@ -121,7 +121,10 @@ static void	error_msg1(t_error cas)
 int	ft_display_error(int cas, t_mrt *mrt)
 {
 	if (cas != NO_ERROR)
+	{
 		error_msg1(cas);
+		printf("\n");
+	}
 	if (mrt)
 		free_mrt(mrt);
 	return (0);

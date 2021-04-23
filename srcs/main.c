@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/21 13:56:40 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 11:47:23 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,36 +45,37 @@ static int	init_main(int ac, char *av[], t_mrt	**mrt)
 	return (NO_ERROR);
 }
 
-/* ************************************************************************** */
-/* in the following fct, ijo is a table of 3 int for 						  */
-/* ijo[0] = i is a compter for x /!\ origin is up left						  */
-/* ijo[1] = j is a compter for y				 							  */
-/* ijo[2] = other								 							  */
-/* ************************************************************************** */
+void	main_ac_2(void *mlx, t_mrt *mrt)
+{
+	void	*mlx_win;
+	t_data	img;
+
+	mlx_win = mlx_new_window(mlx, mrt->res->x, mrt->res->y, "miniRT");
+	img.img = mlx_new_image(mlx, mrt->res->x, mrt->res->y);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
+			&img.endian);
+	printf("on lance la sauce\n");
+	ray_shooter(&img, mrt);
+	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+	mlx_loop(mlx);
+}
+
 int	main(int ac, char *av[])
 {
 	t_mrt	*mrt;
 	void	*mlx;
-	t_data	img;
-	void	*mlx_win;
-	int		ijo[3];
+	int		err;
+	//t_data	img;
+	//void	*mlx_win;
 
 	mrt = NULL;
-	ijo[2] = init_main(ac, av, &mrt);
-	if (ijo[2] != NO_ERROR)
-		return (ft_display_error(ijo[2], mrt));
+	err = init_main(ac, av, &mrt);
+	if (err != NO_ERROR)
+		return (ft_display_error(err, mrt));
 	mlx = mlx_init();
 	if (ac == 2)
 	{
-		mlx_win = mlx_new_window(mlx, mrt->res->x, mrt->res->y, "miniRT");
-		img.img = mlx_new_image(mlx, mrt->res->x, mrt->res->y);
-		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
-				&img.endian);
-		printf("on lance la sauce\n");
-		my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);//
-		ray_shooter(&img, mrt);
-		mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-		mlx_loop(mlx);
+		main_ac_2(mlx, mrt);
 	}
 	if (ac == 3)//creation d'un bmp
 	{

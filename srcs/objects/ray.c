@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:46:54 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/22 15:53:46 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 11:47:55 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,16 @@ t_coll	shooting_cylinder(t_obj *cy, t_vec3 *ray, t_vec3 *ptofview)
 	v = inter_quad_line_coeff(cy->quad, ptofview, ray);
 	d = discriminant(v);
 	n = nb_sol(d);
-	printf("%d", n);//
 	if (d == 0)
 		return (col);
 	d = inter_quad_line_sol(v, d);
-	// if (in_halfspace_inf(d, ptofview, ray, cy) && in_halfspace_sup(
-	// 		d, ptofview, ray, cy))
-	// {
+	if (in_halfspace_inf(d, ptofview, ray, cy) && in_halfspace_sup(
+			d, ptofview, ray, cy))
+	{
 		col.t = d;
 		col.n = normal_to_cy(
 				cy->dir, sum_alg_2vec3(1, ptofview, d, ray), cy->center);
-	// }
+	}
 	return (col);
 }
 
@@ -70,6 +69,9 @@ void	ray_shooter(t_data *img, t_mrt *mrt)
 			ray->x = (ik[0] - mrt->res->x * 0.5) * r[0];
 			ray->y = -1;
 			ray->z = (mrt->res->y * 0.5 - ik[1]) * r[1];
+			// if (shooting_obj(obj, ray, cam->ptofview).t > 0)
+				// my_mlx_pixel_put(img, ik[0], ik[1], color_displayed(
+						// obj->rgb, mrt->light, mrt->amb));
 			my_mlx_pixel_put(img, ik[0], ik[1], ray_trace(
 					ray, mrt, cam->ptofview));
 			ik[1]++;

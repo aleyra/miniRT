@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 15:10:55 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/22 15:51:41 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 13:40:51 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,13 @@ void	init_quad_cy(t_obj *cy)
 			* cy->center->z + cy->dir->x * cy->dir->z * cy->center->x
 			* cy->center->z + cy->dir->x * cy->dir->y * cy->center->x
 			* cy->center->y) - pow(cy->diam * 0.5, 2);
+}
+
+void	init_quad_tr(t_obj *tr)
+{
+	tr->quad->g = tr->norm->x;
+	tr->quad->h = tr->norm->y;
+	tr->quad->i = tr->norm->z;
+	tr->quad->j = -tr->norm->x * tr->a->x
+		- tr->norm->y * tr->a->y - tr->norm->z * tr->a->z;
 }
