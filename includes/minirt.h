@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/23 15:27:10 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 10:09:33 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ int		ft_atorgb(t_rgb *rgb, char *str);
 int		ft_atovec3norm(t_vec3 *v, char *str);
 int		ft_atovec3(t_vec3 *v, char *str);
 t_vec3	vec3_rotate_axis(t_vec3 v, t_vec3 axis, float rad);
+float	find_angle(t_vec3 a, t_vec3 b);
 
 /* Parsing ****************************************************************** */
 typedef enum e_type_token
@@ -272,8 +273,7 @@ int		init_color_initial(t_rgb *rgb, char *str);
 void	float_color_to_char_int(t_rgb *rgb);
 int		color_displayed(t_rgb *rgb, t_light *light, t_ambient *amb, t_coll col, t_vec3 p);//
 t_rgb	color_obj_and_amb(t_rgb *objc, t_ambient *amb);
-t_rgb	color_plus_light(
-			t_rgb *color, t_light *light, float angle, t_rgb *objc);
+t_rgb	color_plus_light(t_rgb *color, t_light *light, float angle);
 void	add_spot(t_rgb *rgb, t_light *light);
 void	complete_sq(t_obj *sq);
 void	complete_tr(t_obj *tr);

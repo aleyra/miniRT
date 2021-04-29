@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 14:10:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/23 14:31:40 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 10:19:21 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,18 @@ t_vec3	vec3_rotate_axis(t_vec3 v, t_vec3 axis, float rad)
 		* (1 - cos(rad)) + v.z * cos(rad)
 		+ (-axis.y * v.x + axis.x * v.y) * sin(rad);
 	return (res);
+}
+
+float	find_angle(t_vec3 a, t_vec3 b)
+{
+	t_vec3	an;
+	t_vec3	bn;
+	float	rad;
+
+	an = a;
+	bn = b;
+	make_vec3_norm(&an);
+	make_vec3_norm(&bn);
+	rad = fmax(0, (an.x * bn.x + an.y * bn.y + an.z * bn.z));
+	return (rad);
 }

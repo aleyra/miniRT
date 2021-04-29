@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 10:43:39 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/27 17:12:37 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 13:08:12 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,52 +39,13 @@ void	float_color_to_char_int(t_rgb *rgb)
 	rgb->r = rgb->fr * 255;
 	if (rgb->r > 255)
 		rgb->r = 255;
-	// printf("%d ", rgb->r);//
 	rgb->g = rgb->fg * 255;
 	if (rgb->g > 255)
 		rgb->g = 255;
 	rgb->b = rgb->fb * 255;
 	if (rgb->b > 255)
 		rgb->b = 255;
-	//printf("%d ", rgb->b);//
 	rgb->i = create_trgb(rgb->t, rgb->r, rgb->g, rgb->b);
-}
-
-int	color_displayed(t_rgb *rgb, t_light *light, t_ambient *amb, t_coll col, t_vec3 p)//vouer a disparaitre
-{
-	t_light	*l;
-	t_rgb	rl;
-	float	angle;
-	t_vec3	an;
-	t_vec3	bn;
-
-	l = light;
-	rl.fr = rgb->fr * amb->rgb->fr * amb->ratio;
-			// printf("%.1f ", rl.fr);//
-	rl.fg = rgb->fg * amb->rgb->fg * amb->ratio;
-	rl.fb = rgb->fb * amb->rgb->fb * amb->ratio;
-	while (l)
-	{
-		an = sum_alg_2vec3(1, l->lightpt, -1, &p);
-		make_vec3_norm(&an);
-		bn = col.n;
-		make_vec3_norm(&bn);
-		angle = fmax(0, (an.x * bn.x + an.y * bn.y + an.z * bn.z));
-		rl.fr += l->rgb->fr * l->br * angle;
-		rl.fg += l->rgb->fg * l->br * angle;
-		rl.fb += l->rgb->fb * l->br * angle;
-		// printf("%f ", l->rgb->fr * l->br);//
-		// printf("%.1f ", rl.fr);//
-		l = l->next;
-	}
-	// if (rl.fr > rgb->fr && rgb->fr != 0)
-		// rl.fr = rgb->fr;
-	// if (rl.fg > rgb->fg && rgb->fg != 0)
-		// rl.fg = rgb->fg;
-	// if (rl.fb > rgb->fb && rgb->fb != 0)
-		// rl.fb = rgb->fb;
-	float_color_to_char_int(&rl);
-	return (rl.i);
 }
 
 t_rgb	color_obj_and_amb(t_rgb *objc, t_ambient *amb)
@@ -98,14 +59,36 @@ t_rgb	color_obj_and_amb(t_rgb *objc, t_ambient *amb)
 	return (rl);
 }
 
-t_rgb	color_plus_light(t_rgb *color, t_light *light, float angle, t_rgb *objc)
+t_rgb	color_plus_light(t_rgb *color, t_light *light, float angle)
 {
 	t_rgb	rl;
 
 	rl = *color;
-	rl.fr += objc->fr * light->rgb->fr * light->br * angle;
-	rl.fg += objc->fg * light->rgb->fg * light->br * angle;
-	rl.fb += objc->fb * light->rgb->fb * light->br * angle;
+	rl.fr += light->rgb->fr * light->br * angle;
+	rl.fg += light->rgb->fg * light->br * angle;
+	rl.fb += light->rgb->fb * light->br * angle;
 	float_color_to_char_int(&rl);
 	return (rl);
+}
+
+int	color_displayed(t_rgb *rgbo, t_light *light, t_ambient *amb, t_coll col, t_vec3 p)//vouer a disparaitre
+{
+	t_light	*l;
+	t_rgb	rl;
+	float	angle;
+	t_vec3	an;
+	t_vec3	bn;
+
+	l = light;
+	rl = color_obj_and_amb(rgbo, amb);
+	while (l)
+	{
+		an = sum_alg_2vec3(1, l->lightpt, -1, &p);
+		bn = col.n;
+		angle = find_angle(an, bn);
+		rl = color_plus_light(&rl, l, angle);
+		l = l->next;
+	}
+	float_color_to_char_int(&rl);
+	return (rl.i);
 }

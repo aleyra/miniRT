@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:40 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/21 16:31:35 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 13:03:43 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,22 @@ t_vec3	normal_to_cy(t_vec3 *n, t_vec3 pt, t_vec3 *o)
 {
 	float	t;
 	t_vec3	v;
+	t_vec3	coeff;
+	float	d;
 
-	t = (o->x - pt.x) * n->x + (o->y - pt.y) * n->y + (o->z - pt.z) * n->z;
-	v.x = o->x + t * n->x - pt.x;
-	v.y = o->y + t * n->y - pt.y;
-	v.z = o->z + t * n->z - pt.z;
+	coeff.x = -1;
+	coeff.y = dot_prod(*n, sum_alg_2vec3(1, &pt, -1, o));
+	coeff.z = 0;
+	d = discriminant(coeff);
+	t = (coeff.y + sqrt(d)) * 0.5;
+	v.x = pt.x - t * n->x - o->x;
+	v.y = pt.y - t * n->y - o->y;
+	v.z = pt.z - t * n->z - o->z;
+	if (dot_prod(*n, v) == 0)
+		return (v);
+	t = (coeff.y - sqrt(d)) * 0.5;
+	v.x = pt.x - t * n->x - o->x;
+	v.y = pt.y - t * n->y - o->y;
+	v.z = pt.z - t * n->z - o->z;
 	return (v);
 }

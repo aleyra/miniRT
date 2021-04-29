@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:46:54 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/27 17:10:24 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 11:18:01 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ void	ray_shooter(t_data *img, t_mrt *mrt)
 			ray->y = -1;
 			ray->z = (mrt->res->y * 0.5 - ik[1]) * r[1];
 			col = shooting_obj(obj, ray, cam->ptofview);//
-			if (col.t > 0)//
-				my_mlx_pixel_put(img, ik[0], ik[1], color_displayed(obj->rgb, mrt->light, mrt->amb, col, sum_alg_2vec3(1, cam->ptofview, col.t, ray)));//
-			// my_mlx_pixel_put(img, ik[0], ik[1], ray_trace(
-					// ray, mrt, cam->ptofview));
+			// if (col.t > 0)//
+			// 	my_mlx_pixel_put(img, ik[0], ik[1], color_displayed(obj->rgb, mrt->light, mrt->amb, col, sum_alg_2vec3(1, cam->ptofview, col.t, ray)));//
+			my_mlx_pixel_put(img, ik[0], ik[1], ray_trace(
+					ray, mrt, cam->ptofview));
 			ik[1]++;
 		}
 		ik[0]++;
