@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 10:27:16 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/16 11:19:34 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 13:36:22 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static void	print_obj2(t_obj *ob)
 		printf("%f,%f,%f\t", ob->center->x, ob->center->y, ob->center->z);
 		printf("%f,%f,%f\t", ob->norm->x, ob->norm->y, ob->norm->z);
 		printf("%f\t%d,%d,%d\n", ob->len, ob->rgb->r, ob->rgb->g, ob->rgb->b);
+		print_corner_sq(ob);
 	}
 	else if (ob->type == TYPE_PLANE)
 	{

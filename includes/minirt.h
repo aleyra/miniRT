@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/29 10:09:33 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 13:35:41 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,7 @@ typedef enum e_error {
 
 int		ft_display_error(int cas, t_mrt *mrt);
 void	print_mrt(t_mrt *mrt);
+void	print_corner_sq(t_obj *o);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 /* Struct managing ********************************************************** */

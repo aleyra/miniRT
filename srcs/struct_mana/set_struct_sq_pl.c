@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 15:08:39 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/23 13:33:03 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 13:33:40 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@ static void	elseif_square(t_token token, int *i_id_nbt, t_obj *o)
 	{
 		init_quad_pl(o);
 		complete_sq(o);
-		printf("A(%f,%f,%f)\t", o->a->x, o->a->y, o->a->z);//
-		printf("B(%f,%f,%f)\t", o->b->x, o->b->y, o->b->z);//
-		printf("C(%f,%f,%f)\t", o->c->x, o->c->y, o->c->z);//
-		printf("D(%f,%f,%f)\n", o->d->x, o->d->y, o->d->z);//
 		if (init_color_initial(o->rgb, token.val) == ERROR_RGB)
 			i_id_nbt[1] = ID_BAD_RGB;
 	}
