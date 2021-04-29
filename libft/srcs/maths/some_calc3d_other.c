@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 14:15:51 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/22 12:39:29 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 09:55:12 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 void	make_vec3_norm(t_vec3 *v)
 {
-	v->x = v->x / sqrt(norme_vec3_power2(*v));
-	v->y = v->y / sqrt(norme_vec3_power2(*v));
-	v->z = v->z / sqrt(norme_vec3_power2(*v));
+	float	n;
+
+	n = norme_vec3_power2(*v);
+	v->x = v->x / sqrt(n);
+	v->y = v->y / sqrt(n);
+	v->z = v->z / sqrt(n);
 }
 
 int	check_vec3_same(t_vec3 v, t_vec3 u)
