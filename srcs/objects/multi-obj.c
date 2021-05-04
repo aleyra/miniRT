@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 10:55:17 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/04 13:32:41 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/04 13:44:50 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,39 +38,39 @@ int	ray_trace(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview)
 	float	tf;
 	t_obj	*of;
 	t_rgb	color;
-	// t_vec3	contact;
-	// t_light	*li;
-	// t_obj	*obj;
-	// t_vec3	lray;
-	// t_coll	c;
+	t_vec3	contact;
+	t_light	*li;
+	t_obj	*obj;
+	t_vec3	lray;
+	t_coll	c;
 
 	of = NULL;
 	tf = find_of_and_tf(&of, mrt->obj, ray, ptofview);
 	if (!of)
 		return (0);
 	color = color_obj_and_amb(of->rgb, mrt->amb);
-	// contact = sum_alg_2vec3(1, ptofview, tf, ray);
-	// li = mrt->light;
-	// while (li)
-	// {
-		// obj = mrt->obj;
-		// while (obj)
-		// {
-			// lray = sum_alg_2vec3(1, li->lightpt, -1, &contact);
-			// if (of != obj)
-			// {
-				// c = shooting_obj(obj, &lray, li->lightpt);
-				// if (c.t == 0)
-					// color = color_plus_light(&color, li, find_angle(lray, c.n));
-			// }
-			// else
-			// {
-				// c = shooting_obj(of, ray, ptofview);
-				// color = color_plus_light(&color, li, find_angle(lray, c.n));
-			// }
-			// obj = obj->next;
-		// }
-		// li = li->next;
-	// }
+	contact = sum_alg_2vec3(1, ptofview, tf, ray);
+	li = mrt->light;
+	while (li)
+	{
+		obj = mrt->obj;
+		while (obj)
+		{
+			lray = sum_alg_2vec3(1, li->lightpt, -1, &contact);
+			if (of != obj)
+			{
+				c = shooting_obj(obj, &lray, li->lightpt);
+				if (c.t == 0)
+					color = color_plus_light(&color, li, find_angle(lray, c.n));
+			}
+			else
+			{
+				c = shooting_obj(of, ray, ptofview);
+				color = color_plus_light(&color, li, find_angle(lray, c.n));
+			}
+			obj = obj->next;
+		}
+		li = li->next;
+	}
 	return (color.i);
 }
