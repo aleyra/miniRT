@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 10:43:39 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/06 13:36:37 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/06 15:02:44 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	init_color_initial(t_rgb *rgb, char *str)
 	if (err == ERROR_RGB)
 		return (ERROR_RGB);
 	rgb->i = create_trgb(rgb->t, rgb->r, rgb->g, rgb->b);
-	rgb->fr = rgb->r / 255;
-	rgb->fg = rgb->g / 255;
-	rgb->fb = rgb->b / 255;
+	rgb->fr = (float)rgb->r / 255;
+	rgb->fg = (float)rgb->g / 255;
+	rgb->fb = (float)rgb->b / 255;
 	return (NO_ERROR);
 }
 
@@ -59,14 +59,14 @@ t_rgb	color_obj_and_amb(t_rgb *objc, t_ambient *amb)
 	return (rl);
 }
 
-t_rgb	color_plus_light(t_rgb *color, t_light *light, float angle)
+t_rgb	color_plus_light(t_rgb *color, t_light *light, float angle, t_rgb *rgbo)
 {
 	t_rgb	rl;
 
 	rl = *color;
-	rl.fr += light->rgb->fr * light->br * angle;
-	rl.fg += light->rgb->fg * light->br * angle;
-	rl.fb += light->rgb->fb * light->br * angle;
+	rl.fr += rgbo->fr * light->rgb->fr * light->br * angle;
+	rl.fg += rgbo->fg * light->rgb->fg * light->br * angle;
+	rl.fb += rgbo->fb * light->rgb->fb * light->br * angle;
 	float_color_to_char_int(&rl);
 	return (rl);
 }
@@ -86,7 +86,7 @@ int	color_displayed(t_rgb *rgbo, t_light *light, t_ambient *amb, t_coll col, t_v
 		an = sum_alg_2vec3(1, l->lightpt, -1, &p);
 		bn = col.n;
 		angle = find_angle(an, bn);
-		rl = color_plus_light(&rl, l, angle);
+		rl = color_plus_light(&rl, l, angle, rgbo);
 		l = l->next;
 	}
 	float_color_to_char_int(&rl);
