@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/06 14:53:53 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/06 15:25:27 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,10 @@ typedef struct s_data
 typedef struct s_coll
 {
 	float	t;
-	t_vec3	n;
+	union {
+		t_vec3	n;
+		t_vec3	c;
+	};
 }			t_coll;
 
 /* Objects ****************************************************************** */
