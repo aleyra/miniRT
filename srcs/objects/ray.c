@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:46:54 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/07 13:58:03 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/07 14:47:04 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,36 +37,56 @@ t_coll	shooting_cylinder(t_obj *cy, t_vec3 *ray, t_vec3 *ptofview)
 	return (col);
 }
 
+static t_vec3	define_ray(unsigned int ik[2], t_mrt *mrt, float r, t_cam *cam)
+{
+	t_vec3	ray;
+	float	angle;
+	t_vec3	mj;
+	t_vec3	i;
+	float	t;
+
+	ray.x = (ik[0] - mrt->res->x * 0.5) * r;
+	ray.y = -1;
+	ray.z = (mrt->res->y * 0.5 - ik[1]) * r;
+	init_tvec3_to_1x(&i);
+	init_tvec3_to_1y(&mj);
+	mj = opp_vec3(mj);
+	if (!(cam->dir->x == 0 && cam->dir->y == -1 && cam->dir->z == 0))
+	{
+		t = dot_prod(*(cam->dir), mj);
+		angle = acos(t);
+		t = dot_prod(*(cam->dir), i);
+		if (t > 0)
+			angle *= -1;
+		ray = vec3_rotate_axis(ray, cross_prod(*(cam->dir), mj), angle);
+	}
+	return (ray);
+}
+
 /******************************************************************************/
 /* in this fct																  */
 /* ikt[0] = i a counter for pixels along of x								  */
 /* ikt[1] = k a counter for pixels along of z								  */
-/* r[0] = R_H																  */
-/* r[1] = R_V																  */
+/* r = R_H = R_V															  */
 /******************************************************************************/
 //eventuellement a appeler avec une cam qui sera selectionnee
 void	ray_shooter(t_data *img, t_mrt *mrt)
 {
 	unsigned int	ik[2];
-	float			r[2];
+	float			r;
 	t_vec3			*ray;
 	t_cam			*cam;
-	t_obj			*obj;
 
 	ik[0] = 0;
 	cam = mrt->cam;
-	obj = mrt->obj;
-	r[0] = 2 * tan(cam->fovr * 0.5) / mrt->res->x;
-	r[1] = r[0];
+	r = 2 * tan(cam->fovr * 0.5) / mrt->res->x;
 	ray = malloc(sizeof(t_vec3));
 	while (ik[0] < mrt->res->x)
 	{
 		ik[1] = 0;
 		while (ik[1] < mrt->res->y)
 		{
-			ray->x = (ik[0] - mrt->res->x * 0.5) * r[0];
-			ray->y = -1;
-			ray->z = (mrt->res->y * 0.5 - ik[1]) * r[1];
+			*ray = define_ray(ik, mrt, r, cam);
 			my_mlx_pixel_put(img, ik[0], ik[1], ray_trace(
 					ray, mrt, cam->ptofview));
 			ik[1]++;

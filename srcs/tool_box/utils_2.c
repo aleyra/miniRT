@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 14:10:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/29 10:19:21 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/07 14:54:46 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,3 +41,4 @@ float	find_angle(t_vec3 a, t_vec3 b)
 	rad = fmax(0, (an.x * bn.x + an.y * bn.y + an.z * bn.z));
 	return (rad);
 }
+
