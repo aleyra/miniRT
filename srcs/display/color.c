@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 10:43:39 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/07 13:46:35 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/07 15:32:15 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 //from https://harm-smits.github.io/42docs/libs/minilibx/colors.html
 int	create_trgb(int t, int r, int g, int b)
 {
-	if (r > 255 || g > 255 || b > 255)
-		exit(17);
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 

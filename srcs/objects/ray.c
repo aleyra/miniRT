@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:46:54 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/07 14:47:04 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/07 15:40:06 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,30 +69,25 @@ static t_vec3	define_ray(unsigned int ik[2], t_mrt *mrt, float r, t_cam *cam)
 /* ikt[1] = k a counter for pixels along of z								  */
 /* r = R_H = R_V															  */
 /******************************************************************************/
-//eventuellement a appeler avec une cam qui sera selectionnee
-void	ray_shooter(t_data *img, t_mrt *mrt)
+void	ray_shooter(t_data *img, t_mrt *mrt, t_cam *cam)
 {
 	unsigned int	ik[2];
 	float			r;
-	t_vec3			*ray;
-	t_cam			*cam;
+	t_vec3			ray;
 
 	ik[0] = 0;
-	cam = mrt->cam;
 	r = 2 * tan(cam->fovr * 0.5) / mrt->res->x;
-	ray = malloc(sizeof(t_vec3));
 	while (ik[0] < mrt->res->x)
 	{
 		ik[1] = 0;
 		while (ik[1] < mrt->res->y)
 		{
-			*ray = define_ray(ik, mrt, r, cam);
+			ray = define_ray(ik, mrt, r, cam);
 			my_mlx_pixel_put(img, ik[0], ik[1], ray_trace(
-					ray, mrt, cam->ptofview));
+					&ray, mrt, cam->ptofview));
 			ik[1]++;
 		}
 		ik[0]++;
 	}
 	printf("fini\n");//
-	free(ray);
 }

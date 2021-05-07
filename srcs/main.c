@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/23 11:47:23 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/07 17:04:38 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,21 @@ static int	init_main(int ac, char *av[], t_mrt	**mrt)
 
 void	main_ac_2(void *mlx, t_mrt *mrt)
 {
-	void	*mlx_win;
+	t_vars	v;
 	t_data	img;
 
-	mlx_win = mlx_new_window(mlx, mrt->res->x, mrt->res->y, "miniRT");
+	v.mlx = mlx;
+	v.mrt = mrt;
+	v.cam = mrt->cam;
+	v.win = mlx_new_window(mlx, mrt->res->x, mrt->res->y, "miniRT");
 	img.img = mlx_new_image(mlx, mrt->res->x, mrt->res->y);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
 			&img.endian);
 	printf("on lance la sauce\n");
-	ray_shooter(&img, mrt);
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+	v.img = &img;
+	ray_shooter(&img, mrt, v.cam);
+	mlx_put_image_to_window(mlx, v.win, img.img, 0, 0);
+	mlx_hook(v.win, 2, 1L<<0, interact, &v);
 	mlx_loop(mlx);
 }
 
@@ -65,8 +70,6 @@ int	main(int ac, char *av[])
 	t_mrt	*mrt;
 	void	*mlx;
 	int		err;
-	//t_data	img;
-	//void	*mlx_win;
 
 	mrt = NULL;
 	err = init_main(ac, av, &mrt);

@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:01:05 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/14 14:55:11 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/07 15:38:38 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	delall_obj(t_obj **obj)
 	if (o->next != NULL)
 		delall_obj(&o->next);
 	free(o->quad);
+	free(o->d);
 	free(o->c);
 	free(o->b);
 	free(o->a);

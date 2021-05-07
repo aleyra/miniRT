@@ -12,7 +12,7 @@ PATH_LIBFT	=	libft
 PATH_LIBG	=	minilibx
 
 # List of sources
-SRCS_DISP	=	color.c ft_display_error.c print_mrt.c print_mrt2.c \
+SRCS_DISP	=	color.c ft_display_error.c interact.c print_mrt.c print_mrt2.c \
 				my_mlx_pixel_put.c
 SRCS_OBJC	=	cylinder.c intercept.c intercept2.c multi-obj.c quadric.c \
 				square.c triangle.c ray.c ray2.c
