@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   decimal_to_hexa.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucille <lucille@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:02:30 by lburnet           #+#    #+#             */
-/*   Updated: 2021/03/04 10:02:28 by lucille          ###   ########lyon.fr   */
+/*   Updated: 2021/05/07 13:49:23 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*decimal_to_hexa(int c, unsigned long long decimal)
 		size = 1;
 	else
 		size = size_in_hexa(decimal);
-	str = (char *)malloc((size + 1)* sizeof(char));
+	str = (char *)malloc((size + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
 	if (decimal == 0)
