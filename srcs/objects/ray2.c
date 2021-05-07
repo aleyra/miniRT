@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 12:50:12 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/29 13:33:06 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/07 10:52:19 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,12 @@ t_coll	shooting_sphere(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview)
 {
 	t_vec3	v;
 	float	d;
-	int		n;
 	t_coll	col;
 
 	col.t = 0;
 	init_tvec3_to_0(&(col.n));
 	v = inter_quad_line_coeff(sp->quad, ptofview, ray);
 	d = discriminant(v);
-	n = nb_sol(d);
 	d = inter_quad_line_sol(v, d);
 	if (d > 0)
 	{

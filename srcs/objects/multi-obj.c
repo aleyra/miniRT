@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 10:55:17 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/06 15:42:06 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/07 13:45:47 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,38 +48,37 @@ static int	number_of_obj(t_mrt *mrt)
 	return (i);
 }
 
+static void	while_o(t_ray_tracer *t, t_mrt *mrt)
+{
+	t->lray = intercept_lightray(&(t->tf_cac.c), t->li->lightpt, t->o);
+	t->temp.t = find_angle(opp_vec3(t->lray.n), t->temp.n);
+	if (number_of_obj(mrt) == 1)
+		t->color = color_plus_light(&(t->color), t->li, t->temp.t, t->fo->rgb);
+	else if (t->o != t->fo && t->lray.t == 0)
+		t->color = color_plus_light(&(t->color), t->li, t->temp.t, t->fo->rgb);
+}
+
 //inspired by http://www.alrj.org/docs/3D/raytracer/raytracertutchap2.htm
 int	ray_trace(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview)
 {
-	t_coll	f;
-	t_obj	*o;
-	t_rgb	color;
-	t_light	*li;
-	t_obj	*obj;
-	t_coll	lray;
+	t_ray_tracer	t;
 
-	o = NULL;
-	f = find_of_and_tf(&o, mrt->obj, ray, ptofview);
-	if (!o)
+	t.fo = NULL;
+	t.tf_cac = find_of_and_tf(&(t.fo), mrt->obj, ray, ptofview);
+	if (!t.fo)
 		return (0);
-	color = color_obj_and_amb(o->rgb, mrt->amb);
-	li = mrt->light;
-	while (li)
+	t.color = color_obj_and_amb((t.fo)->rgb, mrt->amb);
+	t.li = mrt->light;
+	t.temp.n = shooting_obj(t.fo, ray, ptofview).n;
+	while (t.li)
 	{
-		obj = mrt->obj;
-		while (obj)
+		t.o = mrt->obj;
+		while (t.o)
 		{
-			lray.n = sum_alg_2vec3(1, li->lightpt, -1, &(f.c));
-			lray.t = shooting_obj(obj, &(lray.n), li->lightpt).t;
-			if (number_of_obj(mrt) == 1)
-				color = color_plus_light(&color, li, find_angle(
-							lray.n, shooting_obj(o, ray, ptofview).n), o->rgb);
-			else if (obj != o && (lray.t == 0 || lray.t > 1))
-				color = color_plus_light(&color, li, find_angle(
-							lray.n, shooting_obj(o, ray, ptofview).n), o->rgb);
-			obj = obj->next;
+			while_o(&t, mrt);
+			t.o = (t.o)->next;
 		}
-		li = li->next;
+		t.li = t.li->next;
 	}
-	return (color.i);
+	return (t.color.i);
 }

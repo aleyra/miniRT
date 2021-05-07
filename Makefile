@@ -14,7 +14,8 @@ PATH_LIBG	=	minilibx
 # List of sources
 SRCS_DISP	=	color.c ft_display_error.c print_mrt.c print_mrt2.c \
 				my_mlx_pixel_put.c
-SRCS_OBJC	=	cylinder.c multi-obj.c quadric.c square.c triangle.c ray.c ray2.c
+SRCS_OBJC	=	cylinder.c intercept.c intercept2.c multi-obj.c quadric.c \
+				square.c triangle.c ray.c ray2.c
 SRCS_PARSE	=	check_nb_param.c ft_parsing.c ft_state_machine.c ft_tokenizer.c
 SRCS_S_MANA	=	add_back_struct.c complete_t_obj.c delall_struct.c \
 				init_quad_obj.c init_struct_mrt.c init_struct_rgb.c \
@@ -26,7 +27,7 @@ SRCS		=	$(addprefix $(PATH_SRC)/display/, $(SRCS_DISP)) \
 				$(addprefix $(PATH_SRC)/parsing/, $(SRCS_PARSE)) \
 				$(addprefix $(PATH_SRC)/struct_mana/, $(SRCS_S_MANA)) \
 				$(addprefix $(PATH_SRC)/tool_box/, $(SRCS_TOOL)) \
-				$(addprefix $(PATH_SRC)/, )  main.c #add files à la racine #getting_starting.c
+				$(addprefix $(PATH_SRC)/, )  main.c #add files à la racine
 
 OBJS		=	$(addprefix $(PATH_OBJ)/, $(notdir $(SRCS:.c=.o)))
 INCS		=	$(addprefix $(PATH_INC)/, ) #add .h

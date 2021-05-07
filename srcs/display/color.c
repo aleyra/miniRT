@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 10:43:39 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/06 15:02:44 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/07 13:46:35 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,26 +69,4 @@ t_rgb	color_plus_light(t_rgb *color, t_light *light, float angle, t_rgb *rgbo)
 	rl.fb += rgbo->fb * light->rgb->fb * light->br * angle;
 	float_color_to_char_int(&rl);
 	return (rl);
-}
-
-int	color_displayed(t_rgb *rgbo, t_light *light, t_ambient *amb, t_coll col, t_vec3 p)//vouer a disparaitre
-{
-	t_light	*l;
-	t_rgb	rl;
-	float	angle;
-	t_vec3	an;
-	t_vec3	bn;
-
-	l = light;
-	rl = color_obj_and_amb(rgbo, amb);
-	while (l)
-	{
-		an = sum_alg_2vec3(1, l->lightpt, -1, &p);
-		bn = col.n;
-		angle = find_angle(an, bn);
-		rl = color_plus_light(&rl, l, angle, rgbo);
-		l = l->next;
-	}
-	float_color_to_char_int(&rl);
-	return (rl.i);
 }
