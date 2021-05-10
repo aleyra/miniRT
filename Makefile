@@ -58,10 +58,11 @@ init:
 	 $(MAKE) -C $(PATH_LIBFT)
 	 $(MAKE) -C $(PATH_LIBG)
 
+
 libmlx.dylib:
 	ln -sf $(LIBMLX) .
 
-$(NAME): 	$(OBJS) libmlx.dylib
+$(NAME): 	$(OBJS) libmlx.dylib #sur Mac
 	ln -sf $(LIBMLX) .
 	$(CC) $(OBJS) $(LIBFT) $(LIBMLX) -l ft -o $(NAME)
 

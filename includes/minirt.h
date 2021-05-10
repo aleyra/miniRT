@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: lucille <lucille@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/07 17:04:36 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/10 13:16:04 by lucille          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ typedef enum e_error {
 	ERROR_NB_PARAM_CY,
 	ERROR_NB_PARAM_TR,
 	ERROR_MALLOC,
+	ERROR_NO_CAM,
 }	t_error;
 
 typedef struct s_vars
@@ -267,7 +268,9 @@ t_rgb	color_obj_and_amb(t_rgb *objc, t_ambient *amb);
 t_rgb	color_plus_light(
 			t_rgb *color, t_light *light, float angle, t_rgb *rgbo);
 int		ft_display_error(int cas, t_mrt *mrt);
-int		interact(int keycode, t_vars *vars);
+int		close(int keycode, t_vars *v);
+void	refresh(t_vars *v);
+int		interact_key(int keycode, t_vars *vars);
 void	print_mrt(t_mrt *mrt);
 void	print_corner_sq(t_obj *o);
 void	print_vec3(t_vec3 *v);

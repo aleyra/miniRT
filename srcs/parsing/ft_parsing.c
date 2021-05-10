@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: lucille <lucille@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 13:17:09 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/27 12:52:23 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/10 13:15:27 by lucille          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,14 @@ static t_state	init_parsing(char **line, int *gnl, int fd, int *i_id_nbt)
 	return (0);
 }
 
-static int	end_of_parsing(char **line, int gnl)
+static int	end_of_parsing(char **line, int gnl, t_mrt *mrt)
 {
 	if (*line != NULL)
 		free(*line);
 	if (gnl == -1)
 		return (ERROR_GNL);
+	if (mrt->cam == NULL)
+		return (ERROR_NO_CAM);
 	return (NO_ERROR);
 }
 
@@ -99,5 +101,5 @@ int	ft_parsing(t_mrt *mrt, int fd)
 		if (end_of_while(i_id_nbt, &line, fd, &i_id_nbt[3]) != NO_ERROR)
 			return (i_id_nbt[2]);
 	}
-	return (end_of_parsing(&line, i_id_nbt[3]));
+	return (end_of_parsing(&line, i_id_nbt[3]), mrt);
 }

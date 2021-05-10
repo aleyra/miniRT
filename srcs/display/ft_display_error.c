@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_display_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: lucille <lucille@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:27:35 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/23 11:38:59 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/10 13:16:53 by lucille          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void	error_msg4(t_error cas)
 		printf("The number of parameter for a triangle is not good");
 	else if (cas == ERROR_MALLOC)
 		printf("MALLOC error");
+	else if (cas == ERROR_NO_CAM)
+		printf("You need to set at least one camera\n");
 	printf("error to define");
 }
 

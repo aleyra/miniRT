@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interact.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: lucille <lucille@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 15:19:04 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/07 17:04:25 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/10 13:09:59 by lucille          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,22 @@
 /* 125 = DOWN ARROW															  */
 /* 126 = UP ARROW															  */
 /* ************************************************************************** */
-int	interact(int keycode, t_vars *v)
+
+int	close(int keycode, t_vars *v)
+{
+	mlx_destroy_window(v->mlx, v->win);
+	exit(ft_display_error(NO_ERROR, v->mrt));
+	return (0);
+}
+
+void	refresh(t_vars *v)
+{
+	mlx_clear_window(v->mlx, v->win);
+	ray_shooter(v->img, v->mrt, v->cam);
+	mlx_put_image_to_window(v->mlx, v->win, v->img->img, 0, 0);
+}
+
+int	interact_key(int keycode, t_vars *v)
 {
 	t_cam	*c;
 	printf("%d\n", keycode);//
@@ -35,8 +50,8 @@ int	interact(int keycode, t_vars *v)
 			v->cam = v->mrt->cam;
 		printf("suivant :\t");//
 		print_vec3(v->cam->dir);//
-		ray_shooter(v->img, v->mrt, v->cam);
-		mlx_put_image_to_window(v->mlx, v->win, v->img->img, 0, 0);
+		//ray_shooter(v->img, v->mrt, v->cam);
+		//mlx_put_image_to_window(v->mlx, v->win, v->img->img, 0, 0);
 	}
 	if (keycode == 123)
 	{
@@ -58,8 +73,9 @@ int	interact(int keycode, t_vars *v)
 		}
 		printf("precedent :\t");//
 		print_vec3(v->cam->dir);//
-		ray_shooter(v->img, v->mrt, v->cam);
-		mlx_put_image_to_window(v->mlx, v->win, v->img->img, 0, 0);
+		//ray_shooter(v->img, v->mrt, v->cam);
+		//mlx_put_image_to_window(v->mlx, v->win, v->img->img, 0, 0);
 	}
+	refresh(v);
 	return (0);
 }

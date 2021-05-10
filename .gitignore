@@ -22,3 +22,4 @@ testing_parsing.c
 example_subject.rt
 objs
 save_minirt.sh
+Makefile
