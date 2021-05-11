@@ -6,7 +6,7 @@
 /*   By: lucille <lucille@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/10 13:10:24 by lucille          ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 10:48:33 by lucille          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	init_main(int ac, char *av[], t_mrt	**mrt)
 	return (NO_ERROR);
 }
 
-void	main_ac_2(void *mlx, t_mrt *mrt)
+static void	main_ac_2(void *mlx, t_mrt *mrt)
 {
 	t_vars	v;
 	t_data	img;
@@ -57,14 +57,33 @@ void	main_ac_2(void *mlx, t_mrt *mrt)
 	img.img = mlx_new_image(mlx, mrt->res->x, mrt->res->y);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
 			&img.endian);
-	printf("on lance la sauce\n");
+	printf("preparation de l'affichage\n");
 	v.img = &img;
 	ray_shooter(&img, mrt, v.cam);
 	mlx_put_image_to_window(mlx, v.win, img.img, 0, 0);
 	//mlx_hook(v.win, 2, 1L<<0, interact_key, &v);
-	mlx_hook(v.win, 2, 1L<<0, close, &v);
+	mlx_hook(v.win, 2, 1L<<0, win_close, &v);
 	mlx_key_hook(v.win, interact_key, &v);
 	mlx_loop(mlx);
+}
+
+static void	main_ac_3(void *mlx, t_mrt *mrt)
+{
+	t_data	img;
+	int		fd;
+
+	img.img = mlx_new_image(mlx, mrt->res->x, mrt->res->y);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
+			&img.endian);
+	printf("ecriture du ficher\n");
+	ray_shooter(&img, mrt, mrt->cam);//?
+	fd = open("minirt_bmp/minirt.bmp", O_WRONLY | O_TRUNC | O_CREAT, 0744);
+	if (fd == -1)
+		return (ft_display_error(ERROR_BMP, mrt));
+	//fct qui remplie ou prepare le header 	ft_file_header(mrt, fd);
+	//fct qui remplie le header 			ft_image_header(mrt, fd);
+	//fct qui ecrit le resultat ds le bmp 	ft_save_buffer(mrt, img, fd);
+	close(fd);
 }
 
 int	main(int ac, char *av[])
@@ -84,7 +103,7 @@ int	main(int ac, char *av[])
 	}
 	if (ac == 3)//creation d'un bmp
 	{
-		printf("a faire\n");//
+		main_ac_3(mlx, mrt);
 	}
 	return (ft_display_error(NO_ERROR, mrt));
 }

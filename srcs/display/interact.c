@@ -6,7 +6,7 @@
 /*   By: lucille <lucille@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 15:19:04 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/10 13:09:59 by lucille          ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 10:24:54 by lucille          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 /* 126 = UP ARROW															  */
 /* ************************************************************************** */
 
-int	close(int keycode, t_vars *v)
+int	win_close(int keycode, t_vars *v)
 {
 	mlx_destroy_window(v->mlx, v->win);
 	exit(ft_display_error(NO_ERROR, v->mrt));
@@ -30,6 +30,7 @@ int	close(int keycode, t_vars *v)
 void	refresh(t_vars *v)
 {
 	mlx_clear_window(v->mlx, v->win);
+	printf("refresh en cours\n");
 	ray_shooter(v->img, v->mrt, v->cam);
 	mlx_put_image_to_window(v->mlx, v->win, v->img->img, 0, 0);
 }

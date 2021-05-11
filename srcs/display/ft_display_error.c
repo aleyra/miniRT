@@ -6,7 +6,7 @@
 /*   By: lucille <lucille@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:27:35 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/10 13:16:53 by lucille          ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 10:05:20 by lucille          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void	error_msg4(t_error cas)
 		printf("MALLOC error");
 	else if (cas == ERROR_NO_CAM)
 		printf("You need to set at least one camera\n");
+	else if (cas == ERROR_BMP)
+		printf("The bmp file failed\n");
 	printf("error to define");
 }
 

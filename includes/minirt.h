@@ -6,7 +6,7 @@
 /*   By: lucille <lucille@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/10 13:16:04 by lucille          ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 10:50:20 by lucille          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,15 @@ typedef struct s_data
 	int		line_len;
 	int		endian;
 }			t_data;
+
+typedef struct s_vars
+{
+	void	*win;
+	void	*mlx;
+	t_mrt	*mrt;
+	t_cam	*cam;
+	t_data	*img;
+}			t_vars;
 
 typedef struct s_coll
 {
@@ -250,17 +259,12 @@ typedef enum e_error {
 	ERROR_NB_PARAM_TR,
 	ERROR_MALLOC,
 	ERROR_NO_CAM,
+	ERROR_BMP,
 }	t_error;
 
-typedef struct s_vars
-{
-	void	*win;
-	void	*mlx;
-	t_mrt	*mrt;
-	t_cam	*cam;
-	t_data	*img;
-}			t_vars;
-
+// void	ft_file_header(t_mrt *mrt, int fd);
+// void	ft_image_header(t_mrt *mrt, int fd);
+// void	ft_save_buffer(t_mrt *mrt, t_data img, int fd);
 int		create_trgb(int t, int r, int g, int b);
 int		init_color_initial(t_rgb *rgb, char *str);
 void	float_color_to_char_int(t_rgb *rgb);
@@ -268,7 +272,7 @@ t_rgb	color_obj_and_amb(t_rgb *objc, t_ambient *amb);
 t_rgb	color_plus_light(
 			t_rgb *color, t_light *light, float angle, t_rgb *rgbo);
 int		ft_display_error(int cas, t_mrt *mrt);
-int		close(int keycode, t_vars *v);
+int		win_close(int keycode, t_vars *v);
 void	refresh(t_vars *v);
 int		interact_key(int keycode, t_vars *vars);
 void	print_mrt(t_mrt *mrt);
