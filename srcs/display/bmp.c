@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 10:28:41 by lucille           #+#    #+#             */
-/*   Updated: 2021/05/12 16:39:40 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/12 16:53:20 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ void	pixel_data_bmp(t_bmp *bmp, int x, int y, t_rgb color)
 
 	bih = &(bmp->bih);
 	pos = ((bih->height - y - 1) * bih->width + x) * (bih->bitsperpix / 8);
-	bmp->body[pos] = (char)fminf(color.b, 255);
-	bmp->body[pos + 1] = (char)fminf(color.g, 255);
-	bmp->body[pos + 2] = (char)fminf(color.r, 255);
+	bmp->body[pos] = (char)(fmin(color.b, 255));
+	printf("done\n");
+	bmp->body[pos + 1] = (char)(fmin(color.g, 255));
+	bmp->body[pos + 2] = (char)(fmin(color.r, 255));
 	bmp->body[pos + 3] = 0x0;
 }
 
