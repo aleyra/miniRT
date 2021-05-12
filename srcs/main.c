@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/12 11:35:44 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/12 16:44:10 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	init_main(int ac, char *av[], t_mrt	**mrt)
 	if (!*mrt || !((*mrt)->res) || !((*mrt)->amb) || !((*mrt)->amb->rgb))
 		return (ERROR_MALLOC);
 	other[1] = ft_parsing(*mrt, other[0]);
-	print_mrt(*mrt);//
+	print_mrt(*mrt);
 	close(other[0]);
 	if (other[1] != 0)
 		return (other[1]);
@@ -70,23 +70,24 @@ static void	main_ac_2(void *mlx, t_mrt *mrt)
 	mlx_loop(mlx);
 }
 
-static int	main_ac_3(void *mlx, t_mrt *mrt)
+static int	main_ac_3(t_mrt *mrt)
 {
-	t_data	img;
 	int		fd;
+	t_bmp	bmp;
+	int		err;
 
-	img.img = mlx_new_image(mlx, mrt->res->x, mrt->res->y);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
-			&img.endian);
 	printf("ecriture du ficher\n");
-	ray_shooter(&img, mrt, mrt->cam);//?
 	fd = open("minirt_bmp/minirt.bmp", O_WRONLY | O_TRUNC | O_CREAT, 0744);
 	if (fd == -1)
 		return (ERROR_BMP);
-	//fct qui remplie ou prepare le header 	ft_file_header(mrt, fd);
-	//fct qui remplie le header 			ft_image_header(mrt, fd);
-	//fct qui ecrit le resultat ds le bmp 	ft_save_buffer(mrt, img, fd);
+	printf("done\n");
+	header_bmp(&(bmp.bh), mrt);
+	info_header_bmp(&(bmp.bih), mrt);
+	ray_shooter_bmp(&bmp, mrt, mrt->cam);
+	err = write_bmp(bmp, fd);
 	close(fd);
+	if (err == ERROR_BMP)
+		return (ERROR_BMP);
 	return (NO_ERROR);
 }
 
@@ -100,15 +101,14 @@ int	main(int ac, char *av[])
 	err = init_main(ac, av, &mrt);
 	if (err != NO_ERROR)
 		return (ft_display_error(err, mrt));
-	mlx = mlx_init();
-
 	if (ac == 2)
 	{
+		mlx = mlx_init();
 		main_ac_2(mlx, mrt);
 	}
-	if (ac == 3)//creation d'un bmp
+	if (ac == 3)
 	{
-		err = main_ac_3(mlx, mrt);
+		err = main_ac_3(mrt);
 		if (err == ERROR_BMP)
 			return (ft_display_error(ERROR_BMP, mrt));
 	}

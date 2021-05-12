@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/12 11:13:46 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/12 16:40:43 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,37 @@ typedef struct s_ray_tracer
 	t_coll	lray;
 }			t_ray_tracer;
 
+struct s_bmpheader{
+	char	signature[2];
+	int		file_size;
+	int		reserved;
+	int		data_offset;
+} __attribute__((__packed__));
+
+typedef struct s_bmpheader		t_bmpheader;
+
+struct s_bmpinfoheader{
+	int		size;
+	int		width;
+	int		height;
+	short	planes;
+	short	bitsperpix;
+	int		compress;
+	int		img_size;
+	int		res_h;
+	int		res_v;
+	int		nb_color_used;
+	int		nb_imp_color;
+} __attribute__((__packed__));
+
+typedef struct s_bmpinfoheader	t_bmpinfoheader;
+
+typedef struct s_bmp{
+	t_bmpheader		bh;
+	t_bmpinfoheader	bih;
+	char			*body;
+}	t_bmp;
+
 /* Objects ****************************************************************** */
 int		in_halfspace_sup(float t, t_vec3 *c, t_vec3 *r, t_obj *o);
 int		in_halfspace_inf(float t, t_vec3 *c, t_vec3 *r, t_obj *o);
@@ -163,6 +194,7 @@ t_coll	inter_lir_tr(t_vec3 *lightray, t_vec3 *lightpt, t_obj *tr);
 t_coll	inter_lir_sq(t_vec3 *lightray, t_vec3 *lightpt, t_obj *sq);
 t_coll	inter_lir_cy(t_vec3 *lightray, t_vec3 *lightpt, t_obj *cy);
 int		ray_trace(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview);
+t_rgb	ray_trace_bmp(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview);
 t_vec3	inter_quad_line_coeff(t_quad *quad, t_vec3 *c, t_vec3 *r);
 float	discriminant(t_vec3 abc);
 float	inter_quad_line_sol(t_vec3 abc, float d);
@@ -174,6 +206,7 @@ t_coll	shooting_triangle(t_obj *tr, t_vec3 *ray, t_vec3 *ptofview);
 t_coll	shooting_square(t_obj *sq, t_vec3 *ray, t_vec3 *ptofview);
 t_coll	shooting_sphere(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview);
 void	ray_shooter(t_data *img, t_mrt *mrt, t_cam *cam);
+void	ray_shooter_bmp(t_bmp *bmp, t_mrt *mrt, t_cam *cam);
 int		in_square(t_obj *sq, t_vec3 p);
 int		in_triangle(t_obj *tr, t_vec3 p);
 
@@ -271,9 +304,10 @@ typedef enum e_key{
 	UP_ARROW = 126,
 }	t_key;
 
-// void	ft_file_header(t_mrt *mrt, int fd);
-// void	ft_image_header(t_mrt *mrt, int fd);
-// void	ft_save_buffer(t_mrt *mrt, t_data img, int fd);
+void	header_bmp(t_bmpheader *bh, t_mrt *mrt);
+void	info_header_bmp(t_bmpinfoheader *bih, t_mrt *mrt);
+void	pixel_data_bmp(t_bmp *bmp, int x, int y, t_rgb color);
+int		write_bmp(t_bmp bmp, int fd);
 int		create_trgb(int t, int r, int g, int b);
 int		init_color_initial(t_rgb *rgb, char *str);
 void	float_color_to_char_int(t_rgb *rgb);

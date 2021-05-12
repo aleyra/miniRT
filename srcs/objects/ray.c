@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:46:54 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/07 15:40:06 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/12 16:04:20 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,26 @@ void	ray_shooter(t_data *img, t_mrt *mrt, t_cam *cam)
 		ik[0]++;
 	}
 	printf("fini\n");//
+}
+
+void	ray_shooter_bmp(t_bmp *bmp, t_mrt *mrt, t_cam *cam)
+{
+	unsigned int	ik[2];
+	float			r;
+	t_vec3			ray;
+
+	ik[0] = 0;
+	r = 2 * tan(cam->fovr * 0.5) / mrt->res->x;
+	while (ik[0] < mrt->res->x)
+	{
+		ik[1] = 0;
+		while (ik[1] < mrt->res->y)
+		{
+			ray = define_ray(ik, mrt, r, cam);
+			pixel_data_bmp(bmp, ik[0], ik[1], ray_trace_bmp(
+					&ray, mrt, cam->ptofview));
+			ik[1]++;
+		}
+		ik[0]++;
+	}
 }

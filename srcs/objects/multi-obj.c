@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 10:55:17 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/12 11:13:50 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/12 16:42:22 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,29 @@ int	ray_trace(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview)
 		t.li = t.li->next;
 	}
 	return (t.color.i);
+}
+
+t_rgb	ray_trace_bmp(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview)
+{
+	t_ray_tracer	t;
+
+	t.fo = NULL;
+	t.tf_cac = find_of_and_tf(&(t.fo), mrt->obj, ray, ptofview);
+	init_struct_rgb(&(t.color));
+	if (!t.fo)
+		return (t.color);
+	t.color = color_obj_and_amb((t.fo)->rgb, mrt->amb);
+	t.li = mrt->light;
+	t.temp.n = shooting_obj(t.fo, ray, ptofview).n;
+	while (t.li)
+	{
+		t.o = mrt->obj;
+		while (t.o)
+		{
+			while_o(&t, mrt, t.fo);
+			t.o = (t.o)->next;
+		}
+		t.li = t.li->next;
+	}
+	return (t.color);
 }
