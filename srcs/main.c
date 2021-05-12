@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/12 10:40:42 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/12 11:35:44 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,14 @@ static void	main_ac_2(void *mlx, t_mrt *mrt)
 {
 	t_vars	v;
 	t_data	img;
+	int		xy[2];		
 
 	v.mlx = mlx;
 	v.mrt = mrt;
 	v.cam = mrt->cam;
+	mlx_get_screen_size(mlx, &(xy[0]), &(xy[1]));
+	mrt->res->x = fmin(mrt->res->x, xy[0]);
+	mrt->res->y = fmin(mrt->res->y, xy[1]);
 	v.win = mlx_new_window(mlx, mrt->res->x, mrt->res->y, "miniRT");
 	img.img = mlx_new_image(mlx, mrt->res->x, mrt->res->y);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
@@ -97,6 +101,7 @@ int	main(int ac, char *av[])
 	if (err != NO_ERROR)
 		return (ft_display_error(err, mrt));
 	mlx = mlx_init();
+
 	if (ac == 2)
 	{
 		main_ac_2(mlx, mrt);
