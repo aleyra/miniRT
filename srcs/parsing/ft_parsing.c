@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucille <lucille@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 13:17:09 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/10 13:15:27 by lucille          ###   ########lyon.fr   */
+/*   Updated: 2021/05/12 10:23:23 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,5 @@ int	ft_parsing(t_mrt *mrt, int fd)
 		if (end_of_while(i_id_nbt, &line, fd, &i_id_nbt[3]) != NO_ERROR)
 			return (i_id_nbt[2]);
 	}
-	return (end_of_parsing(&line, i_id_nbt[3]), mrt);
+	return (end_of_parsing(&line, i_id_nbt[3], mrt));
 }

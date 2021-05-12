@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_display_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucille <lucille@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:27:35 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/11 10:05:20 by lucille          ###   ########lyon.fr   */
+/*   Updated: 2021/05/12 10:34:22 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
