@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:01:05 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/07 15:38:38 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/12 10:59:42 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,11 @@ void	free_mrt(t_mrt	*mrt)
 	free(mrt->res);
 	free(mrt->amb->rgb);
 	free(mrt->amb);
-	delall_cam(&mrt->cam);
-	delall_light(&mrt->light);
-	delall_obj(&mrt->obj);
+	if (mrt->cam)
+		delall_cam(&mrt->cam);
+	if (mrt->light)
+		delall_light(&mrt->light);
+	if (mrt->obj)
+		delall_obj(&mrt->obj);
 	free(mrt);
 }

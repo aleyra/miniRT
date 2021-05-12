@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/12 10:25:36 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/12 10:40:42 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ static void	main_ac_2(void *mlx, t_mrt *mrt)
 	v.img = &img;
 	ray_shooter(&img, mrt, v.cam);
 	mlx_put_image_to_window(mlx, v.win, img.img, 0, 0);
-	//mlx_hook(v.win, 2, 1L<<0, interact_key, &v);
-	//mlx_hook(v.win, 2, 1L<<0, win_close, &v);
+	mlx_hook(v.win, 17, 1L << 2, win_close, &v);
 	mlx_key_hook(v.win, interact_key, &v);
 	mlx_loop(mlx);
 }

@@ -6,24 +6,14 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 15:19:04 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/12 10:32:52 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/12 10:48:21 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-/* ************************************************************************** */
-/* 53 = ESC																	  */
-/* 123 = LEFT ARROW														  */
-/* 124 = RIGHT ARROW															  */
-/* 125 = DOWN ARROW															  */
-/* 126 = UP ARROW															  */
-/* ************************************************************************** */
-
-int	win_close(int keycode, t_vars *v)
+int	win_close(t_vars *v)
 {
-	(void)keycode;
-	mlx_destroy_window(v->mlx, v->win);
 	exit(ft_display_error(NO_ERROR, v->mrt));
 	return (0);
 }
@@ -71,14 +61,14 @@ static void	keycode_123(t_vars *v)
 int	interact_key(int keycode, t_vars *v)
 {
 	printf("%d\n", keycode);//
-	if (keycode == 53)
+	if (keycode == ESC)
 	{
 		mlx_destroy_window(v->mlx, v->win);
 		exit(ft_display_error(NO_ERROR, v->mrt));
 	}
-	if (keycode == 124)
+	if (keycode == RIGHT_ARROW)
 		keycode_124(v);
-	if (keycode == 123)
+	if (keycode == LEFT_ARROW)
 		keycode_123(v);
 	refresh(v);
 	return (0);

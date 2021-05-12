@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 10:55:17 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/07 13:45:47 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/12 11:13:50 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ static int	number_of_obj(t_mrt *mrt)
 	return (i);
 }
 
-static void	while_o(t_ray_tracer *t, t_mrt *mrt)
+static void	while_o(t_ray_tracer *t, t_mrt *mrt, t_obj *fo)
 {
 	t->lray = intercept_lightray(&(t->tf_cac.c), t->li->lightpt, t->o);
-	t->temp.t = find_angle(opp_vec3(t->lray.n), t->temp.n);
+	t->temp.t = find_angle(opp_vec3(t->lray.n), t->temp.n, fo->type);
 	if (number_of_obj(mrt) == 1)
 		t->color = color_plus_light(&(t->color), t->li, t->temp.t, t->fo->rgb);
 	else if (t->o != t->fo && t->lray.t == 0)
@@ -75,7 +75,7 @@ int	ray_trace(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview)
 		t.o = mrt->obj;
 		while (t.o)
 		{
-			while_o(&t, mrt);
+			while_o(&t, mrt, t.fo);
 			t.o = (t.o)->next;
 		}
 		t.li = t.li->next;

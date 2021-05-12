@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucille <lucille@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/11 10:50:20 by lucille          ###   ########lyon.fr   */
+/*   Updated: 2021/05/12 11:13:46 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ int		ft_atorgb(t_rgb *rgb, char *str);
 int		ft_atovec3norm(t_vec3 *v, char *str);
 int		ft_atovec3(t_vec3 *v, char *str);
 t_vec3	vec3_rotate_axis(t_vec3 v, t_vec3 axis, float rad);
-float	find_angle(t_vec3 a, t_vec3 b);
+float	find_angle(t_vec3 a, t_vec3 b, int type);
 
 /* Parsing ****************************************************************** */
 typedef enum e_type_token
@@ -262,6 +262,15 @@ typedef enum e_error {
 	ERROR_BMP,
 }	t_error;
 
+typedef enum e_key{
+	NO_KEY = 0,
+	ESC = 53,
+	LEFT_ARROW = 123,
+	RIGHT_ARROW	= 124,
+	DOWN_ARROW = 125,
+	UP_ARROW = 126,
+}	t_key;
+
 // void	ft_file_header(t_mrt *mrt, int fd);
 // void	ft_image_header(t_mrt *mrt, int fd);
 // void	ft_save_buffer(t_mrt *mrt, t_data img, int fd);
@@ -272,7 +281,7 @@ t_rgb	color_obj_and_amb(t_rgb *objc, t_ambient *amb);
 t_rgb	color_plus_light(
 			t_rgb *color, t_light *light, float angle, t_rgb *rgbo);
 int		ft_display_error(int cas, t_mrt *mrt);
-int		win_close(int keycode, t_vars *v);
+int		win_close(t_vars *v);
 void	refresh(t_vars *v);
 int		interact_key(int keycode, t_vars *vars);
 void	print_mrt(t_mrt *mrt);
