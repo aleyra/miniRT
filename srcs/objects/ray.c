@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:46:54 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/14 11:25:48 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/14 11:41:01 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ray_shooter(t_data *img, t_mrt *mrt, t_cam *cam)
 		}
 		ik[0]++;
 	}
-	printf("fini\n");
+	printf("done\n");
 }
 
 void	ray_shooter_bmp(t_bmp *bmp, t_mrt *mrt, t_cam *cam)

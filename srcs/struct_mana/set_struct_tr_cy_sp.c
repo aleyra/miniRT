@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:43:12 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/23 13:41:04 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/14 11:40:56 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void	elseif_triangle(t_token token, int *i_id_nbt, t_obj *o)
 			i_id_nbt[1] = ID_BAD_PTS_T;
 		*(o->norm) = normal_of_tr(o->a, o->b, o->c);
 		make_vec3_norm(o->norm);
-		printf("%f,%f,%f\n", o->norm->x, o->norm->y, o->norm->z);
 		init_quad_tr(o);
 	}
 	else if (i_id_nbt[2] == 5)

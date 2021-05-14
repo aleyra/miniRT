@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 10:28:41 by lucille           #+#    #+#             */
-/*   Updated: 2021/05/14 11:23:39 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/14 11:37:51 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,11 @@ void	pixel_data_bmp(t_bmp *bmp, int x, int y, t_rgb color)
 
 int	write_bmp(t_bmp bmp, int fd)
 {
-	char	*body;
-	int		size;
-
 	if (write(fd, &(bmp.h.bh), sizeof(bmp.h.bh)) != sizeof(bmp.h.bh))
 		return (ERROR_BMP);
 	if (write(fd, &(bmp.h.bih), sizeof(bmp.h.bih)) != sizeof(bmp.h.bih))
 		return (ERROR_BMP);
-	body = bmp.body;
-	size = 4 * bmp.h.bih.width * bmp.h.bih.height;//3 * bmp.h.bih.width * bmp.h.bih.height;
-	if (write(fd, body, size) != size)
+	if (write(fd, bmp.body, bmp.h.bih.img_size) != bmp.h.bih.img_size)
 		return (ERROR_BMP);
 	return (NO_ERROR);
 }

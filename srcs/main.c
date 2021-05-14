@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/14 11:20:28 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/14 11:39:35 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	main_ac_2(void *mlx, t_mrt *mrt)
 	img.img = mlx_new_image(mlx, mrt->res->x, mrt->res->y);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
 			&img.endian);
-	printf("preparation de l'affichage\n");
+	printf("displaying\n");
 	v.img = &img;
 	ray_shooter(&img, mrt, v.cam);
 	mlx_put_image_to_window(mlx, v.win, img.img, 0, 0);
@@ -76,7 +76,7 @@ static int	main_ac_3(t_mrt *mrt)
 	t_bmp	bmp;
 	int		err;
 
-	printf("ecriture du ficher\n");
+	printf("creation of .bmp\n");
 	header_bmp(&(bmp.h.bh), mrt);
 	info_header_bmp(&(bmp.h.bih), mrt);
 	bmp.body = malloc(bmp.h.bih.img_size);

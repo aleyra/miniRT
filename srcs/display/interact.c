@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 15:19:04 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/14 11:25:18 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/14 11:40:31 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	win_close(t_vars *v)
 void	refresh(t_vars *v)
 {
 	mlx_clear_window(v->mlx, v->win);
-	printf("refresh en cours\n");
+	printf("refreshing...\n");
 	ray_shooter(v->img, v->mrt, v->cam);
 	mlx_put_image_to_window(v->mlx, v->win, v->img->img, 0, 0);
 }
@@ -31,7 +31,7 @@ static void	keycode_124(t_vars *v)
 	v->cam = v->cam->next;
 	if (!(v->cam))
 		v->cam = v->mrt->cam;
-	printf("suivant :\t");
+	printf("next :\t");
 	print_vec3(v->cam->dir);
 }
 
@@ -54,7 +54,7 @@ static void	keycode_123(t_vars *v)
 				v->cam = v->mrt->cam;
 		}
 	}
-	printf("precedent :\t");
+	printf("prec :\t");
 	print_vec3(v->cam->dir);
 }
 
