@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:43:12 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/14 11:40:56 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/14 15:00:28 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ static void	elseif_cylinder(t_token token, int *i_id_nbt, t_obj *o)
 		init_quad_cy(o);
 		if (init_color_initial(o->rgb, token.val) == ERROR_RGB)
 			i_id_nbt[1] = ID_BAD_RGB;
-		*(o->a) = sum_alg_2vec3(1, o->center, o->height, o->dir);
+		*(o->a) = sum_alg_2vec3(1, o->center, o->height * 0.5, o->dir);
+		*(o->b) = sum_alg_2vec3(1, o->center, -1 * o->height * 0.5, o->dir);
 	}
 	else
 		i_id_nbt[1] = ID_TOO_MANY_PARAM;

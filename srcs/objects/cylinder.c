@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 11:04:40 by lburnet           #+#    #+#             */
-/*   Updated: 2021/04/29 13:03:43 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/14 15:02:11 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	in_halfspace_sup(float t, t_vec3 *c, t_vec3 *r, t_obj *o)
 	qpl.g = o->norm->x;
 	qpl.h = o->norm->y;
 	qpl.i = o->norm->z;
-	qpl.j = -qpl.g * o->center->x - qpl.h * o->center->y - qpl.i * o->center->z;
+	qpl.j = -qpl.g * o->b->x - qpl.h * o->b->y - qpl.i * o->b->z;
 	v = inter_quad_line_coeff(&qpl, c, r);
 	if (t * v.y + v.z > 0)
 		return (1);
