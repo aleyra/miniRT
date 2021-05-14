@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/12 16:54:09 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/14 11:20:28 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,18 @@ static int	main_ac_3(t_mrt *mrt)
 	int		err;
 
 	printf("ecriture du ficher\n");
+	header_bmp(&(bmp.h.bh), mrt);
+	info_header_bmp(&(bmp.h.bih), mrt);
+	bmp.body = malloc(bmp.h.bih.img_size);
+	if (!(bmp.body))
+		return (ERROR_MALLOC);
+	ray_shooter_bmp(&bmp, mrt, mrt->cam);
 	fd = open("minirt.bmp", O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (fd == -1)
 		return (ERROR_BMP);
-	header_bmp(&(bmp.bh), mrt);
-	info_header_bmp(&(bmp.bih), mrt);
-	ray_shooter_bmp(&bmp, mrt, mrt->cam);
 	err = write_bmp(bmp, fd);
 	close(fd);
+	free(bmp.body);
 	if (err == ERROR_BMP)
 		return (ERROR_BMP);
 	return (NO_ERROR);

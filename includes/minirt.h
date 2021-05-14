@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/12 16:40:43 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/14 10:59:17 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,10 +177,16 @@ struct s_bmpinfoheader{
 
 typedef struct s_bmpinfoheader	t_bmpinfoheader;
 
-typedef struct s_bmp{
+struct s_header{
 	t_bmpheader		bh;
 	t_bmpinfoheader	bih;
-	char			*body;
+} __attribute__((__packed__));
+
+typedef struct s_header			t_header;
+
+typedef struct s_bmp{
+	t_header	h;
+	char		*body;
 }	t_bmp;
 
 /* Objects ****************************************************************** */
@@ -321,6 +327,7 @@ int		interact_key(int keycode, t_vars *vars);
 void	print_mrt(t_mrt *mrt);
 void	print_corner_sq(t_obj *o);
 void	print_vec3(t_vec3 *v);
+void	print_rgb(t_rgb *rgb);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 /* Struct managing ********************************************************** */
