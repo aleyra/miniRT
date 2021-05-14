@@ -6,18 +6,18 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 10:28:41 by lucille           #+#    #+#             */
-/*   Updated: 2021/05/14 11:37:51 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/14 13:45:46 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	header_bmp(t_bmpheader *bh, t_mrt *mrt)
+void	header_bmp(t_bmpfileheader *bh, t_mrt *mrt)
 {
 	ft_strcpy(bh->signature, "BM");
+	bh->file_size = sizeof(t_bmpheader) + 32 * mrt->res->x * mrt->res->y;
 	bh->reserved = 0;
 	bh->data_offset = sizeof(t_bmpheader);
-	bh->file_size = bh->data_offset + 32 * mrt->res->x * mrt->res->y;
 }
 
 void	info_header_bmp(t_bmpinfoheader *bih, t_mrt *mrt)
@@ -50,7 +50,7 @@ void	pixel_data_bmp(t_bmp *bmp, int x, int y, t_rgb color)
 
 int	write_bmp(t_bmp bmp, int fd)
 {
-	if (write(fd, &(bmp.h.bh), sizeof(bmp.h.bh)) != sizeof(bmp.h.bh))
+	if (write(fd, &(bmp.h.bfh), sizeof(bmp.h.bfh)) != sizeof(bmp.h.bfh))
 		return (ERROR_BMP);
 	if (write(fd, &(bmp.h.bih), sizeof(bmp.h.bih)) != sizeof(bmp.h.bih))
 		return (ERROR_BMP);

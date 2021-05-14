@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 14:10:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/12 11:13:18 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/14 13:58:59 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ float	find_angle(t_vec3 a, t_vec3 b, int type)
 	make_vec3_norm(&an);
 	make_vec3_norm(&bn);
 	rad = fmax(0, (an.x * bn.x + an.y * bn.y + an.z * bn.z));
-	if ((type == TYPE_SPHERE || type == TYPE_TRIANGLE || type == TYPE_PLANE)
+	if ((type == TYPE_SQUARE || type == TYPE_TRIANGLE || type == TYPE_PLANE)
 		&& rad == 0)
 	{
 		bn = opp_vec3(bn);

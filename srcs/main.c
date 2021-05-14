@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/14 11:39:35 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/14 13:46:14 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	main_ac_3(t_mrt *mrt)
 	int		err;
 
 	printf("creation of .bmp\n");
-	header_bmp(&(bmp.h.bh), mrt);
+	header_bmp(&(bmp.h.bfh), mrt);
 	info_header_bmp(&(bmp.h.bih), mrt);
 	bmp.body = malloc(bmp.h.bih.img_size);
 	if (!(bmp.body))
@@ -91,6 +91,7 @@ static int	main_ac_3(t_mrt *mrt)
 	free(bmp.body);
 	if (err == ERROR_BMP)
 		return (ERROR_BMP);
+	printf("done\n");
 	return (NO_ERROR);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/14 10:59:17 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/14 13:45:47 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,14 +152,14 @@ typedef struct s_ray_tracer
 	t_coll	lray;
 }			t_ray_tracer;
 
-struct s_bmpheader{
+struct s_bmpfileheader {
 	char	signature[2];
 	int		file_size;
 	int		reserved;
 	int		data_offset;
 } __attribute__((__packed__));
 
-typedef struct s_bmpheader		t_bmpheader;
+typedef struct s_bmpfileheader		t_bmpfileheader;
 
 struct s_bmpinfoheader{
 	int		size;
@@ -175,17 +175,17 @@ struct s_bmpinfoheader{
 	int		nb_imp_color;
 } __attribute__((__packed__));
 
-typedef struct s_bmpinfoheader	t_bmpinfoheader;
+typedef struct s_bmpinfoheader		t_bmpinfoheader;
 
-struct s_header{
-	t_bmpheader		bh;
+struct s_bmpheader {
+	t_bmpfileheader	bfh;
 	t_bmpinfoheader	bih;
 } __attribute__((__packed__));
 
-typedef struct s_header			t_header;
+typedef struct s_bmpheader			t_bmpheader;
 
 typedef struct s_bmp{
-	t_header	h;
+	t_bmpheader	h;
 	char		*body;
 }	t_bmp;
 
@@ -310,7 +310,7 @@ typedef enum e_key{
 	UP_ARROW = 126,
 }	t_key;
 
-void	header_bmp(t_bmpheader *bh, t_mrt *mrt);
+void	header_bmp(t_bmpfileheader *bh, t_mrt *mrt);
 void	info_header_bmp(t_bmpinfoheader *bih, t_mrt *mrt);
 void	pixel_data_bmp(t_bmp *bmp, int x, int y, t_rgb color);
 int		write_bmp(t_bmp bmp, int fd);
