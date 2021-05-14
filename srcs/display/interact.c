@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 15:19:04 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/12 10:48:21 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/14 11:25:18 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	keycode_124(t_vars *v)
 	v->cam = v->cam->next;
 	if (!(v->cam))
 		v->cam = v->mrt->cam;
-	printf("suivant :\t");//
-	print_vec3(v->cam->dir);//
+	printf("suivant :\t");
+	print_vec3(v->cam->dir);
 }
 
 static void	keycode_123(t_vars *v)
@@ -54,13 +54,12 @@ static void	keycode_123(t_vars *v)
 				v->cam = v->mrt->cam;
 		}
 	}
-	printf("precedent :\t");//
-	print_vec3(v->cam->dir);//
+	printf("precedent :\t");
+	print_vec3(v->cam->dir);
 }
 
 int	interact_key(int keycode, t_vars *v)
 {
-	printf("%d\n", keycode);//
 	if (keycode == ESC)
 	{
 		mlx_destroy_window(v->mlx, v->win);
