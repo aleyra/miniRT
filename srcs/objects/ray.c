@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:46:54 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/18 11:18:11 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/18 14:31:01 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,47 +65,42 @@ static t_vec3	define_ray(unsigned int ik[2], t_mrt *mrt, float r, t_cam *cam)
 /* ikt[1] = k a counter for pixels along of z								  */
 /* r = R_H = R_V															  */
 /******************************************************************************/
-void	ray_shooter(t_data *img, t_mrt *mrt, t_cam *cam)
+int	ray_shooter(void *img, t_mrt *mrt, t_cam *cam, t_pixel_setter put_pixel)
 {
 	unsigned int	ik[2];
 	float			r;
-	t_vec3			ray;
+	t_vec3			*ray;
+	t_rgb			*color;
+	int				err;
 
 	ik[0] = 0;
 	r = 2 * tan(cam->fovr * 0.5) / mrt->res->x;
-	while (ik[0] < mrt->res->x)
+	ray = malloc(sizeof(t_vec3));
+	if (!ray)
+		return (ERROR_MALLOC);
+	color = malloc(sizeof(t_rgb));
+	if (!color)
+	{
+		free(ray);
+		return (ERROR_MALLOC);
+	}
+	err = NO_ERROR;
+	while (ik[0] < mrt->res->x && err == NO_ERROR)
 	{
 		ik[1] = 0;
-		while (ik[1] < mrt->res->y)
+		while (ik[1] < mrt->res->y && err == NO_ERROR)
 		{
-			ray = define_ray(ik, mrt, r, cam);
-			my_mlx_pixel_put(img, ik[0], ik[1], ray_trace(
-					&ray, mrt, cam->ptofview));
+			*ray = define_ray(ik, mrt, r, cam);
+			err = ray_trace(ray, mrt, cam->ptofview, color);
+			put_pixel(img, ik[0], ik[1], *color);
 			ik[1]++;
 		}
 		ik[0]++;
 	}
 	printf("done\n");
-}
-
-void	ray_shooter_bmp(t_bmp *bmp, t_mrt *mrt, t_cam *cam)
-{
-	unsigned int	ik[2];
-	float			r;
-	t_vec3			ray;
-
-	ik[0] = 0;
-	r = 2 * tan(cam->fovr * 0.5) / mrt->res->x;
-	while (ik[0] < mrt->res->x)
-	{
-		ik[1] = 0;
-		while (ik[1] < mrt->res->y)
-		{
-			ray = define_ray(ik, mrt, r, cam);
-			pixel_data_bmp(bmp, ik[0], ik[1], ray_trace_bmp(
-					&ray, mrt, cam->ptofview));
-			ik[1]++;
-		}
-		ik[0]++;
-	}
+	free(ray);
+	free(color);
+	if (err != NO_ERROR)
+		return (err);
+	return (NO_ERROR);
 }

@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/14 13:45:47 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/18 14:32:07 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@
 
 //https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
 /* Struct for miniRT ******************************************************** */
-typedef struct s_rgb {
+
+typedef struct s_rgb	t_rgb;
+typedef void			(*t_pixel_setter)(void *, int, int, t_rgb);
+
+struct s_rgb {
 	int		i;
 	int		t;
 	int		b;
@@ -29,7 +33,7 @@ typedef struct s_rgb {
 	float	fb;
 	float	fg;
 	float	fr;
-}	t_rgb;
+};
 
 typedef enum e_objtype {
 	TYPE_UNKNOWN,
@@ -111,6 +115,7 @@ typedef struct s_mrt
 	t_cam		*cam;
 	t_light		*light;
 	t_obj		*obj;
+	int			nb_obj;
 }				t_mrt;
 
 //what's endian ?
@@ -193,14 +198,13 @@ typedef struct s_bmp{
 int		in_halfspace_sup(float t, t_vec3 *c, t_vec3 *r, t_obj *o);
 int		in_halfspace_inf(float t, t_vec3 *c, t_vec3 *r, t_obj *o);
 t_vec3	normal_to_cy(t_vec3 *n, t_vec3 pt, t_vec3 *o);
-t_coll	intercept_lightray(t_vec3 *contact, t_vec3 *lightpt, t_obj *obj);
+void	intercept_lightray(t_coll *lightray, t_vec3 *lightpt, t_obj *obj);
 t_coll	inter_lir_sp(t_vec3 *lightray, t_vec3 *lightpt, t_obj *sp);
 t_coll	inter_lir_pl(t_vec3 *lightray, t_vec3 *lightpt, t_obj *pl);
 t_coll	inter_lir_tr(t_vec3 *lightray, t_vec3 *lightpt, t_obj *tr);
 t_coll	inter_lir_sq(t_vec3 *lightray, t_vec3 *lightpt, t_obj *sq);
 t_coll	inter_lir_cy(t_vec3 *lightray, t_vec3 *lightpt, t_obj *cy);
-int		ray_trace(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview);
-t_rgb	ray_trace_bmp(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview);
+int		ray_trace(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview, t_rgb *color);
 t_vec3	inter_quad_line_coeff(t_quad *quad, t_vec3 *c, t_vec3 *r);
 float	discriminant(t_vec3 abc);
 float	inter_quad_line_sol(t_vec3 abc, float d);
@@ -211,8 +215,7 @@ t_coll	shooting_plane(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview);
 t_coll	shooting_triangle(t_obj *tr, t_vec3 *ray, t_vec3 *ptofview);
 t_coll	shooting_square(t_obj *sq, t_vec3 *ray, t_vec3 *ptofview);
 t_coll	shooting_sphere(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview);
-void	ray_shooter(t_data *img, t_mrt *mrt, t_cam *cam);
-void	ray_shooter_bmp(t_bmp *bmp, t_mrt *mrt, t_cam *cam);
+int		ray_shooter(void *i, t_mrt *mrt, t_cam *cam, t_pixel_setter put_pixel);
 int		in_square(t_obj *sq, t_vec3 p);
 int		in_triangle(t_obj *tr, t_vec3 p);
 
@@ -328,7 +331,7 @@ void	print_mrt(t_mrt *mrt);
 void	print_corner_sq(t_obj *o);
 void	print_vec3(t_vec3 *v);
 void	print_rgb(t_rgb *rgb);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	my_mlx_pixel_put(t_data *data, int x, int y, t_rgb color);
 
 /* Struct managing ********************************************************** */
 //BLANK_n are for making correspondance between t_error and e_type_ID

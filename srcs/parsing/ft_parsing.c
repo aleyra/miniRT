@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 13:17:09 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/12 10:23:23 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/18 13:16:37 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	ft_parsing(t_mrt *mrt, int fd)
 	stm = init_parsing(&line, &i_id_nbt[3], fd, i_id_nbt);
 	while (i_id_nbt[3] > 0)
 	{
-		 while (line[i_id_nbt[0]])
+		 while (line[i_id_nbt[0]] && line[0] != '#')
 		{
 			temp = second_while(&stm, i_id_nbt, &line, mrt);
 			if (temp != 0)

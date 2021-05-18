@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/18 11:22:35 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/18 14:32:59 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ static int	init_main(int ac, char *av[], t_mrt	**mrt)
 	return (NO_ERROR);
 }
 
-static void	main_ac_2(void *mlx, t_mrt *mrt)
+static int	main_ac_2(void *mlx, t_mrt *mrt)
 {
 	t_vars	v;
 	t_data	img;
-	int		xy[2];		
+	int		xy[2];
+	int		err;	
 
 	v.mlx = mlx;
 	v.mrt = mrt;
@@ -63,11 +64,14 @@ static void	main_ac_2(void *mlx, t_mrt *mrt)
 			&img.endian);
 	printf("displaying...\n");
 	v.img = &img;
-	ray_shooter(&img, mrt, v.cam);
+	err = ray_shooter(&img, mrt, mrt->cam, (t_pixel_setter)my_mlx_pixel_put);
+	if (err != NO_ERROR)
+		return (err);
 	mlx_put_image_to_window(mlx, v.win, img.img, 0, 0);
 	mlx_hook(v.win, 17, 1L << 2, win_close, &v);
 	mlx_key_hook(v.win, interact_key, &v);
 	mlx_loop(mlx);
+	return (NO_ERROR);
 }
 
 static int	main_ac_3(t_mrt *mrt)
@@ -85,13 +89,12 @@ static int	main_ac_3(t_mrt *mrt)
 	bmp.body = malloc(bmp.h.bih.img_size);
 	if (!(bmp.body))
 		return (ERROR_MALLOC);
-	ray_shooter_bmp(&bmp, mrt, mrt->cam);
+	ray_shooter(&bmp, mrt, mrt->cam, (t_pixel_setter)pixel_data_bmp);
 	err = write_bmp(bmp, fd);
 	close(fd);
 	free(bmp.body);
 	if (err == ERROR_BMP)
 		return (ERROR_BMP);
-	printf("done\n");
 	return (NO_ERROR);
 }
 
@@ -108,7 +111,9 @@ int	main(int ac, char *av[])
 	if (ac == 2)
 	{
 		mlx = mlx_init();
-		main_ac_2(mlx, mrt);
+		err = main_ac_2(mlx, mrt);
+		if (err != NO_ERROR)
+			return (ft_display_error(err, mrt));
 	}
 	if (ac == 3)
 	{
