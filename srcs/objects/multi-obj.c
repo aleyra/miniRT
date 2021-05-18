@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 10:55:17 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/18 15:39:39 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/18 17:03:35 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	while_li(t_ray_tracer *t, t_mrt *mrt, t_rgb *color)
 int	ray_trace(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview, t_rgb *color)
 {
 	t_ray_tracer	t;
+	int				in_shadow;
 
 	init_struct_rgb(color);
 	t.fo = NULL;
@@ -68,7 +69,21 @@ int	ray_trace(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview, t_rgb *color)
 	t.temp.n = shooting_obj(t.fo, ray, ptofview).n;
 	while (t.li)
 	{
-		while_li(&t, mrt, color);
+		//while_li(&t, mrt, color);
+		t.o = mrt->obj;
+		t.lray.n = sum_alg_2vec3(1, &(t.tf_cac.c), -1, t.li->lightpt);
+		in_shadow = 0;
+		while (!in_shadow && t.o)
+		{
+			t.lray.t = 0;
+			if (t.o != t.fo
+				&& intercept_lightray(&(t.lray), t.li->lightpt, t.o))
+				in_shadow = 1;
+			t.o = t.o->next;
+		}
+		if (!in_shadow)
+			*color = color_add(*color, calculate_color(
+						t.li, t.fo, t.temp.n, opp_vec3(t.lray.n)));
 		t.li = t.li->next;
 	}
 	float_color_to_char_int(color);
