@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/18 10:27:19 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/18 11:19:58 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ static int	main_ac_3(t_mrt *mrt)
 	printf("creation of .bmp\n");
 	header_bmp(&(bmp.h.bfh), mrt);
 	info_header_bmp(&(bmp.h.bih), mrt);
+	fd = open("minirt.bmp", O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	if (fd == -1)
+		return (ERROR_BMP);
 	bmp.body = malloc(bmp.h.bih.img_size);
 	if (!(bmp.body))
 		return (ERROR_MALLOC);
 	ray_shooter_bmp(&bmp, mrt, mrt->cam);
-	fd = open("minirt.bmp", O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	if (fd == -1)
-		return (ERROR_BMP);
 	err = write_bmp(bmp, fd);
 	close(fd);
 	free(bmp.body);
@@ -113,8 +113,8 @@ int	main(int ac, char *av[])
 	if (ac == 3)
 	{
 		err = main_ac_3(mrt);
-		if (err == ERROR_BMP)
-			return (ft_display_error(ERROR_BMP, mrt));
+		if (err != NO_ERROR)
+			return (ft_display_error(err, mrt));
 	}
 	return (ft_display_error(NO_ERROR, mrt));
 }
