@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 10:55:17 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/18 14:22:06 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/18 15:39:39 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,26 @@ static t_coll	find_of_and_tf(
 	return (f);
 }
 
+void	while_li(t_ray_tracer *t, t_mrt *mrt, t_rgb *color)
+{
+	int	in_shadow;
+
+	t->o = mrt->obj;
+	t->lray.n = sum_alg_2vec3(1, &(t->tf_cac.c), -1, t->li->lightpt);
+	in_shadow = 0;
+	while (!in_shadow && t->o)
+	{
+		t->lray.t = 0;
+		if (t->o != t->fo
+			&& intercept_lightray(&(t->lray), t->li->lightpt, t->o))
+			in_shadow = 1;
+		t->o = t->o->next;
+	}
+	if (!in_shadow)
+		*color = color_add(*color, calculate_color(
+					t->li, t->fo, t->temp.n, opp_vec3(t->lray.n)));
+}
+
 //inspired by http://www.alrj.org/docs/3D/raytracer/raytracertutchap2.htm
 int	ray_trace(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview, t_rgb *color)
 {
@@ -48,20 +68,7 @@ int	ray_trace(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview, t_rgb *color)
 	t.temp.n = shooting_obj(t.fo, ray, ptofview).n;
 	while (t.li)
 	{
-		t.o = mrt->obj;
-		while (t.o)
-		{
-			t.lray.t = 0;
-			t.lray.n = sum_alg_2vec3(1, &(t.tf_cac.c), -1, t.li->lightpt);
-			if (t.o != t.fo)
-				intercept_lightray(&(t.lray), t.li->lightpt, t.o);
-			if (t.lray.t == 0)
-			{
-				t.temp.t = find_angle(opp_vec3(t.lray.n), t.temp.n, t.fo->type);
-				*color = color_plus_light(color, t.li, t.temp.t, t.fo->rgb);
-			}
-			t.o = t.o->next;
-		}
+		while_li(&t, mrt, color);
 		t.li = t.li->next;
 	}
 	float_color_to_char_int(color);

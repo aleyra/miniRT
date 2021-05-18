@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 10:43:39 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/18 10:31:27 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/18 15:20:49 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,30 @@ t_rgb	color_plus_light(t_rgb *color, t_light *light, float angle, t_rgb *rgbo)
 	t_rgb	rl;
 
 	rl = *color;
-	rl.fr += rgbo->fr * light->rgb->fr * light->br * angle;
-	rl.fg += rgbo->fg * light->rgb->fg * light->br * angle;
-	rl.fb += rgbo->fb * light->rgb->fb * light->br * angle;
+	rl.fr += rgbo->fr * light->rgb->fr * light->br * light->br * angle;
+	rl.fg += rgbo->fg * light->rgb->fg * light->br * light->br * angle;
+	rl.fb += rgbo->fb * light->rgb->fb * light->br * light->br * angle;
+	return (rl);
+}
+
+t_rgb	color_add(t_rgb color1, t_rgb color2)
+{
+	t_rgb	color;
+
+	color.fr = color1.fr + color2.fr;
+	color.fg = color1.fg + color2.fg;
+	color.fb = color1.fb + color2.fb;
+	return (color);
+}
+
+t_rgb	calculate_color(t_light *li, t_obj *obj, t_vec3 ray, t_vec3 lray)
+{
+	t_rgb	rl;
+	float	angle;
+
+	angle = find_angle(ray, lray, obj->type);
+	rl.fr = obj->rgb->fr * li->rgb->fr * li->br * li->br * angle;
+	rl.fg = obj->rgb->fg * li->rgb->fg * li->br * li->br * angle;
+	rl.fb = obj->rgb->fb * li->rgb->fb * li->br * li->br * angle;
 	return (rl);
 }
