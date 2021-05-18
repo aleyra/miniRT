@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 10:43:39 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/07 15:32:15 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/18 10:31:27 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ t_rgb	color_obj_and_amb(t_rgb *objc, t_ambient *amb)
 	rl.fr = objc->fr * amb->rgb->fr * amb->ratio;
 	rl.fg = objc->fg * amb->rgb->fg * amb->ratio;
 	rl.fb = objc->fb * amb->rgb->fb * amb->ratio;
-	float_color_to_char_int(&rl);
 	return (rl);
 }
 
@@ -65,6 +64,5 @@ t_rgb	color_plus_light(t_rgb *color, t_light *light, float angle, t_rgb *rgbo)
 	rl.fr += rgbo->fr * light->rgb->fr * light->br * angle;
 	rl.fg += rgbo->fg * light->rgb->fg * light->br * angle;
 	rl.fb += rgbo->fb * light->rgb->fb * light->br * angle;
-	float_color_to_char_int(&rl);
 	return (rl);
 }

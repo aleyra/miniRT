@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/14 13:46:14 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/18 10:27:19 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	main_ac_2(void *mlx, t_mrt *mrt)
 	img.img = mlx_new_image(mlx, mrt->res->x, mrt->res->y);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
 			&img.endian);
-	printf("displaying\n");
+	printf("displaying...\n");
 	v.img = &img;
 	ray_shooter(&img, mrt, v.cam);
 	mlx_put_image_to_window(mlx, v.win, img.img, 0, 0);

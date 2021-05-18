@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 10:55:17 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/12 16:42:22 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/18 10:28:55 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	ray_trace(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview)
 		}
 		t.li = t.li->next;
 	}
+	float_color_to_char_int(&(t.color));
 	return (t.color.i);
 }
 
@@ -105,5 +106,6 @@ t_rgb	ray_trace_bmp(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview)
 		}
 		t.li = t.li->next;
 	}
+	float_color_to_char_int(&(t.color));
 	return (t.color);
 }
