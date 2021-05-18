@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:46:54 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/14 11:41:01 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/18 09:58:15 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,18 @@ static t_vec3	define_ray(unsigned int ik[2], t_mrt *mrt, float r, t_cam *cam)
 	t_vec3	ray;
 	float	angle;
 	t_vec3	mj;
-	t_vec3	i;
-	float	t;
 
 	ray.x = (ik[0] - mrt->res->x * 0.5) * r;
 	ray.y = -1;
 	ray.z = (mrt->res->y * 0.5 - ik[1]) * r;
-	init_tvec3_to_1x(&i);
 	init_tvec3_to_1y(&mj);
 	mj = opp_vec3(mj);
 	if (!(cam->dir->x == 0 && cam->dir->y == -1 && cam->dir->z == 0))
 	{
-		t = dot_prod(*(cam->dir), mj);
-		angle = acos(t);
-		t = dot_prod(*(cam->dir), i);
-		if (t > 0)
-			angle *= -1;
+		if (cam->dir->x > 0)
+			angle = -1 * acos(-1 * cam->dir->y);
+		else
+			angle = acos(-1 * cam->dir->y);
 		ray = vec3_rotate_axis(ray, cross_prod(*(cam->dir), mj), angle);
 	}
 	return (ray);
