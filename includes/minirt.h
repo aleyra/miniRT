@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/18 15:20:50 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/18 16:13:04 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 //https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
 /* Struct for miniRT ******************************************************** */
 
-typedef struct s_rgb	t_rgb;
-typedef void			(*t_pixel_setter)(void *, int, int, t_rgb);
+typedef struct s_rgb				t_rgb;
+typedef void						(*t_pixel_setter)(void *, int, int, t_rgb);
 
 struct s_rgb {
 	int		i;
@@ -152,7 +152,6 @@ typedef struct s_ray_tracer
 	t_coll	tf_cac;
 	t_obj	*o;
 	t_obj	*fo;
-	t_rgb	color;
 	t_light	*li;
 	t_coll	lray;
 }			t_ray_tracer;
@@ -215,6 +214,7 @@ t_coll	shooting_plane(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview);
 t_coll	shooting_triangle(t_obj *tr, t_vec3 *ray, t_vec3 *ptofview);
 t_coll	shooting_square(t_obj *sq, t_vec3 *ray, t_vec3 *ptofview);
 t_coll	shooting_sphere(t_obj *sp, t_vec3 *ray, t_vec3 *ptofview);
+t_vec3	define_ray(unsigned int ik[2], t_mrt *mrt, float r, t_cam *cam);
 int		ray_shooter(void *i, t_mrt *mrt, t_cam *cam, t_pixel_setter put_pixel);
 int		in_square(t_obj *sq, t_vec3 p);
 int		in_triangle(t_obj *tr, t_vec3 p);
@@ -321,8 +321,6 @@ int		create_trgb(int t, int r, int g, int b);
 int		init_color_initial(t_rgb *rgb, char *str);
 void	float_color_to_char_int(t_rgb *rgb);
 t_rgb	color_obj_and_amb(t_rgb *objc, t_ambient *amb);
-t_rgb	color_plus_light(
-			t_rgb *color, t_light *light, float angle, t_rgb *rgbo);
 t_rgb	color_add(t_rgb color1, t_rgb color2);
 t_rgb	calculate_color(t_light *li, t_obj *obj, t_vec3 ray, t_vec3 lray);
 int		ft_display_error(int cas, t_mrt *mrt);

@@ -12,10 +12,10 @@ PATH_LIBFT	=	libft
 PATH_LIBG	=	minilibx
 
 # List of sources
-SRCS_DISP	=	bmp.c color.c ft_display_error.c interact.c print_mrt.c print_mrt2.c \
-				my_mlx_pixel_put.c
+SRCS_DISP	=	bmp.c color.c color2.c ft_display_error.c interact.c print_mrt.c \
+				print_mrt2.c my_mlx_pixel_put.c
 SRCS_OBJC	=	cylinder.c intercept.c intercept2.c multi-obj.c quadric.c \
-				square.c triangle.c ray.c ray2.c
+				square.c triangle.c ray.c ray1.c ray2.c
 SRCS_PARSE	=	check_nb_param.c ft_parsing.c ft_state_machine.c ft_tokenizer.c
 SRCS_S_MANA	=	add_back_struct.c complete_t_obj.c delall_struct.c \
 				init_quad_obj.c init_struct_mrt.c init_struct_rgb.c \
