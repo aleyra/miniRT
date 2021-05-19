@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/19 15:11:21 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 15:41:59 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,7 @@ static int	main_ac_3(t_mrt *mrt)
 	int		err;
 
 	printf("creation of .bmp\n");
-	header_bmp(&(bmp.h.bfh), mrt);
-	info_header_bmp(&(bmp.h.bih), mrt);
+	header_bmp(&bmp, mrt);
 	fd = open("minirt.bmp", O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (fd == -1)
 		return (ERROR_BMP);

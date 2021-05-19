@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/19 14:55:58 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 15:41:33 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,8 +314,7 @@ typedef enum e_key{
 	UP_ARROW = 126,
 }	t_key;
 
-void	header_bmp(t_bmpfileheader *bh, t_mrt *mrt);
-void	info_header_bmp(t_bmpinfoheader *bih, t_mrt *mrt);
+void	header_bmp(t_bmp *bmp, t_mrt *mrt);
 void	pixel_data_bmp(t_bmp *bmp, int x, int y, t_rgb color);
 int		write_bmp(t_bmp bmp, int fd);
 int		create_trgb(int t, int r, int g, int b);

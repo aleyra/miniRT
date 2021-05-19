@@ -6,13 +6,13 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 10:28:41 by lucille           #+#    #+#             */
-/*   Updated: 2021/05/14 13:45:46 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 15:41:12 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	header_bmp(t_bmpfileheader *bh, t_mrt *mrt)
+static void	file_header_bmp(t_bmpfileheader *bh, t_mrt *mrt)
 {
 	ft_strcpy(bh->signature, "BM");
 	bh->file_size = sizeof(t_bmpheader) + 32 * mrt->res->x * mrt->res->y;
@@ -20,7 +20,7 @@ void	header_bmp(t_bmpfileheader *bh, t_mrt *mrt)
 	bh->data_offset = sizeof(t_bmpheader);
 }
 
-void	info_header_bmp(t_bmpinfoheader *bih, t_mrt *mrt)
+static void	info_header_bmp(t_bmpinfoheader *bih, t_mrt *mrt)
 {
 	bih->size = sizeof(t_bmpinfoheader);
 	bih->width = mrt->res->x;
@@ -33,6 +33,12 @@ void	info_header_bmp(t_bmpinfoheader *bih, t_mrt *mrt)
 	bih->res_v = 0;
 	bih->nb_color_used = 0;
 	bih->nb_imp_color = 0;
+}
+
+void	header_bmp(t_bmp *bmp, t_mrt *mrt)
+{
+	file_header_bmp(&bmp->h.bfh, mrt);
+	info_header_bmp(&bmp->h.bih, mrt);
 }
 
 void	pixel_data_bmp(t_bmp *bmp, int x, int y, t_rgb color)
