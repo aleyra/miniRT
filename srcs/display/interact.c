@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 15:19:04 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/19 15:04:18 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 16:15:13 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	win_close(t_vars *v)
 {
 	mlx_destroy_window(v->mlx, v->win);
+	free(v->img);
 	exit(ft_display_error(NO_ERROR, v->mrt));
 	return (0);
 }
@@ -55,6 +56,7 @@ int	interact_key(int keycode, t_vars *v)
 	if (keycode == ESC)
 	{
 		mlx_destroy_window(v->mlx, v->win);
+		free(v->img);
 		exit(ft_display_error(NO_ERROR, v->mrt));
 	}
 	if (keycode == RIGHT_ARROW)

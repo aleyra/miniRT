@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/19 15:41:59 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 16:21:17 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,32 +51,39 @@ static void	init_vars(t_vars *v, void *mlx, t_mrt *mrt)
 	v->mrt = mrt;
 	v->cam = mrt->cam;
 	v->num_cam = 0;
+	v->img->img = NULL;
+	v->img->addr = NULL;
+	v->img->bits_per_pix = 0;
+	v->img->line_len = 0;
+	v->img->endian = 0;
 }
 
 static int	main_ac_2(void *mlx, t_mrt *mrt)
 {
 	t_vars	v;
-	t_data	img;
 	int		xy[2];
 	int		err;
 
+	v.img = malloc(sizeof(t_data));
+	if (!(v.img))
+		return (ERROR_MALLOC);
 	init_vars(&v, mlx, mrt);
 	mlx_get_screen_size(mlx, &(xy[0]), &(xy[1]));
 	mrt->res->x = fmin(mrt->res->x, xy[0]);
 	mrt->res->y = fmin(mrt->res->y, xy[1]);
 	v.win = mlx_new_window(mlx, mrt->res->x, mrt->res->y, "miniRT");
-	img.img = mlx_new_image(mlx, mrt->res->x, mrt->res->y);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pix, &img.line_len,
-			&img.endian);
+	v.img->img = mlx_new_image(mlx, mrt->res->x, mrt->res->y);
+	v.img->addr = mlx_get_data_addr(v.img->img, &v.img->bits_per_pix,
+			&v.img->line_len, &v.img->endian);
 	printf("displaying...\n");
-	v.img = &img;
-	err = ray_shooter(&img, mrt, mrt->cam, (t_pixel_setter)my_mlx_pixel_put);
+	err = ray_shooter(v.img, mrt, mrt->cam, (t_pixel_setter)my_mlx_pixel_put);
 	if (err != NO_ERROR)
 		return (err);
-	mlx_put_image_to_window(mlx, v.win, img.img, 0, 0);
+	mlx_put_image_to_window(mlx, v.win, v.img->img, 0, 0);
 	mlx_hook(v.win, 17, 1L << 2, win_close, &v);
 	mlx_key_hook(v.win, interact_key, &v);
 	mlx_loop(mlx);
+	free(v.img);
 	return (NO_ERROR);
 }
 
