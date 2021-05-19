@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/18 14:32:59 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 10:45:07 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,14 @@ static int	init_main(int ac, char *av[], t_mrt	**mrt)
 	return (NO_ERROR);
 }
 
+static void	init_vars(t_vars *v, void *mlx, t_mrt *mrt)
+{
+	v->mlx = mlx;
+	v->mrt = mrt;
+	v->cam = mrt->cam;
+	v->num_cam = 0;
+}
+
 static int	main_ac_2(void *mlx, t_mrt *mrt)
 {
 	t_vars	v;
@@ -52,9 +60,7 @@ static int	main_ac_2(void *mlx, t_mrt *mrt)
 	int		xy[2];
 	int		err;	
 
-	v.mlx = mlx;
-	v.mrt = mrt;
-	v.cam = mrt->cam;
+	init_vars(&v, mlx, mrt);
 	mlx_get_screen_size(mlx, &(xy[0]), &(xy[1]));
 	mrt->res->x = fmin(mrt->res->x, xy[0]);
 	mrt->res->y = fmin(mrt->res->y, xy[1]);

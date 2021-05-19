@@ -6,13 +6,13 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 15:44:02 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/18 15:44:12 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 09:41:09 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_rgb	color_add(t_rgb color1, t_rgb color2)
+t_rgb	c_add(t_rgb color1, t_rgb color2)
 {
 	t_rgb	color;
 
@@ -22,7 +22,7 @@ t_rgb	color_add(t_rgb color1, t_rgb color2)
 	return (color);
 }
 
-t_rgb	calculate_color(t_light *li, t_obj *obj, t_vec3 ray, t_vec3 lray)
+t_rgb	calc_c(t_light *li, t_obj *obj, t_vec3 ray, t_vec3 lray)
 {
 	t_rgb	rl;
 	float	angle;

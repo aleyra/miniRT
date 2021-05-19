@@ -30,7 +30,7 @@ SRCS		=	$(addprefix $(PATH_SRC)/display/, $(SRCS_DISP)) \
 				$(addprefix $(PATH_SRC)/, )  main.c #add files à la racine
 
 OBJS		=	$(addprefix $(PATH_OBJ)/, $(notdir $(SRCS:.c=.o)))
-INCS		=	$(addprefix $(PATH_INC)/, ) #add .h
+INCS		=	$(PATH_INC)/minirt.h
 LIBFT		=	-L $(PATH_LIBFT)
 LIBMLX		=	 $(PATH_LIBG)/libmlx.dylib
 

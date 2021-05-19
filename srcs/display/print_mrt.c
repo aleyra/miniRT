@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 10:27:16 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/18 13:39:25 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 10:38:15 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,4 @@ void	print_mrt(t_mrt *mrt)
 		print_quadric_coeff(obj);
 		obj = obj->next;
 	}
-	printf("nb obj : %d\n", mrt->nb_obj);
 }

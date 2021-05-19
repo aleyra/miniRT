@@ -6,13 +6,13 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 10:56:37 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/07 11:27:25 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 09:45:36 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_coll	inter_lir_cy(t_vec3 *lightray, t_vec3 *lightpt, t_obj *cy)
+t_coll	intercept_lray_cy(t_vec3 *lightray, t_vec3 *lightpt, t_obj *cy)
 {
 	t_vec3	v;
 	float	d;

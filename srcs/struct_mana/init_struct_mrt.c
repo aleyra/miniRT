@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 13:20:59 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/18 13:36:46 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 10:39:51 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_struct_mrt(t_mrt **mrt)
 	(*mrt)->cam = 0;
 	(*mrt)->light = 0;
 	(*mrt)->obj = 0;
-	(*mrt)->nb_obj = 0;
+	(*mrt)->nb_cam = 0;
 }
 
 void	init_struct_cam(t_cam **cam)

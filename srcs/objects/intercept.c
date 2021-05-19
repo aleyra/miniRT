@@ -6,28 +6,28 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 10:24:59 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/18 14:41:50 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 09:45:33 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float	intercept_lightray(t_coll *lightray, t_vec3 *lightpt, t_obj *obj)
+float	inter_lray(t_coll *lightray, t_vec3 *lightpt, t_obj *obj)
 {
 	if (obj->type == TYPE_SPHERE)
-		return (inter_lir_sp(&(lightray->n), lightpt, obj).t);
+		return (intercept_lray_sp(&(lightray->n), lightpt, obj).t);
 	if (obj->type == TYPE_CYLINDER)
-		return (inter_lir_cy(&(lightray->n), lightpt, obj).t);
+		return (intercept_lray_cy(&(lightray->n), lightpt, obj).t);
 	if (obj->type == TYPE_PLANE)
-		return (inter_lir_pl(&(lightray->n), lightpt, obj).t);
+		return (intercept_lray_pl(&(lightray->n), lightpt, obj).t);
 	if (obj->type == TYPE_TRIANGLE)
-		return (inter_lir_tr(&(lightray->n), lightpt, obj).t);
+		return (intercept_lray_tr(&(lightray->n), lightpt, obj).t);
 	if (obj->type == TYPE_SQUARE)
-		return (inter_lir_sq(&(lightray->n), lightpt, obj).t);
+		return (intercept_lray_sq(&(lightray->n), lightpt, obj).t);
 	return (0);
 }
 
-t_coll	inter_lir_sp(t_vec3 *lightray, t_vec3 *lightpt, t_obj *sp)
+t_coll	intercept_lray_sp(t_vec3 *lightray, t_vec3 *lightpt, t_obj *sp)
 {
 	t_vec3	v;
 	float	d;
@@ -43,7 +43,7 @@ t_coll	inter_lir_sp(t_vec3 *lightray, t_vec3 *lightpt, t_obj *sp)
 	return (result);
 }
 
-t_coll	inter_lir_pl(t_vec3 *lightray, t_vec3 *lightpt, t_obj *pl)
+t_coll	intercept_lray_pl(t_vec3 *lightray, t_vec3 *lightpt, t_obj *pl)
 {
 	t_vec3	v;
 	float	d;
@@ -59,7 +59,7 @@ t_coll	inter_lir_pl(t_vec3 *lightray, t_vec3 *lightpt, t_obj *pl)
 	return (result);
 }
 
-t_coll	inter_lir_tr(t_vec3 *lightray, t_vec3 *lightpt, t_obj *tr)
+t_coll	intercept_lray_tr(t_vec3 *lightray, t_vec3 *lightpt, t_obj *tr)
 {
 	t_vec3	v;
 	float	d;
@@ -76,7 +76,7 @@ t_coll	inter_lir_tr(t_vec3 *lightray, t_vec3 *lightpt, t_obj *tr)
 	return (result);
 }
 
-t_coll	inter_lir_sq(t_vec3 *lightray, t_vec3 *lightpt, t_obj *sq)
+t_coll	intercept_lray_sq(t_vec3 *lightray, t_vec3 *lightpt, t_obj *sq)
 {
 	t_vec3	v;
 	float	d;

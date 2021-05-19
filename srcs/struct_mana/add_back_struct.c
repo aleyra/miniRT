@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 16:35:48 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/18 13:38:47 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 10:39:47 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	add_back_cam(t_mrt **mrt)
 {
 	t_cam	*cam;
 
+	((*mrt)->nb_cam)++;
 	if ((*mrt)->cam == 0)
 		init_struct_cam(&(*mrt)->cam);
 	else
@@ -42,7 +43,6 @@ void	add_back_obj(t_mrt **mrt)
 {
 	t_obj	*obj;
 
-	((*mrt)->nb_obj)++;
 	if ((*mrt)->obj == 0)
 		init_struct_obj(&(*mrt)->obj);
 	else

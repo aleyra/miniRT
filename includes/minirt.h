@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/18 16:13:04 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 10:44:46 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ typedef struct s_mrt
 	t_cam		*cam;
 	t_light		*light;
 	t_obj		*obj;
-	int			nb_obj;
+	int			nb_cam;
 }				t_mrt;
 
 //what's endian ?
@@ -135,6 +135,7 @@ typedef struct s_vars
 	t_mrt	*mrt;
 	t_cam	*cam;
 	t_data	*img;
+	int		num_cam;
 }			t_vars;
 
 typedef struct s_coll
@@ -148,7 +149,7 @@ typedef struct s_coll
 
 typedef struct s_ray_tracer
 {
-	t_coll	temp;
+	t_vec3	tmp;
 	t_coll	tf_cac;
 	t_obj	*o;
 	t_obj	*fo;
@@ -197,12 +198,12 @@ typedef struct s_bmp{
 int		in_halfspace_sup(float t, t_vec3 *c, t_vec3 *r, t_obj *o);
 int		in_halfspace_inf(float t, t_vec3 *c, t_vec3 *r, t_obj *o);
 t_vec3	normal_to_cy(t_vec3 *n, t_vec3 pt, t_vec3 *o);
-float	intercept_lightray(t_coll *lightray, t_vec3 *lightpt, t_obj *obj);
-t_coll	inter_lir_sp(t_vec3 *lightray, t_vec3 *lightpt, t_obj *sp);
-t_coll	inter_lir_pl(t_vec3 *lightray, t_vec3 *lightpt, t_obj *pl);
-t_coll	inter_lir_tr(t_vec3 *lightray, t_vec3 *lightpt, t_obj *tr);
-t_coll	inter_lir_sq(t_vec3 *lightray, t_vec3 *lightpt, t_obj *sq);
-t_coll	inter_lir_cy(t_vec3 *lightray, t_vec3 *lightpt, t_obj *cy);
+float	inter_lray(t_coll *lightray, t_vec3 *lightpt, t_obj *obj);
+t_coll	intercept_lray_sp(t_vec3 *lightray, t_vec3 *lightpt, t_obj *sp);
+t_coll	intercept_lray_pl(t_vec3 *lightray, t_vec3 *lightpt, t_obj *pl);
+t_coll	intercept_lray_tr(t_vec3 *lightray, t_vec3 *lightpt, t_obj *tr);
+t_coll	intercept_lray_sq(t_vec3 *lightray, t_vec3 *lightpt, t_obj *sq);
+t_coll	intercept_lray_cy(t_vec3 *lightray, t_vec3 *lightpt, t_obj *cy);
 int		ray_trace(t_vec3 *ray, t_mrt *mrt, t_vec3 *ptofview, t_rgb *color);
 t_vec3	inter_quad_line_coeff(t_quad *quad, t_vec3 *c, t_vec3 *r);
 float	discriminant(t_vec3 abc);
@@ -321,8 +322,8 @@ int		create_trgb(int t, int r, int g, int b);
 int		init_color_initial(t_rgb *rgb, char *str);
 void	float_color_to_char_int(t_rgb *rgb);
 t_rgb	color_obj_and_amb(t_rgb *objc, t_ambient *amb);
-t_rgb	color_add(t_rgb color1, t_rgb color2);
-t_rgb	calculate_color(t_light *li, t_obj *obj, t_vec3 ray, t_vec3 lray);
+t_rgb	c_add(t_rgb color1, t_rgb color2);
+t_rgb	calc_c(t_light *li, t_obj *obj, t_vec3 ray, t_vec3 lray);
 int		ft_display_error(int cas, t_mrt *mrt);
 int		win_close(t_vars *v);
 void	refresh(t_vars *v);
