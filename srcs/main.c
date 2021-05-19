@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:55:26 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/19 11:20:43 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 15:11:21 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int	init_main(int ac, char *av[], t_mrt	**mrt)
 		return (ERROR_MALLOC);
 	other[1] = ft_parsing(*mrt, other[0]);
 	close(other[0]);
+	print_mrt(*mrt);
 	if (other[1] != 0)
 		return (other[1]);
 	return (NO_ERROR);
@@ -57,7 +58,7 @@ static int	main_ac_2(void *mlx, t_mrt *mrt)
 	t_vars	v;
 	t_data	img;
 	int		xy[2];
-	int		err;	
+	int		err;
 
 	init_vars(&v, mlx, mrt);
 	mlx_get_screen_size(mlx, &(xy[0]), &(xy[1]));
@@ -94,7 +95,13 @@ static int	main_ac_3(t_mrt *mrt)
 	bmp.body = malloc(bmp.h.bih.img_size);
 	if (!(bmp.body))
 		return (ERROR_MALLOC);
-	ray_shooter(&bmp, mrt, mrt->cam, (t_pixel_setter)pixel_data_bmp);
+	err = ray_shooter(&bmp, mrt, mrt->cam, (t_pixel_setter)pixel_data_bmp);
+	if (err != NO_ERROR)
+	{
+		close(fd);
+		free(bmp.body);
+		return (err);
+	}
 	err = write_bmp(bmp, fd);
 	close(fd);
 	free(bmp.body);

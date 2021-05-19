@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 16:12:12 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/18 16:13:02 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 14:13:31 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_coll	shooting_cylinder(t_obj *cy, t_vec3 *ray, t_vec3 *ptofview)
 	if (d == 0)
 		return (col);
 	d = inter_quad_line_sol(v, d);
-	if (in_halfspace_inf(d, ptofview, ray, cy) && in_halfspace_sup(
+	if (d > 0 && in_halfspace_inf(d, ptofview, ray, cy) && in_halfspace_sup(
 			d, ptofview, ray, cy))
 	{
 		col.t = d;

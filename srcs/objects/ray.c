@@ -6,21 +6,11 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:46:54 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/19 09:34:29 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 15:02:14 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static int	end_ray_shooter(t_vec3 **ray, t_rgb **color, int err)
-{
-	printf("done\n");
-	free(*ray);
-	free(*color);
-	if (err != NO_ERROR)
-		return (err);
-	return (NO_ERROR);
-}
 
 static int	init_ray_shooter(unsigned int *err, float *r, float fovr,
 		unsigned int x)
@@ -35,12 +25,24 @@ static int	init_with_malloc(t_vec3 **ray, t_rgb **color)
 	*ray = malloc(sizeof(t_vec3));
 	if (!(*ray))
 		return (ERROR_MALLOC);
+	init_tvec3_to_0(*ray);
 	*color = malloc(sizeof(t_rgb));
 	if (!(*color))
 	{
 		free(*ray);
 		return (ERROR_MALLOC);
 	}
+	init_struct_rgb(*color);
+	return (NO_ERROR);
+}
+
+static int	end_ray_shooter(t_vec3 **ray, t_rgb **color, int err)
+{
+	printf("done\n");
+	free(*ray);
+	free(*color);
+	if (err != NO_ERROR)
+		return (err);
 	return (NO_ERROR);
 }
 

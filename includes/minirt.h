@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 10:08:46 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/19 10:44:46 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 14:55:58 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,6 +332,7 @@ void	print_mrt(t_mrt *mrt);
 void	print_corner_sq(t_obj *o);
 void	print_vec3(t_vec3 *v);
 void	print_rgb(t_rgb *rgb);
+void	print_cam(t_cam *c);
 void	my_mlx_pixel_put(t_data *data, int x, int y, t_rgb color);
 
 /* Struct managing ********************************************************** */

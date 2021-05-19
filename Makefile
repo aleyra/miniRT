@@ -12,8 +12,8 @@ PATH_LIBFT	=	libft
 PATH_LIBG	=	minilibx
 
 # List of sources
-SRCS_DISP	=	bmp.c color.c color2.c ft_display_error.c interact.c print_mrt.c \
-				print_mrt2.c my_mlx_pixel_put.c
+SRCS_DISP	=	bmp.c color.c color2.c ft_display_error.c interact.c interact2.c \
+				print_mrt.c print_mrt2.c my_mlx_pixel_put.c
 SRCS_OBJC	=	cylinder.c intercept.c intercept2.c multi-obj.c quadric.c \
 				square.c triangle.c ray.c ray1.c ray2.c
 SRCS_PARSE	=	check_nb_param.c ft_parsing.c ft_state_machine.c ft_tokenizer.c
@@ -64,7 +64,7 @@ libmlx.dylib:
 
 $(NAME): 	$(OBJS) libmlx.dylib #sur Mac
 	ln -sf $(LIBMLX) .
-	$(CC) $(OBJS) $(LIBFT) $(LIBMLX) -l ft -o $(NAME)
+	$(COMP) $(OBJS) $(LIBFT) $(LIBMLX) -l ft -o $(NAME)
 
 $(PATH_OBJ)/%.o : $(PATH_SRC)/*/%.c  $(INCS)
 	@ $(COMP) $(COMP_FLAG) $(COMP_ADD) -c $< -o $@
@@ -81,7 +81,7 @@ clean:
 	 $(MAKE) -C $(PATH_LIBG) clean
 
 fclean: clean
-#	@ $(RM) -rf $(NAME)
+	@ $(RM) -rf $(NAME)
 	 $(MAKE) -C $(PATH_LIBFT) fclean
 
 re: fclean all
