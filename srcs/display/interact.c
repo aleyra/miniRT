@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 15:19:04 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/19 10:58:44 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 11:16:12 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	keycode_124(t_vars *v)
 		v->cam = v->mrt->cam;
 	printf("cam no %d\t", v->num_cam);
 	print_vec3(v->cam->dir);
-	// refresh(v);
+	refresh(v);
 }
 
 static void	keycode_123(t_vars *v)
@@ -54,7 +54,7 @@ static void	keycode_123(t_vars *v)
 	}
 	printf("cam no %d\t", v->num_cam);
 	print_vec3(v->cam->dir);
-	// refresh(v);
+	refresh(v);
 }
 
 int	interact_key(int keycode, t_vars *v)
@@ -67,18 +67,18 @@ int	interact_key(int keycode, t_vars *v)
 	if (keycode == RIGHT_ARROW)
 	{
 		keycode_124(v);
-		mlx_clear_window(v->mlx, v->win);
-		printf("refreshing...\n");
-		ray_shooter(v->img, v->mrt, v->cam, (t_pixel_setter)my_mlx_pixel_put);
-		mlx_put_image_to_window(v->mlx, v->win, v->img->img, 0, 0);
+		// mlx_clear_window(v->mlx, v->win);
+		// printf("refreshing...\n");
+		// ray_shooter(v->img, v->mrt, v->cam, (t_pixel_setter)my_mlx_pixel_put);
+		// mlx_put_image_to_window(v->mlx, v->win, v->img->img, 0, 0);
 	}
 	if (keycode == LEFT_ARROW)
 	{
 		keycode_123(v);
-		mlx_clear_window(v->mlx, v->win);
-		printf("refreshing...\n");
-		ray_shooter(v->img, v->mrt, v->cam, (t_pixel_setter)my_mlx_pixel_put);
-		mlx_put_image_to_window(v->mlx, v->win, v->img->img, 0, 0);
+		// mlx_clear_window(v->mlx, v->win);
+		// printf("refreshing...\n");
+		// ray_shooter(v->img, v->mrt, v->cam, (t_pixel_setter)my_mlx_pixel_put);
+		// mlx_put_image_to_window(v->mlx, v->win, v->img->img, 0, 0);
 	}
 	return (0);
 }
